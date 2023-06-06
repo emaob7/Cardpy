@@ -23,8 +23,9 @@ export default function Login() {
     try {
       const userData = await AsyncStorage.getItem('user');
       if (userData !== null) { 
-      //  console.log("User logged in memory!", userData);
+       // console.log("User logged in memory!", userData);
         navigation.replace( "Home",{userData})
+      //  navigation.replace( "DocumentListScreen",{userData})
         //navigation.navigate("Home",{userData})
       } 
     } catch (e) {

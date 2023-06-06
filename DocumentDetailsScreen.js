@@ -37,8 +37,8 @@ const DocumentDetailsScreen = ({ route }) => {
 		}
    
     .image-wrapper img {
-      max-width: 72%;
-      max-height: 72%;
+      max-width: 52%;
+      max-height: 52%;
       border-radius: 10px;
       object-fit: cover;
     }

@@ -1,73 +1,83 @@
 import React, { useState, useEffect } from 'react';
-import { FlatList, StyleSheet, Text, TouchableOpacity, View, Alert, Image } from 'react-native';
+import { FlatList, StyleSheet, Text, TouchableOpacity, View, Alert, RefreshControl} from 'react-native';
 import firebase from "./firebase";
 import { useNavigation } from '@react-navigation/native';
 import { MaterialIcons } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+//import { useRoute } from '@react-navigation/native';
 
 
 
-const DocumentListScreen = ({ route }) => {
-  const { uid } = route.params;
+const DocumentListScreen = (props) => {
+  const  {uid}  = props;
+ // const { uid } = route.params;
+//  console.log("prop",uid)
   const [documents, setDocuments] = useState([]);
+  const [refreshing, setRefreshing] = useState(false);
   
   const navigation = useNavigation();
 
-  /*
-  useEffect(() => {
+  
+const obtenerDatos = async () => {
 
-    const fetchDocuments = async () => {
-      const response = await firebase.db.collection(uid).get();
-      const data = response.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
-      setDocuments(data);
-      //console.log(data)
-    };
+  
+  try {
+    // Verificar si los datos JSON ya están almacenados en AsyncStorage
+    const datosJsonGuardados = await AsyncStorage.getItem('@datosJson');
+    
+    if (datosJsonGuardados) {
+      // Si los datos existen en AsyncStorage, utilizarlos directamente
+      const datosJson = JSON.parse(datosJsonGuardados);
+      // Hacer algo con los datosJson
+      setDocuments(datosJson);
+      console.log('AsyncStorage');
+    } else {
+      // Si los datos no existen en AsyncStorage, obtenerlos de Firebase Firestore
+      // Hacer la llamada a Firebase Firestore aquí y almacenar los datos en AsyncStorage
+      // Una vez obtenidos los datos de Firebase, puedes guardarlos en AsyncStorage de la siguiente manera:
+      // const datosJsonString = JSON.stringify(datosFirebase);
+      // await AsyncStorage.setItem('datosJson', datosJsonString);
+      //setDocuments("");
+      const fetchDocuments = async () => {
+        const response = await firebase.db.collection(uid).get();
+        const data = response.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+        setDocuments(data);
+//almacenar en el storage los datos obtenidos
+        const jsonValue = JSON.stringify(data)
+        await AsyncStorage.setItem('@datosJson', jsonValue)
+       console.log("firebase");
+        
+      };
+      fetchDocuments();
+    }
+  } catch (error) {
+    // Manejar el error aquí
+    console.error('Error al obtener los datos JSON:', error);
+  }
 
-    fetchDocuments();
-  }, []);
 
-*/
 
+
+};
 
 useEffect(() => {
-  const obtenerDatos = async () => {
-    try {
-      // Verificar si los datos JSON ya están almacenados en AsyncStorage
-      const datosJsonGuardados = await AsyncStorage.getItem('@datosJson');
-      
-      if (datosJsonGuardados) {
-        // Si los datos existen en AsyncStorage, utilizarlos directamente
-        const datosJson = JSON.parse(datosJsonGuardados);
-        // Hacer algo con los datosJson
-        setDocuments(datosJson);
-        console.log('Datos JSON obtenidos de AsyncStorage:', datosJson);
-      } else {
-        // Si los datos no existen en AsyncStorage, obtenerlos de Firebase Firestore
-        // Hacer la llamada a Firebase Firestore aquí y almacenar los datos en AsyncStorage
-        // Una vez obtenidos los datos de Firebase, puedes guardarlos en AsyncStorage de la siguiente manera:
-        // const datosJsonString = JSON.stringify(datosFirebase);
-        // await AsyncStorage.setItem('datosJson', datosJsonString);
-        const fetchDocuments = async () => {
-          const response = await firebase.db.collection(uid).get();
-          const data = response.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
-          setDocuments(data);
-//almacenar en el storage los datos obtenidos
-          const jsonValue = JSON.stringify(data)
-          await AsyncStorage.setItem('@datosJson', jsonValue)
-         // console.log(data)
-          
-        };
-        fetchDocuments();
-      }
-    } catch (error) {
-      // Manejar el error aquí
-      console.error('Error al obtener los datos JSON:', error);
-    }
-  };
-
+ // if (documents.length === 0) {
   obtenerDatos();
+//}
 }, []);
 
+
+const onRefresh = () => {
+  // Lógica para realizar la actualización
+  // Por ejemplo, puedes hacer una llamada a una API para obtener nuevos datos
+  setRefreshing(true);
+  obtenerDatos();
+  // Simulación de una llamada asincrónica
+  setTimeout(() => {
+    setRefreshing(false);
+  }, 1500);
+};
 
 
 
@@ -79,8 +89,6 @@ useEffect(() => {
 
 
   const deleteDocumen = (id,foto1,foto2) => {
- 
-
     Alert.alert(
       'Confirmar eliminación',
       '¿Estás seguro/a de que deseas eliminar este elemento?',
@@ -92,8 +100,7 @@ useEffect(() => {
         {
           text: 'Eliminar',
           style: 'destructive',
-          onPress: () => {
-            
+          onPress:  () => {
 
           let imageRef1 = firebase.storage.refFromURL(foto1).delete();
     
@@ -102,7 +109,24 @@ useEffect(() => {
           const documentsRef = firebase.db.collection(uid);
           documentsRef.doc(id).delete();
    
-           setDocuments(documents.filter((item) => item.id !== id));
+          const jsonActualizado = (documents.filter((item) => item.id !== id));
+          setDocuments(jsonActualizado);
+        
+          
+
+           const storeData = async (jsonActualizado) => {
+            try {
+              const jsonValue = JSON.stringify(jsonActualizado)
+              await AsyncStorage.setItem('@datosJson', jsonValue)
+             // console.log(jsonValue)
+            } catch (e) {
+              console.log(e)
+            }
+          }
+
+          storeData(jsonActualizado); 
+
+            
           },
         },
       ],
@@ -113,16 +137,23 @@ useEffect(() => {
 
   return (
     <View style={styles.container}>
+      <TouchableOpacity style={styles.nuevo}  onPress={() => navigation.navigate('CameraScreen', {uid})}>
+      <MaterialCommunityIcons name="credit-card-scan-outline" size={17} color="#0D7AFF" />
+      <Text style={styles.textNuevo}>Agregar nuevo</Text>
+      </TouchableOpacity>
       <FlatList
         data={documents}
         keyExtractor={(item) => item.id}
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} progressBackgroundColor="yellow"/>
+        }
         renderItem={({ item }) => (
 
           <View style={styles.document}>
             <TouchableOpacity style={styles.textContent}   onPress={() => handleDocumentPress(item)}>
            
             <Text style={styles.textN}>{item.nombre}</Text>
-            <Text style={styles.textC}>CIN: {item.edad}</Text>
+            <Text style={styles.textC}>CIN: {item.cin}</Text>
             
             
 
@@ -152,6 +183,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     backgroundColor: '#FFFFFF',
   },
+
   document: {
     flexDirection: 'row',
     alignContent: 'center',
@@ -163,6 +195,31 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     width: '99%',
     marginTop:3
+  },
+  nuevo: {
+    flexDirection: 'row',
+    alignContent: 'center',
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingVertical: 10,
+    borderWidth: 1,
+    borderColor: '#0D7AFF',
+    borderRadius: 10,
+    borderStyle: 'dashed',
+    backgroundColor: 'white',
+    width: '95%',
+    marginTop:7,
+    
+  },
+  textNuevo: {
+    paddingVertical: 7,
+    fontSize:17,
+   color:"#0D7AFF",
+   marginLeft:5
+   
+  // alignContent: 'center',
+  //  backgroundColor: 'gray',
+
   },
   textN: {
     paddingVertical: 3,
