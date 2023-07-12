@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 //desde aqui
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet,View, Image, Text,TouchableOpacity } from 'react-native';
+import { StyleSheet,View, Image, Text,TouchableOpacity,ActivityIndicator } from 'react-native';
 import { EvilIcons } from '@expo/vector-icons';
 import { printToFileAsync } from 'expo-print';
 import { shareAsync } from 'expo-sharing';
@@ -11,6 +11,7 @@ import { shareAsync } from 'expo-sharing';
 
 const DocumentDetailsScreen = ({ route }) => {
   const { documents } = route.params;
+  const [progress, setProgress] = useState(null);
   //desde aqui
 
   const html = `
@@ -63,17 +64,22 @@ const DocumentDetailsScreen = ({ route }) => {
   `;
 
   let generatePdf = async () => {
+    setProgress(true);
     const file = await printToFileAsync({
       html: html,
       base64: false
     });
-
+  setProgress(false);
     await shareAsync(file.uri);
   };
   //hasta aqui
 
   return (
     <View style={styles.container}>
+      {progress ? (
+
+<ActivityIndicator size="small" color="#007AFF" style={styles.load} />
+) : null}
       <View style={styles.previewContainer}>
       <Image source={{ uri: documents.foto1 }} style={styles.preview} />
       <Image source={{ uri: documents.foto2 }} style={styles.preview} />
@@ -142,6 +148,9 @@ const styles = StyleSheet.create({
     fontSize:20,
     color:"#0D7AFF"
   },
+  load:{
+    marginBottom:25
+  }
 });
 
 export default DocumentDetailsScreen;

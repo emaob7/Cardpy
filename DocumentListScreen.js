@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { FlatList, StyleSheet, Text, TouchableOpacity, View, Alert, RefreshControl} from 'react-native';
+import { FlatList, StyleSheet, Text, TouchableOpacity, View, Alert, RefreshControl, TextInput,ActivityIndicator} from 'react-native';
 import firebase from "./firebase";
 import { useNavigation } from '@react-navigation/native';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { MaterialIcons } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
-//import { useRoute } from '@react-navigation/native';
+import { Ionicons } from '@expo/vector-icons';
+import { printToFileAsync } from 'expo-print';
+import { shareAsync } from 'expo-sharing';
 
 
 
@@ -15,8 +17,71 @@ const DocumentListScreen = (props) => {
 //  console.log("prop",uid)
   const [documents, setDocuments] = useState([]);
   const [refreshing, setRefreshing] = useState(false);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [filteredData, setFilteredData] = useState([]);
+  const [progress, setProgress] = useState(null);
   
   const navigation = useNavigation();
+
+
+
+  let generatePdf = async (item) => {
+    setProgress(true);
+  const html = `
+  <html>
+  <head>
+<style>
+.image-container {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 50px 20px;
+}
+
+.image-wrapper {
+  position: relative;
+  width: 100%;
+  left: 10%;
+  
+}
+  .imagen {
+    border-radius: 10px;
+    max-width: 50px;
+    transform: rotate(-90deg);
+    
+  }
+ 
+  .image-wrapper img {
+    max-width: 52%;
+    max-height: 52%;
+    border-radius: 10px;
+    object-fit: cover;
+  }
+
+</style>
+</head>
+    <body>
+      
+      
+      <div class="image-container">
+      <div class="image-wrapper">
+        <img class="imagen" src=${item.foto1} alt="Licencia 1">
+        
+      </div>
+      <div class="image-wrapper">
+        <img class="imagen" src=${item.foto2} alt="Licencia 2">
+        
+      </div>
+    </div>
+    </body>
+  </html>
+`;
+    const file = await printToFileAsync({
+      html: html,
+      base64: false
+    });
+ setProgress(false);
+    await shareAsync(file.uri);
+  };
 
   
 const obtenerDatos = async () => {
@@ -83,6 +148,8 @@ const onRefresh = () => {
 
 
 
+
+
   const handleDocumentPress = (documents) => {
     navigation.navigate('DocumentDetailsScreen', { documents });
   };
@@ -135,13 +202,81 @@ const onRefresh = () => {
   
   };
 
+
+ const handleSearch = searchTerm => {
+  const filtered = documents.filter(item => {
+    return (
+      item.nombre.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      item.cin.includes(searchTerm)
+    );
+  });
+  setFilteredData(filtered);
+};
+  
+
+
+
+
   return (
     <View style={styles.container}>
-      <TouchableOpacity style={styles.nuevo}  onPress={() => navigation.navigate('CameraScreen', {uid})}>
-      <MaterialCommunityIcons name="credit-card-scan-outline" size={17} color="#0D7AFF" />
+{/*  <TouchableOpacity style={styles.nuevo}  onPress={() => navigation.navigate('CameraScreen', {uid})}>
+      <Ionicons name="add" size={20} color="#0D7AFF" />
       <Text style={styles.textNuevo}>Agregar nuevo</Text>
       </TouchableOpacity>
+       */}
+    {progress ? (
+
+<ActivityIndicator size="small" color="#007AFF" style={styles.load} />
+) : null}
+       <Text style={styles.super}>Documentos</Text>
+    
+       
+       
+<View style={styles.inputContainer}>
+<Ionicons name="ios-search" size={20} color="gray" style={styles.searchIcon} />
+  <TextInput
+    style={styles.input}
+    value={searchTerm}
+    onChangeText={text => {
+    setSearchTerm(text);
+    handleSearch(text);
+  }}
+    placeholder="Buscar"
+    onSubmitEditing={handleSearch}
+    placeholderTextColor="gray"
+  />
+</View>
+
+{searchTerm ? (
+
+<FlatList
+style={styles.flatlist}
+    data={filteredData}
+    keyExtractor={(item, index) => index.toString()}
+    renderItem={({ item }) => (
+      <View style={styles.document}>
+        <TouchableOpacity style={styles.textContent}   onPress={() => handleDocumentPress(item)}>
+           
+           <Text style={styles.textN}>{item.nombre}</Text>
+           <Text style={styles.textC}>CIN: {item.cin}</Text>
+           
+         </TouchableOpacity>
+         <TouchableOpacity 
+             style={styles.button}
+             onPress={() => {
+               deleteDocumen(item.id,item.foto1,item.foto2);
+             }}
+           >
+             <MaterialIcons name="delete-outline" size={27} color="#0D7AFF" />
+         </TouchableOpacity>
+        
+      </View>
+    )}
+  />
+
+  ) : (
       <FlatList
+      style={styles.flatlist}
         data={documents}
         keyExtractor={(item) => item.id}
         refreshControl={
@@ -160,11 +295,18 @@ const onRefresh = () => {
           </TouchableOpacity>
           <TouchableOpacity 
               style={styles.button}
+              onPress={() => generatePdf(item)}
+            >
+              <MaterialIcons name="ios-share" size={21} color="#0D7AFF" />
+          </TouchableOpacity>
+
+          <TouchableOpacity 
+              style={styles.button}
               onPress={() => {
                 deleteDocumen(item.id,item.foto1,item.foto2);
               }}
             >
-              <MaterialIcons name="delete-outline" size={27} color="#0D7AFF" />
+              <MaterialCommunityIcons name="delete-outline" size={24} color="#0D7AFF" />
           </TouchableOpacity>
          
 
@@ -172,6 +314,7 @@ const onRefresh = () => {
           
         )}
       />
+      )}
     </View>
   );
 };
@@ -182,6 +325,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: '#FFFFFF',
+  },
+  flatlist:{
+marginTop:10,
+borderTopWidth: 1,
+borderTopColor: '#ccc',
   },
 
   document: {
@@ -225,7 +373,7 @@ const styles = StyleSheet.create({
     paddingVertical: 3,
     width: '100%',
     marginRight: 5,
-    fontSize:19,
+    fontSize:17,
    color:"#0D0D0D",
   //  backgroundColor: 'gray',
 
@@ -239,21 +387,48 @@ const styles = StyleSheet.create({
   textContent: {
     flexDirection: 'column',
     paddingLeft: 20,
-    width: '80%',
+    width: '70%',
   //  backgroundColor: 'blue',
     
     
   },
   button: {
-    flex: 1,
-    paddingHorizontal: 20,
+    paddingHorizontal: 13,
     justifyContent: 'center',
-    maxWidth: '18%',
+    maxWidth: '20%',
     margin: 0,
-   // backgroundColor: 'green',
+  //  backgroundColor: 'gray',
+    borderRadius:"50%"
 
   },
-
+  inputContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#f2f2f2',
+    borderRadius: 8,
+    paddingHorizontal: 10,
+    marginVertical: 10,
+    height:40,
+    width: "93%"
+  },
+  input: {
+    flex: 1,
+    marginLeft: 10,
+    fontSize: 18,
+  },
+  searchIcon: {
+    marginRight: 1, 
+  },
+  super: {
+    fontSize: 30,
+    alignContent:"flex-start",
+    marginStart:-205,
+    marginTop:18,
+    fontWeight: 'bold',
+  },
+  load:{
+    marginTop:25
+  }
 });
 
 export default DocumentListScreen;

@@ -1,7 +1,8 @@
 import React from 'react';
-import { StyleSheet} from 'react-native';
+import { StyleSheet, Button, TouchableOpacity} from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { Ionicons } from '@expo/vector-icons';
 //import { MaterialCommunityIcons } from '@expo/vector-icons';
 //import { AntDesign } from '@expo/vector-icons';
 import CameraScreen from './CameraScreen';
@@ -11,6 +12,9 @@ import DocumentDetailsScreen from './DocumentDetailsScreen';
 import RegisterScreen from './RegisterScreen';
 import { useRoute } from '@react-navigation/native';
 import { StatusBar } from 'expo-status-bar';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+import Perfil from './Perfil';
+
 //import { useNavigation } from '@react-navigation/native';
 //import {getAuth} from 'firebase/auth';
 
@@ -24,8 +28,9 @@ import { StatusBar } from 'expo-status-bar';
 const HomeScreen = () => {
 
   const route = useRoute();
-  const uid = route.params.userData;
-  //console.log(uid)
+ // const uid = "7777"
+ const uid = route.params.uid;
+ // console.log(uid)
 
 
   return (
@@ -73,16 +78,58 @@ const HomeScreen = () => {
 const Stack = createNativeStackNavigator();
 export default function App() {
 
+  const CustomToolbar = ({ navigation, uid }) => {
+    const handleAddDocument = () => {
+      // Lógica para agregar un nuevo documento
+      // Por ejemplo, puedes navegar a una pantalla de creación de documentos
+      navigation.navigate('CameraScreen', { uid });
+    };
   
+    
+
+
+
+
+    return (
+      <TouchableOpacity onPress={handleAddDocument}>
+        <Ionicons name="ios-camera-outline" size={25} color="#0D7AFF" style={styles.icon} />
+        
+      </TouchableOpacity>
+    );
+  };
+
+
+  const HandleLeftButtonPress = ({ navigation, uid }) => {
+    const handlePerfil = () => {
+      navigation.navigate('Perfil', { uid });
+
+    };
+
+    return (
+      <TouchableOpacity onPress={handlePerfil}>
+        <MaterialCommunityIcons name="account-circle-outline" size={24} color="black"  style={styles.icon}/>
+      </TouchableOpacity>
+    );
+    // Realiza aquí las acciones necesarias cuando se presione el botón izquierdo del encabezado
+    // Por ejemplo, puedes abrir un menú lateral o realizar otra navegación específica.
+  };
+   
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Login">
       <Stack.Screen name="Login" component={Login} options={{headerShown: false}}/>
-        <Stack.Screen name="Home" component={HomeScreen} options={{ title: 'Cardpy' }} />
+        <Stack.Screen name="Home" component={HomeScreen}  options={({ navigation, route }) => ({
+    title: 'Cardpy',
+    headerRight: () => <CustomToolbar navigation={navigation} uid={route.params.userData} />,
+    headerLeft: () =>  <HandleLeftButtonPress navigation={navigation} uid={route.params.userData}/>
+
+  
+  })} />
         <Stack.Screen name="CameraScreen" component={CameraScreen}  options={{ title: 'Nuevo Documento' }}/>
         <Stack.Screen name="DocumentListScreen" component={DocumentListScreen}  options={{ title: 'Mis Documentos'}}/>
         <Stack.Screen name="DocumentDetailsScreen" component={DocumentDetailsScreen}  options={{ title: 'Vista Previa' }}/>
-        <Stack.Screen name="RegisterScreen" component={RegisterScreen} options={{ title: 'Registrarse' }}/>
+        <Stack.Screen name="RegisterScreen" component={RegisterScreen} options={{ title: '' }}/>
+        <Stack.Screen name="Perfil" component={Perfil} options={{ title: 'Mi Perfil' }}/>
       </Stack.Navigator>
       
     </NavigationContainer>
@@ -98,53 +145,10 @@ const styles = StyleSheet.create({
     backgroundColor:"#f6f7f9"
    // justifyContent: 'space-evenly',
   },
-  containerAll:{
-    marginTop: 120,
-    width:"92%"
-  },
-  buttonContainer:{
-    marginTop: 20,
-    width:"99%",
-    flexDirection: 'row',
-  },
-  portada: {
-    flexDirection: 'row',
-    justifyContent: 'left',
-    alignItems: 'center',
-    backgroundColor: '#0D7AFF',
-    width: '99%',
-    height:160,
-    marginTop:3,
-    borderRadius: 10,
-    paddingVertical:15,
-    paddingHorizontal:20
-    //backgroundColor: 'gray'
-  },
-  button: {
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'white',
-    width: '46%',
-    marginTop:3,
-    marginRight:28,
-    borderRadius: 10,
-    paddingVertical:20,
-    paddingHorizontal:10,
-    //backgroundColor: 'gray'
-  },
-  textN: {
-    paddingVertical: 10,
- //   marginLeft: 10,
-    justifyContent: 'center',
-    fontSize:17,
-    color:"#0D7AFF"
-  },
-  textD: {
-    paddingVertical: 10,
-   // marginLeft: 10,
-    justifyContent: 'center',
-    fontSize:17,
-    color:"#0D0D0D",
+
+
+  
+  icon: {
+    marginRight: 10,
   },
 });

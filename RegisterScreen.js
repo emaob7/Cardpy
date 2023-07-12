@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, TextInput, Button, Text } from 'react-native';
+import { View, TextInput, Button, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
 import {getAuth} from 'firebase/auth';
 import firebase from "./firebase";
@@ -59,33 +59,137 @@ catch (error) {
 
 
   return (
-    <View>
-      <Text>Email:</Text>
+    <View style={styles.container}>
+      <View style={styles.titlesContent}>
+      <Text style={styles.super}>Crea tu cuenta de Cardpy</Text>
+      <Text style={styles.subtitulo}>Introduce tus datos</Text>
+      </View>
+      
+      <Text style={styles.text}>Nombre:</Text>
+       <View style={styles.inputContainer}>
       <TextInput
+       style={styles.input}
+       placeholderTextColor="#9E9E9E"
+        value={name}
+        onChangeText={setName}
+        placeholder="Escriba su nombre"
+      />
+      </View>
+      <Text style={styles.text}>Apellido:</Text>
+      <View style={styles.inputContainer}>
+      <TextInput
+       style={styles.input}
+       placeholderTextColor="#9E9E9E"
+        value={last}
+        onChangeText={setLast}
+        placeholder="Escriba su apellido"
+      />
+      </View>
+      <Text style={styles.text}>Correo:</Text>
+      <View style={styles.inputContainer}>
+      <TextInput
+        style={styles.input}
+        placeholderTextColor="#9E9E9E"
         value={email}
-        onChangeText={setEmail}
+        onChangeText={setEmail} 
         placeholder="Escribe correo"
       />
-      <Text>Password:</Text>
+      </View>
+    
+      <Text style={styles.text}>Contraseña:</Text>
+      <View style={styles.inputContainer}>
       <TextInput
+       style={styles.input}
+       placeholderTextColor="#9E9E9E"
         value={password}
         onChangeText={setPassword}
         placeholder="Escribe una contraseña"
         secureTextEntry
       />
-       <Text>Nombre:</Text>
-      <TextInput
-        value={name}
-        onChangeText={setName}
-        placeholder="Escriba Su Nombre"
-      />
-      <Text>Apellido:</Text>
-      <TextInput
-        value={last}
-        onChangeText={setLast}
-        placeholder="Escriba Su Apellido"
-      />
-      <Button title="Registrarse" onPress={() => signUp(email, password,name, last)} />
+      </View>
+       <View style={styles.buttonContent}>
+       <TouchableOpacity style={styles.button} onPress={() => signUp(email, password,name, last)}>
+    <Text style={styles.textButton} >CREAR CUENTA</Text>
+    </TouchableOpacity>
+
+       </View>
+     
+
+
+      
     </View>
   );
-}
+};
+
+
+const styles = StyleSheet.create({
+
+  container: {
+    flex: 1,
+    backgroundColor: '#FAFAFA',
+    paddingTop: 50,
+    paddingLeft: 20
+  },
+  inputContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#FFFFFF',
+    borderRadius: 8,
+    paddingHorizontal: 10,
+    marginBottom: 22,
+    borderColor:'#E0E0E0',
+    borderWidth: 1,
+    marginTop:4,
+    height:40,
+    width: "93%"
+  },
+  input: {
+    flex: 1,
+    marginLeft: 10,
+    fontSize: 16,
+  },
+  text:{
+    fontWeight: 'bold',
+    color: "#424242"
+  },
+  textButton:{
+    fontWeight: 'bold',
+    color: "#fff"
+  },
+   super: {
+    fontSize: 27,
+    marginBottom:5,
+    fontWeight: 'bold',
+    
+  },
+  subtitulo: {
+    fontSize: 24,
+      
+  },
+  titlesContent:{
+    alignItems:"center",
+    marginBottom:38,
+  },
+  button: {
+    justifyContent: 'space-evenly',
+    alignItems: 'center',
+    backgroundColor: "#0D7AFF",
+    paddingHorizontal: 17,
+    marginTop:20,
+    borderRadius:20,
+    height:40,
+    width:150,
+    marginLeft: -20
+  },
+  buttonContent:{
+    alignItems:"center",
+    marginBottom:38,
+    
+  },
+
+
+
+},
+
+
+)

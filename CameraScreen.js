@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet,View, Button, Image, TouchableOpacity, Text, TextInput} from 'react-native';
+import { StyleSheet,View, Button, Image, TouchableOpacity, Text, TextInput, ActivityIndicator } from 'react-native';
 import { Camera } from 'expo-camera';
 import * as ImageManipulator from 'expo-image-manipulator';
 import firebase from "./firebase";
@@ -23,6 +23,7 @@ export default function CameraScreen({ route }) {
   const [fotoUrl2, setFotoUrl2] = useState(null);
   const [nombre, setNombre] = useState("");
   const [cin, setCin] = useState("");
+  const [progress, setProgress] = useState(null);
 
   const { uid } = route.params;
   //console.log(uid)
@@ -74,11 +75,12 @@ export default function CameraScreen({ route }) {
 
 
 let generatePdf = async () => {
+  setProgress(true);
   const file = await printToFileAsync({
     html: html,
     base64: false
   });
-
+setProgress(false);
   await shareAsync(file.uri);
 };
  // console.log(uid);
@@ -120,6 +122,7 @@ const image = await ImageManipulator.manipulateAsync(
 const savePictures = async () => {
   
  //const db = firebase.firestore();
+setProgress(true);
 const nombreArchivo = uuidv4();
 const extension = picture1.split('.').pop();
 const file = await fetch(picture1);
@@ -163,6 +166,7 @@ const agregarDatos = async () => {
 };
 
 agregarDatos(uid);
+setProgress(false);
 /*
    try {
     await ref;
@@ -221,7 +225,15 @@ return (
  
 ) : (
   <>
+{progress ? (
+
+       <ActivityIndicator size="small" color="#007AFF" style={styles.load} />
+      ) : null}
+
+
+
   <View style={styles.lineCont}>
+  
     <View style={styles.inputContainer}>
    
       <TextInput
@@ -252,9 +264,7 @@ return (
     
   <View style={styles.buttonsContainer}>
   
-  <TouchableOpacity style={styles.buttonS} onPress={cancelar}>
-    <Text style={styles.textS} >DESCARTAR</Text>
-    </TouchableOpacity>
+  
    {fotoUrl1 && fotoUrl2 ? (
      <View>
      <TouchableOpacity style={styles.button} onPress={generatePdf}>
@@ -262,9 +272,14 @@ return (
      </TouchableOpacity>
       </View>  
    ) : (
+    <>
+    <TouchableOpacity style={styles.buttonS} onPress={cancelar}>
+    <Text style={styles.textS} >DESCARTAR</Text>
+    </TouchableOpacity>
     <TouchableOpacity style={styles.button} onPress={savePictures}>
     <Text style={styles.text} >GUARDAR</Text>
     </TouchableOpacity>
+    </>
    )}
   
  
@@ -312,6 +327,7 @@ const styles = StyleSheet.create({
     
   },
   lineCont:{
+    
     paddingTop: 2,
     marginBottom:5,
     width: '90%',
@@ -476,5 +492,8 @@ const styles = StyleSheet.create({
     marginTop:20,
     borderRadius:5
   },
+  load:{
+    marginBottom:25
+  }
 
 });
