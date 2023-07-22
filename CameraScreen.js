@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet,View, Button, Image, TouchableOpacity, Text, TextInput, ActivityIndicator } from 'react-native';
+import { StyleSheet,View, Image, TouchableOpacity, Text, TextInput, ActivityIndicator } from 'react-native';
 import { Camera } from 'expo-camera';
 import * as ImageManipulator from 'expo-image-manipulator';
 import firebase from "./firebase";
@@ -188,6 +188,7 @@ return (
   <View style={styles.container}>
   {!picture1 || !picture2 ? (
     <>
+
      <Camera
       style={styles.camera}
       type={Camera.Constants.Type.back}
@@ -200,6 +201,11 @@ return (
         )}
         <View style={styles.rectangle} />
       </Camera>
+      {!picture1 ? (
+        <Text style={styles.textAyuda}>Toma la parte FRONTAL {'\u{1FAAA}'} de tu documento</Text>
+        ) : (
+          <Text style={styles.textAyuda}>Y ahora la parte de ATRÁS {'\u{1F4B3}'}</Text>
+        )}
 
       <View style={styles.buttonsContainer}>
       {/**   <TouchableOpacity onPress={cancelar} disabled={!picture1}>
@@ -466,6 +472,11 @@ const styles = StyleSheet.create({
     fontSize:20,
     color:"white"
   },
+  textAyuda: {
+     justifyContent: 'center',
+     fontSize:16,
+    color: "#424242"
+   },
   textS: {
     paddingVertical: 5,
     //marginLeft: 10,

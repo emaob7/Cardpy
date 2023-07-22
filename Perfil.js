@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
+import { View, Text, TouchableOpacity,StyleSheet } from 'react-native';
 import firebase from "./firebase";
 //import {getAuth} from 'firebase/auth';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation } from '@react-navigation/native';
 
 
-const Perfil = () => {
+export default function Perfil () {
 
   const navigation = useNavigation();
  // const auth = getAuth();
@@ -31,13 +31,97 @@ const handleLogout = async() => {
   };
   
   return (
-    <View>
-      <Text>Tu contenido de la pantalla principal aquí</Text>
-      <TouchableOpacity onPress={handleLogout}>
-      <Text>Cerrar Sesión</Text>
+    <View style={styles.container}>
+      <Text>Nuestros Robots estan trabajando incanzablemente para mejorar esta pantalla con tus datos y mas opciones&#x2699;&#x1F916;</Text>
+      <TouchableOpacity style={styles.button} onPress={handleLogout}>
+      <Text style={styles.textButton}>Cerrar Sesión</Text>
       </TouchableOpacity>
     </View>
   );
 };
 
-export default Perfil;
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    backgroundColor: '#FAFAFA',
+    paddingTop: 50,
+   // paddingLeft: 20
+  },
+  inputContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#FFFFFF',
+    borderRadius: 8,
+    paddingHorizontal: 10,
+    marginBottom: 22,
+    borderColor:'#E0E0E0',
+    borderWidth: 1,
+    marginTop:4,
+    height:40,
+    width: "93%"
+  },
+  input: {
+    flex: 1,
+    marginLeft: 10,
+    fontSize: 16,
+  },
+  text:{
+    fontWeight: 'bold',
+    color: "#424242"
+  },
+  textButtonC:{
+    fontWeight: 'bold',
+    color: "#0D7AFF",
+    fontSize: 15,
+
+  },
+  textButton:{
+    fontWeight: 'bold',
+    color: "#fff"
+  },
+   super: {
+    fontSize: 27,
+    marginBottom:5,
+    fontWeight: 'bold',
+    marginLeft: -20
+    
+  },
+  subtitulo: {
+    fontSize: 24,
+      
+  },
+  titlesContent:{
+    alignItems:"center",
+    marginBottom:38,
+    marginTop:38,
+  },
+  button: {
+    justifyContent: 'space-evenly',
+    alignItems: 'center',
+    backgroundColor: "#0D7AFF",
+    paddingHorizontal: 17,
+    marginTop:20,
+    borderRadius:20,
+    height:40,
+    width:150,
+    marginLeft: -20
+  },
+  buttonC: {
+    justifyContent: 'space-evenly',
+    flexDirection: 'column',
+    alignItems: 'center',
+    marginTop:30,
+    height:40,
+    width:250,
+    marginLeft: -20
+  },
+  buttonContent:{
+    alignItems:"center",
+    marginBottom:38,
+    
+  },
+
+
+});
