@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import { FlatList, StyleSheet, Text, TouchableOpacity, View, Alert, RefreshControl, TextInput,ActivityIndicator} from 'react-native';
+import React, { useState, useEffect, useContext } from 'react';
+import { EstadoContext } from './EstadoContext';
+import { FlatList, StyleSheet, Text, TouchableOpacity, View,Platform, Alert, RefreshControl, TextInput,ActivityIndicator} from 'react-native';
 import firebase from "./firebase";
 import { useNavigation } from '@react-navigation/native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
@@ -13,6 +14,7 @@ import { shareAsync } from 'expo-sharing';
 
 const DocumentListScreen = (props) => {
   const  {uid}  = props;
+ // const {refre} = props;
  // const { uid } = route.params;
 //  console.log("prop",uid)
   const [documents, setDocuments] = useState([]);
@@ -20,6 +22,7 @@ const DocumentListScreen = (props) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [filteredData, setFilteredData] = useState([]);
   const [progress, setProgress] = useState(null);
+  const { refre, setRefre } = useContext(EstadoContext);
   
   const navigation = useNavigation();
 
@@ -136,12 +139,14 @@ useEffect(() => {
 const onRefresh = () => {
   // Lógica para realizar la actualización
   // Por ejemplo, puedes hacer una llamada a una API para obtener nuevos datos
+  setRefre(false);
   setRefreshing(true);
   obtenerDatos();
   // Simulación de una llamada asincrónica
   setTimeout(() => {
     setRefreshing(false);
   }, 1500);
+  
 };
 
 
@@ -262,12 +267,18 @@ style={styles.flatlist}
            
          </TouchableOpacity>
          <TouchableOpacity 
+              style={styles.buttonE}
+              onPress={() => generatePdf(item)}
+            >
+              <MaterialIcons name="ios-share" size={20} color="#0D7AFF" />
+          </TouchableOpacity>
+         <TouchableOpacity 
              style={styles.button}
              onPress={() => {
                deleteDocumen(item.id,item.foto1,item.foto2);
              }}
            >
-             <MaterialIcons name="delete-outline" size={27} color="#0D7AFF" />
+             <MaterialIcons name="delete-outline" size={22} color="#0D7AFF" />
          </TouchableOpacity>
         
       </View>
@@ -275,6 +286,17 @@ style={styles.flatlist}
   />
 
   ) : (
+
+    <>
+  
+     {refre ? ( <TouchableOpacity  
+                  onPress={() => onRefresh()}
+                  style={styles.actualizar}
+                >
+                  <Ionicons name="ios-arrow-up-outline" size={18} color="white"/>
+                      <Text  style={styles.textAc}>Actualizar</Text>
+                </TouchableOpacity> ) : null}
+     
       <FlatList
       style={styles.flatlist}
         data={documents}
@@ -294,10 +316,10 @@ style={styles.flatlist}
 
           </TouchableOpacity>
           <TouchableOpacity 
-              style={styles.button}
+              style={styles.buttonE}
               onPress={() => generatePdf(item)}
             >
-              <MaterialIcons name="ios-share" size={21} color="#0D7AFF" />
+              <MaterialIcons name="ios-share" size={20} color="#0D7AFF" />
           </TouchableOpacity>
 
           <TouchableOpacity 
@@ -306,7 +328,7 @@ style={styles.flatlist}
                 deleteDocumen(item.id,item.foto1,item.foto2);
               }}
             >
-              <MaterialCommunityIcons name="delete-outline" size={24} color="#0D7AFF" />
+              <MaterialCommunityIcons name="delete-outline" size={22} color="#0D7AFF" />
           </TouchableOpacity>
          
 
@@ -314,6 +336,7 @@ style={styles.flatlist}
           
         )}
       />
+      </>
       )}
     </View>
   );
@@ -324,24 +347,27 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#FFFFFF',
+    backgroundColor: '#F0F2F5',
   },
   flatlist:{
 marginTop:10,
 borderTopWidth: 1,
 borderTopColor: '#ccc',
+paddingTop:9,
+
   },
 
   document: {
     flexDirection: 'row',
     alignContent: 'center',
     paddingVertical: 10,
-    borderBottomWidth: 1,
-    borderBottomColor: '#ccc',
+    marginVertical: 5,
+    marginLeft: 6,
     borderRadius: 10,
     justifyContent: 'space-evenly',
-    backgroundColor: 'white',
-    width: '99%',
+    backgroundColor: "white",
+    //#D3E3FD #F2F6FC
+    width: '97%',
     marginTop:3
   },
   nuevo: {
@@ -373,43 +399,57 @@ borderTopColor: '#ccc',
     paddingVertical: 3,
     width: '100%',
     marginRight: 5,
-    fontSize:17,
+    fontSize:15,
    color:"#0D0D0D",
+   fontWeight: 'bold',
   //  backgroundColor: 'gray',
 
   },
   textC: {
     paddingVertical: 3,
     width: '56%',
-    color:"#9B9CA0"
+    color:"black",
+    //9B9CA0
+    fontSize:13,
    // paddingLeft:10
   },
   textContent: {
     flexDirection: 'column',
     paddingLeft: 20,
-    width: '70%',
+    width: '68%',
   //  backgroundColor: 'blue',
     
     
   },
   button: {
-    paddingHorizontal: 13,
+    padding: 15,
     justifyContent: 'center',
-    maxWidth: '20%',
+    maxWidth: '22%',
     margin: 0,
-  //  backgroundColor: 'gray',
+  backgroundColor: 'white',
     borderRadius:"50%"
+    //20
+
+  },
+  buttonE: {
+    paddingHorizontal: 17,
+    justifyContent: 'center',
+    maxWidth: '22%',
+ //   marginRight: 5,
+  backgroundColor: 'white',
+    borderRadius:"50%"
+    //18
 
   },
   inputContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '#f2f2f2',
-    borderRadius: 8,
+    backgroundColor: '#FFFFFF',
+    borderRadius: 70,
     paddingHorizontal: 10,
     marginVertical: 10,
     height:40,
-    width: "93%"
+    width: "95%"
   },
   input: {
     flex: 1,
@@ -428,6 +468,32 @@ borderTopColor: '#ccc',
   },
   load:{
     marginTop:25
+  },
+  actualizar: {
+    flexDirection: 'row',
+    justifyContent: 'space-evenly',
+    alignItems: 'center',
+    backgroundColor: "#0D7AFF",
+    paddingHorizontal: 17,
+    marginTop:20,
+    borderRadius:20,
+    height:40,
+    width:150,
+    elevation: 5,
+    ...Platform.select({
+      ios: {
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 3 },
+        shadowOpacity: 0.3,
+        shadowRadius: 4,
+      },
+    }),
+    //marginLeft: -20,
+  },
+  textAc:{
+    fontSize:15,
+    color:"white",
+    fontWeight: 'bold',
   }
 });
 

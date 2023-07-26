@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
+import { EstadoContext } from './EstadoContext';
 import { StyleSheet,View, Image, TouchableOpacity, Text, TextInput, ActivityIndicator } from 'react-native';
 import { Camera } from 'expo-camera';
 import * as ImageManipulator from 'expo-image-manipulator';
@@ -7,7 +8,6 @@ import {v4 as uuidv4} from "uuid";
 import { printToFileAsync } from 'expo-print';
 import { shareAsync } from 'expo-sharing';
 import { EvilIcons } from '@expo/vector-icons';
-//import { Octicons } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Ionicons } from '@expo/vector-icons';
 
@@ -24,6 +24,7 @@ export default function CameraScreen({ route }) {
   const [nombre, setNombre] = useState("");
   const [cin, setCin] = useState("");
   const [progress, setProgress] = useState(null);
+  const { setRefre } = useContext(EstadoContext);
 
   const { uid } = route.params;
   //console.log(uid)
@@ -166,6 +167,7 @@ const agregarDatos = async () => {
 };
 
 agregarDatos(uid);
+setRefre(true);
 setProgress(false);
 /*
    try {

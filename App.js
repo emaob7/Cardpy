@@ -1,8 +1,9 @@
-import React from 'react';
-import { StyleSheet, Button, TouchableOpacity} from 'react-native';
+import React  from 'react';
+import { StyleSheet, TouchableOpacity} from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { Ionicons } from '@expo/vector-icons';
+import { EstadoProvider } from './EstadoContext';
 //import { MaterialCommunityIcons } from '@expo/vector-icons';
 //import { AntDesign } from '@expo/vector-icons';
 import CameraScreen from './CameraScreen';
@@ -35,12 +36,13 @@ const HomeScreen = () => {
 
   return (
 
+    
     <>
     {/*<View style={styles.container}>*/}
       <StatusBar style="auto" /> 
 
 
-    <DocumentListScreen uid={uid}/>   
+    <DocumentListScreen uid={uid} />   
 
  
  {/*     <View style={styles.containerAll}>
@@ -69,7 +71,7 @@ const HomeScreen = () => {
       */}
       
    {/* </View>*/}
-    </>
+   </>
   );
 };
 
@@ -78,22 +80,23 @@ const HomeScreen = () => {
 const Stack = createNativeStackNavigator();
 export default function App() {
 
-  const CustomToolbar = ({ navigation, uid }) => {
+
+ 
+
+
+
+  const CustomToolbar = ({ navigation, uid}) => {
     const handleAddDocument = () => {
       // Lógica para agregar un nuevo documento
       // Por ejemplo, puedes navegar a una pantalla de creación de documentos
       navigation.navigate('CameraScreen', { uid });
+      
     };
-  
-    
-
-
-
 
     return (
       <TouchableOpacity onPress={handleAddDocument}>
-        <Ionicons name="ios-camera-outline" size={25} color="#0D7AFF" style={styles.icon} />
-        
+       
+        <Ionicons name="ios-add" size={27} color="#0D7AFF" />
       </TouchableOpacity>
     );
   };
@@ -115,13 +118,14 @@ export default function App() {
   };
    
   return (
+    <EstadoProvider>
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Login">
       <Stack.Screen name="Login" component={Login} options={{headerShown: false}}/>
         <Stack.Screen name="Home" component={HomeScreen}  options={({ navigation, route }) => ({
     title: 'Cardpy',
-    headerRight: () => <CustomToolbar navigation={navigation} uid={route.params.userData} />,
-    headerLeft: () =>  <HandleLeftButtonPress navigation={navigation} uid={route.params.userData}/>
+    headerRight: () => <CustomToolbar navigation={navigation} uid={route.params.uid} />,
+    headerLeft: () =>  <HandleLeftButtonPress navigation={navigation} uid={route.params.uid}/>
 
   
   })} />
@@ -131,8 +135,8 @@ export default function App() {
         <Stack.Screen name="RegisterScreen" component={RegisterScreen} options={{ title: '' }}/>
         <Stack.Screen name="Perfil" component={Perfil} options={{ title: 'Mi Perfil' }}/>
       </Stack.Navigator>
-      
     </NavigationContainer>
+    </EstadoProvider>
   );
 }
 
