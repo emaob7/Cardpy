@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, TextInput, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, TextInput, Text, StyleSheet, TouchableOpacity, Alert } from 'react-native';
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
 import {getAuth} from 'firebase/auth';
 import firebase from "./firebase";
@@ -39,9 +39,12 @@ export default function RegisterScreen() {
         },{merge: true}
         );
       console.log("User account created!");
+      Alert.alert('Tu cuenta ha sido creada');
       signIn(email,password);
+      navigation.navigate("Home",{uid});
     } 
 catch (error) {
+      Alert.alert('Error al Registrarse','Revise su conexión o que el correo no corresponda a otra cuenta que ya exista en Cardpy');
       console.error("Failed to create user account:", error);
     }
   };
@@ -51,7 +54,7 @@ catch (error) {
     try {
       await signInWithEmailAndPassword(auth,email, password);
       console.log("User logged in!");
-      navigation.navigate("Home")
+      
     } catch (error) {
       console.error("Failed to log in:", error);
     }

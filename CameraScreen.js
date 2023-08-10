@@ -10,6 +10,7 @@ import { shareAsync } from 'expo-sharing';
 import { EvilIcons } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Ionicons } from '@expo/vector-icons';
+import { Feather } from '@expo/vector-icons';
 
 
  
@@ -238,11 +239,12 @@ return (
        <ActivityIndicator size="small" color="#007AFF" style={styles.load} />
       ) : null}
 
-
+ 
 
   <View style={styles.lineCont}>
   
     <View style={styles.inputContainer}>
+    
    
       <TextInput
       style={styles.inputN}
@@ -262,10 +264,26 @@ return (
     </View>
   </View>
   <View style={styles.vista}>
+
+  <View style={{  alignContent:"flex-end", position:"relative",}}>
+   <TouchableOpacity style={styles.buttonx} onPress={cancelar}>
+   <Text>Borrar</Text>
+    </TouchableOpacity> 
+   </View>
+
   </View>
+ 
    <View style={styles.previewContainer}>
-      {picture1 && <Image source={{ uri: picture1 }} style={styles.preview} />}
+
+   
+   
+   
+    <>
+    {picture1 && <Image source={{ uri: picture1 }} style={styles.preview} />}
       {picture2 && <Image source={{ uri: picture2 }} style={styles.preview} />}
+    </>
+    
+     
     </View>
   
  
@@ -274,19 +292,26 @@ return (
   
   
    {fotoUrl1 && fotoUrl2 ? (
-     <View>
+     <>
+    <View style={styles.buttonOff}>
+    <Text style={styles.text}>GUARDAR</Text>
+    </View>
      <TouchableOpacity style={styles.button} onPress={generatePdf}>
-     <EvilIcons name="share-apple" size={30} color="white" /><Text style={styles.text} >COMPARTIR</Text>
+     <EvilIcons name="share-apple" size={30} color="white" /><Text style={styles.text} >PDF</Text>
      </TouchableOpacity>
-      </View>  
+      </>  
    ) : (
     <>
-    <TouchableOpacity style={styles.buttonS} onPress={cancelar}>
-    <Text style={styles.textS} >DESCARTAR</Text>
+        <TouchableOpacity style={styles.button} onPress={savePictures}>
+    <Text style={styles.text}>GUARDAR</Text>
     </TouchableOpacity>
-    <TouchableOpacity style={styles.button} onPress={savePictures}>
-    <Text style={styles.text} >GUARDAR</Text>
-    </TouchableOpacity>
+
+    <View style={styles.buttonOff} >
+     <EvilIcons name="share-apple" size={30} color="white" /><Text style={styles.text} >PDF</Text>
+     </View>
+    
+
+
     </>
    )}
   
@@ -344,9 +369,11 @@ const styles = StyleSheet.create({
 
   },
   vista:{
+    alignItems:"flex-end",
     marginBottom:5,
-    marginTop:-35,
+    marginTop:-65,
     width: '90%',
+    
   },
   inputContainer: {
     flexDirection: 'column',
@@ -496,6 +523,16 @@ const styles = StyleSheet.create({
     borderRadius:20,
     height:40
   },
+  buttonOff: {
+    flexDirection: 'row',
+    justifyContent: 'space-evenly',
+    alignItems: 'center',
+    backgroundColor: "#e0e0e0",
+    paddingHorizontal: 17,
+    marginTop:20,
+    borderRadius:20,
+    height:40
+  },
   buttonS: {
     flexDirection: 'row',
     justifyContent: 'space-evenly',
@@ -504,6 +541,15 @@ const styles = StyleSheet.create({
     paddingHorizontal: 17,
     marginTop:20,
     borderRadius:5
+  },
+  buttonx: {
+   // flexDirection: 'row',
+  alignItems: 'center',
+    backgroundColor: "#e0e0e0",
+    padding: 5,
+    marginTop:2,
+    borderRadius:20,
+    height:30
   },
   load:{
     marginBottom:25
