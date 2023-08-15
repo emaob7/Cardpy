@@ -1,6 +1,6 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext} from 'react';
 import { EstadoContext } from './EstadoContext';
-import { StyleSheet,View, Image, TouchableOpacity, Text, TextInput, ActivityIndicator } from 'react-native';
+import { StyleSheet,View, Image, TouchableOpacity, Text, TextInput, ActivityIndicator} from 'react-native';
 import { Camera } from 'expo-camera';
 import * as ImageManipulator from 'expo-image-manipulator';
 import firebase from "./firebase";
@@ -10,12 +10,11 @@ import { shareAsync } from 'expo-sharing';
 import { EvilIcons } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Ionicons } from '@expo/vector-icons';
-import { Feather } from '@expo/vector-icons';
 
 
  
 
-export default function CameraScreen({ route }) {
+export default function CameraScreen({ route, navigation }) {
 
   const [cameraRef, setCameraRef] = useState(null);
   const [picture1, setPicture1] = useState(null);
@@ -26,9 +25,21 @@ export default function CameraScreen({ route }) {
   const [cin, setCin] = useState("");
   const [progress, setProgress] = useState(null);
   const { setRefre } = useContext(EstadoContext);
+  const [permission, requestPermission] = Camera.useCameraPermissions();
+  
+ //  const [photos, setPhotos] = useState([]);
 
   const { uid } = route.params;
   //console.log(uid)
+
+ 
+  const handleBackButton = () => {
+    // Lógica para volver a la pantalla anterior
+    navigation.goBack()
+  };
+
+
+
   const html = `
   <html>
   <head>
@@ -87,6 +98,24 @@ setProgress(false);
 };
  // console.log(uid);
 
+
+ //imagenes
+
+ const shareImages = async () => {
+  if (picture1 && picture2) {
+    try {
+console.log(picture1)
+ await shareAsync(picture1);
+  
+    } catch (error) {
+      console.error('Error sharing images:', error);
+    }
+  }
+}; 
+
+
+
+
   //sacar foto
 const takePicture = async () => {
   if (cameraRef) {
@@ -110,15 +139,20 @@ const image = await ImageManipulator.manipulateAsync(
     if (!picture1) {
      
       setPicture1(image.uri);
+    //  setPhotos([...photos, image.uri]);
       
     } else if (!picture2) {
       setPicture2(image.uri);
+     // setPhotos([...photos, image.uri]);
       //console.log(image.uri)
     }
   }
 
 
 };
+
+
+
 
 
 const savePictures = async () => {
@@ -189,13 +223,37 @@ const cancelar = ()=>{
 
 return (
   <View style={styles.container}>
+    
+    
+    
+    
   {!picture1 || !picture2 ? (
     <>
+    <View style={styles.volver}> 
+      <TouchableOpacity 
+    onPress={handleBackButton}  >
+        <Ionicons name="chevron-back-circle-outline" size={30} color="black" />
+      </TouchableOpacity></View>
+    <View style={styles.ayudaContainer}>
+   
+     {!picture1 ? (
+        <>
+        <Text style={styles.super1}>Delante</Text>
+        <Text style={styles.textAyuda}>Toma la parte FRONTAL {'\u{1FAAA}'} de tu documento</Text>
+        </>
+        ) : (
+          <>
+          <Text style={styles.super1}>Detrás</Text>
+          <Text style={styles.textAyuda}>Y ahora la parte de ATRÁS {'\u{1F4B3}'}</Text>
+          </>
+        )}
+        </View>
 
      <Camera
       style={styles.camera}
       type={Camera.Constants.Type.back}
       ref={ref => setCameraRef(ref)}>
+        
         <View style={styles.rectangleN} />
         {!picture1 ? (
         <View style={styles.square} />
@@ -204,11 +262,7 @@ return (
         )}
         <View style={styles.rectangle} />
       </Camera>
-      {!picture1 ? (
-        <Text style={styles.textAyuda}>Toma la parte FRONTAL {'\u{1FAAA}'} de tu documento</Text>
-        ) : (
-          <Text style={styles.textAyuda}>Y ahora la parte de ATRÁS {'\u{1F4B3}'}</Text>
-        )}
+     
 
       <View style={styles.buttonsContainer}>
       {/**   <TouchableOpacity onPress={cancelar} disabled={!picture1}>
@@ -216,6 +270,7 @@ return (
         </TouchableOpacity>*/}
 
         <View style={styles.miniatura}>
+
 
         </View>
       <TouchableOpacity onPress={takePicture} style={styles.circleButton}>
@@ -239,10 +294,14 @@ return (
        <ActivityIndicator size="small" color="#007AFF" style={styles.load} />
       ) : null}
 
- 
+<View style={styles.volver1}> 
+      <TouchableOpacity 
+    onPress={handleBackButton}  >
+        <Ionicons name="chevron-back-circle-outline" size={30} color="black" />
+      </TouchableOpacity></View>
 
   <View style={styles.lineCont}>
-  
+
     <View style={styles.inputContainer}>
     
    
@@ -265,9 +324,9 @@ return (
   </View>
   <View style={styles.vista}>
 
-  <View style={{  alignContent:"flex-end", position:"relative",}}>
+  <View style={{  alignContent:"flex-end",}}>
    <TouchableOpacity style={styles.buttonx} onPress={cancelar}>
-   <Text>Borrar</Text>
+   <Text style={{  color:"#0D7AFF"}}>Borrar</Text>
     </TouchableOpacity> 
    </View>
 
@@ -297,7 +356,7 @@ return (
     <Text style={styles.text}>GUARDAR</Text>
     </View>
      <TouchableOpacity style={styles.button} onPress={generatePdf}>
-     <EvilIcons name="share-apple" size={30} color="white" /><Text style={styles.text} >PDF</Text>
+     <EvilIcons name="share-apple" size={22} color="white" /><Text style={styles.text} >PDF</Text>
      </TouchableOpacity>
       </>  
    ) : (
@@ -305,10 +364,12 @@ return (
         <TouchableOpacity style={styles.button} onPress={savePictures}>
     <Text style={styles.text}>GUARDAR</Text>
     </TouchableOpacity>
+   
 
     <View style={styles.buttonOff} >
-     <EvilIcons name="share-apple" size={30} color="white" /><Text style={styles.text} >PDF</Text>
+     <EvilIcons name="share-apple" size={22} color="white" /><Text style={styles.text} >PDF</Text>
      </View>
+
     
 
 
@@ -371,7 +432,7 @@ const styles = StyleSheet.create({
   vista:{
     alignItems:"flex-end",
     marginBottom:5,
-    marginTop:-65,
+    marginTop:-20,
     width: '90%',
     
   },
@@ -382,7 +443,7 @@ const styles = StyleSheet.create({
     paddingVertical: 28,
     width: '100%',
     height: '10%',
-    marginTop:-18
+    marginTop:20
    //backgroundColor: "#2A2A2C",
   },
   textInput: {
@@ -400,6 +461,20 @@ const styles = StyleSheet.create({
  //   borderRadius: 3,
    // paddingLeft:8,
   },
+  super1:{
+    // backgroundColor: "#2A2A2C",
+   // position:"relative",
+   //  width: "100%",
+     //height: 28,
+     fontSize: 25,
+    // marginTop:50,
+    // color:"white",
+    // transform: [{ rotate: '90deg' }]
+    
+ 
+  //   borderRadius: 3,
+    // paddingLeft:8,
+   },
   inputC:{
  //   backgroundColor: "#2A2A2C",
     width: "40%",
@@ -415,15 +490,15 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
    // justifyContent: 'center',
     justifyContent: 'space-evenly',
-    width: '90%',
-    height: '70%',
+    width: 351, //90
+    height: 550, //70
     borderRadius: 3,
     padding:0
 
   },
   preview: {
-    width: '24%',
-    height: '24%',
+    width: '25%',//24
+    height: '25%',
     marginTop: 5,
     borderRadius: 5,
     transform: [{ rotate: '-90deg' }]
@@ -498,7 +573,7 @@ const styles = StyleSheet.create({
    // paddingVertical: 10,
     //marginLeft: 10,
     justifyContent: 'center',
-    fontSize:20,
+    fontSize:16,
     color:"white"
   },
   textAyuda: {
@@ -546,13 +621,32 @@ const styles = StyleSheet.create({
    // flexDirection: 'row',
   alignItems: 'center',
     backgroundColor: "#e0e0e0",
+    
     padding: 5,
     marginTop:2,
+    marginRight:10,
     borderRadius:20,
     height:30
   },
   load:{
     marginBottom:25
-  }
+  },
+  ayudaContainer:{
+    marginTop:-20,
+    marginBottom:65,
+    width:"90%"
+  },
+  volver: {
+     padding: 5,
+     marginTop:-15,
+     marginBottom:30,
+     marginLeft:"-85%",
+   },
+   volver1: {
+    padding: 5,
+    marginTop:20,
+  //  marginBottom:30,
+    marginLeft:"-85%",
+  },
 
 });

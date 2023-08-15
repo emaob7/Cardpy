@@ -129,7 +129,7 @@ export default function App() {
 
   
   })} />
-        <Stack.Screen name="CameraScreen" component={CameraScreen}  options={{ title: 'Nuevo Documento' }}/>
+        <Stack.Screen name="CameraScreen" component={CameraScreen}  options={{headerShown: false}}/>
         <Stack.Screen name="DocumentListScreen" component={DocumentListScreen}  options={{ title: 'Mis Documentos'}}/>
         <Stack.Screen name="DocumentDetailsScreen" component={DocumentDetailsScreen}  options={{ title: 'Vista Previa' }}/>
         <Stack.Screen name="RegisterScreen" component={RegisterScreen} options={{ title: '' }}/>
