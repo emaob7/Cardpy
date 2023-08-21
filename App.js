@@ -1,5 +1,5 @@
 import React  from 'react';
-import { StyleSheet, TouchableOpacity} from 'react-native';
+import { StyleSheet, TouchableOpacity, Text} from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { Ionicons } from '@expo/vector-icons';
@@ -13,7 +13,7 @@ import DocumentDetailsScreen from './DocumentDetailsScreen';
 import RegisterScreen from './RegisterScreen';
 import { useRoute } from '@react-navigation/native';
 import { StatusBar } from 'expo-status-bar';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
+//import { MaterialCommunityIcons } from '@expo/vector-icons';
 import Perfil from './Perfil';
 
 //import { useNavigation } from '@react-navigation/native';
@@ -94,9 +94,9 @@ export default function App() {
     };
 
     return (
-      <TouchableOpacity onPress={handleAddDocument}>
+      <TouchableOpacity onPress={handleAddDocument} >
+        <Ionicons name="add-circle-sharp" size={28} color="#0D7AFF" />
        
-        <Ionicons name="ios-add" size={27} color="#0D7AFF" />
       </TouchableOpacity>
     );
   };
@@ -109,8 +109,9 @@ export default function App() {
     };
 
     return (
-      <TouchableOpacity onPress={handlePerfil}>
-        <MaterialCommunityIcons name="account-circle-outline" size={24} color="black"  style={styles.icon}/>
+      <TouchableOpacity onPress={handlePerfil} style={styles.perfil}>
+        <Text>{'\u{1F335}'}</Text>
+       {/* <MaterialCommunityIcons 5 name="account-circle-outline" size={24} color="black"  style={styles.icon}/> */}
       </TouchableOpacity>
     );
     // Realiza aquí las acciones necesarias cuando se presione el botón izquierdo del encabezado
@@ -155,4 +156,19 @@ const styles = StyleSheet.create({
   icon: {
     marginRight: 10,
   },
+  perfil: {
+   alignItems: 'center',
+     backgroundColor: "#EAF1FB",
+     padding: 5,
+     borderRadius:20,
+     height:30
+   },
+   add: {
+   justifyContent: 'center',
+   alignContent:"center",
+      backgroundColor: "#EAF1FB",
+      padding: 3,
+      borderRadius:50,
+      height:30
+    },
 });

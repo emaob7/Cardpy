@@ -452,39 +452,19 @@ const styles = StyleSheet.create({
     color:"#9D9CA1"
   },
   inputN:{
-   // backgroundColor: "#2A2A2C",
     width: "100%",
     height: 28,
     fontSize: 25,
-   
-
- //   borderRadius: 3,
-   // paddingLeft:8,
   },
   super1:{
-    // backgroundColor: "#2A2A2C",
-   // position:"relative",
-   //  width: "100%",
-     //height: 28,
      fontSize: 25,
-    // marginTop:50,
-    // color:"white",
-    // transform: [{ rotate: '90deg' }]
-    
- 
-  //   borderRadius: 3,
-    // paddingLeft:8,
    },
   inputC:{
- //   backgroundColor: "#2A2A2C",
     width: "40%",
     height: 28,
    marginTop:32,
     fontSize: 17,
-  //  borderRadius: 3,
-   // paddingLeft:8
   },
-
   previewContainer: {
     flexDirection: 'row',
     backgroundColor: '#fff',
@@ -621,7 +601,6 @@ const styles = StyleSheet.create({
    // flexDirection: 'row',
   alignItems: 'center',
     backgroundColor: "#e0e0e0",
-    
     padding: 5,
     marginTop:2,
     marginRight:10,
