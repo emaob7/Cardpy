@@ -1,10 +1,20 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, View, TextInput,Text,TouchableOpacity } from 'react-native';
+import { StyleSheet, View, TextInput,Text,TouchableOpacity, ActivityIndicator } from 'react-native';
 import { signInWithEmailAndPassword } from "firebase/auth";
 import {getAuth} from 'firebase/auth';
 import { useNavigation } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
+
+//desde aca
+import * as WebBrowser from "expo-web-browser";
+import * as Google from "expo-auth-session/providers/google";
+import {
+  GoogleAuthProvider,
+  onAuthStateChanged,
+  signInWithCredential,
+} from "firebase/auth";
+import SignInScreen from "./screens/SignInScreen";
 
 
 
@@ -15,6 +25,16 @@ export default function Login() {
   const [password, setPassword] = useState('');
   const [showLoginForm, setShowLoginForm] = useState(true);
 
+  const [userInfo, setUserInfo] = React.useState();
+  const [loading, setLoading] = React.useState(false);
+  const [request, response, promptAsync] = Google.useAuthRequest({
+    iosClientId: "632865725104-n237v30hh3vhp3c0psfkt1ivl39g4hff.apps.googleusercontent.com",
+    androidClientId: "632865725104-hm2tb0okcnvg73bmj8h6kt7v7tchu7v4.apps.googleusercontent.com",
+  });
+
+
+
+
   const auth = getAuth()
   const navigation = useNavigation();
 
@@ -24,6 +44,7 @@ export default function Login() {
 
 
 
+  WebBrowser.maybeCompleteAuthSession();
 
   async function autoLogin() {
     // Obtener datos del usuario guardados en AsyncStorage
@@ -48,6 +69,34 @@ export default function Login() {
     autoLogin();
   }, []);
  
+
+
+  React.useEffect(() => {
+    if (response?.type === "success") {
+      const { id_token } = response.params;
+      const credential = GoogleAuthProvider.credential(id_token);
+      signInWithCredential(auth, credential);
+    }
+  }, [response]);
+
+  React.useEffect(() => {
+   // getLocalUser();
+    const unsub = onAuthStateChanged(auth, async (user) => {
+      if (user) {
+        await AsyncStorage.setItem("user", JSON.stringify(user.uid));
+       
+         // console.log(user.uid);
+       // console.log(JSON.stringify(user.uid, null, 2));
+       // setUserInfo(user);
+       const uid = JSON.stringify(user.uid);
+        navigation.replace( "Home",{uid})
+      } else {
+        console.log("user not authenticated");
+      }
+    });
+    return () => unsub();
+  }, []);
+
 
   const signIn = async (email, password) => {
     try {
@@ -101,6 +150,9 @@ export default function Login() {
     <TouchableOpacity style={styles.buttonC} onPress={() => navigation.navigate("RegisterScreen")}>
     <Text>¿Aún no tienes una cuenta?</Text><Text style={styles.textButtonC} >Crea una cuenta</Text>
     </TouchableOpacity>
+
+
+    <SignInScreen promptAsync={promptAsync} />
 
        </View>
        

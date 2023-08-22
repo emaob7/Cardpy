@@ -115,7 +115,7 @@ android {
 
     namespace 'com.consultas.cedu'
     defaultConfig {
-        manifestPlaceholders = [appAuthRedirectScheme: 'com.consultas.cedu']
+        manifestPlaceholders = [appAuthRedirectScheme: 'consultas']
         applicationId 'com.consultas.cedu'
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion

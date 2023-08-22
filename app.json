@@ -6,7 +6,6 @@
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
-    "scheme": "com.consultas.cedu",
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
@@ -58,7 +57,8 @@
       "eas": {
         "projectId": "95bdc17b-cb14-4853-b6f6-f148b923dd66"
       }
-    }
+    },
+    "scheme": "consultas"
     
   }
 }
