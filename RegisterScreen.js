@@ -28,7 +28,7 @@ export default function RegisterScreen() {
       const uid = user.uid;
         firebase.db
         .collection("Users")
-        .doc()
+        .doc(uid)
         .set(
           {
             id: uid,

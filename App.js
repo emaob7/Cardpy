@@ -31,7 +31,7 @@ const HomeScreen = () => {
   const route = useRoute();
  // const uid = "7777"
  const uid = route.params.uid;
- // console.log(uid)
+  //console.log(uid)
 
 
   return (

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, View, TextInput,Text,TouchableOpacity, ActivityIndicator } from 'react-native';
+import { StyleSheet, View, TextInput,Text,TouchableOpacity, ActivityIndicator, Image } from 'react-native';
 import { signInWithEmailAndPassword } from "firebase/auth";
 import {getAuth} from 'firebase/auth';
 import { useNavigation } from '@react-navigation/native';
@@ -23,7 +23,7 @@ import SignInScreen from "./screens/SignInScreen";
 export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [showLoginForm, setShowLoginForm] = useState(true);
+  const [showLoginForm, setShowLoginForm] = useState(false);
 
   const [userInfo, setUserInfo] = React.useState();
   const [loading, setLoading] = React.useState(false);
@@ -53,11 +53,22 @@ export default function Login() {
       if (uid !== null) { 
       // console.log("User logged in memory!", userData);
         navigation.replace( "Home",{uid})
-      //  navigation.replace( "DocumentListScreen",{userData})
-        //navigation.navigate("Home",{userData})
       } else {
        // console.error('Error al obtener datos del usuario de AsyncStorage:');
        setShowLoginForm(true);
+
+       const unsub = onAuthStateChanged(auth, async (user) => {
+        if (user) {
+          const uid = user.uid;
+         await AsyncStorage.setItem("user",(uid));
+         
+         navigation.replace( "Home",{uid})
+        } else {
+          console.log("user not authenticated");
+        }
+      });
+      return () => unsub();
+
        
       }
  //   } catch (e) {
@@ -65,13 +76,11 @@ export default function Login() {
  //   }
   }
   
-  useEffect(() => {
-    autoLogin();
-  }, []);
+
  
 
 
-  React.useEffect(() => {
+ useEffect(() => {
     if (response?.type === "success") {
       const { id_token } = response.params;
       const credential = GoogleAuthProvider.credential(id_token);
@@ -79,22 +88,9 @@ export default function Login() {
     }
   }, [response]);
 
-  React.useEffect(() => {
-   // getLocalUser();
-    const unsub = onAuthStateChanged(auth, async (user) => {
-      if (user) {
-        await AsyncStorage.setItem("user", JSON.stringify(user.uid));
-       
-         // console.log(user.uid);
-       // console.log(JSON.stringify(user.uid, null, 2));
-       // setUserInfo(user);
-       const uid = JSON.stringify(user.uid);
-        navigation.replace( "Home",{uid})
-      } else {
-        console.log("user not authenticated");
-      }
-    });
-    return () => unsub();
+ useEffect(() => {
+    autoLogin();
+    
   }, []);
 
 
@@ -113,13 +109,38 @@ export default function Login() {
  
   return (
     <View style={styles.container}>
-      {showLoginForm && (
+      {showLoginForm ? (
         <>
+        
         <View style={styles.titlesContent}>
-        <Text style={styles.super}>Iniciar sesión</Text>
+          <Image
+           source={require('./assets/favicon1.png')} // Asegúrate de proporcionar la ruta correcta
+           style={{ width: 200, height: 200, marginTop:-25, marginLeft: -20 }} // Establece el estilo de la imagen según tus necesidades
+          
+          />
+        <Text style={styles.super}>Inicia en Cardpy</Text>
+        <Text style={{ marginTop:5, marginLeft: -20 }}>Nos alegra verte por aqui </Text>
+        
       
         </View>
+        <SignInScreen promptAsync={promptAsync} />
+<View style={{ flexDirection: "row" }}>
 
+<View style={{ borderTopWidth: 1, borderColor: "#424242", width: "31%", marginTop:17 }} />
+        <Text 
+         style={{
+          alignItems:"center",
+          alignContent:"center",
+          justifyContent:"center",
+          width: "30%",
+          padding: 10,
+          color: "#424242"
+        }}>O ingresa con</Text>
+        <View style={{ borderTopWidth: 1, borderColor: "#424242", width: "31%", marginTop:17 }} />
+
+
+</View>
+       
         
           <Text style={styles.text}>Correo:</Text>
           <View style={styles.inputContainer}>
@@ -152,12 +173,14 @@ export default function Login() {
     </TouchableOpacity>
 
 
-    <SignInScreen promptAsync={promptAsync} />
+    
 
        </View>
+
+       
        
         </>
-      )}
+      ):(null)}
     </View>
   );
 
@@ -207,7 +230,7 @@ const styles = StyleSheet.create({
   },
    super: {
     fontSize: 27,
-    marginBottom:5,
+    marginTop:-28,
     fontWeight: 'bold',
     marginLeft: -20
     
@@ -219,7 +242,7 @@ const styles = StyleSheet.create({
   titlesContent:{
     alignItems:"center",
     marginBottom:38,
-    marginTop:38,
+    marginTop:5,
   },
   button: {
     justifyContent: 'space-evenly',

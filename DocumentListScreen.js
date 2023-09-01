@@ -14,6 +14,7 @@ import { shareAsync } from 'expo-sharing';
 
 const DocumentListScreen = (props) => {
   const  {uid}  = props;
+  //console.log(uid)
  // const {refre} = props;
  // const { uid } = route.params;
 //  console.log("prop",uid)
@@ -99,6 +100,7 @@ const obtenerDatos = async () => {
       const datosJson = JSON.parse(datosJsonGuardados);
       // Hacer algo con los datosJson
       setDocuments(datosJson);
+      
       console.log('AsyncStorage');
     } else {
       // Si los datos no existen en AsyncStorage, obtenerlos de Firebase Firestore
@@ -113,6 +115,7 @@ const obtenerDatos = async () => {
         setDocuments(data);
 //almacenar en el storage los datos obtenidos
         const jsonValue = JSON.stringify(data)
+       // console.log(jsonValue);
         await AsyncStorage.setItem('@datosJson', jsonValue)
        console.log("firebase");
         

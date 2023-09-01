@@ -1,9 +1,0 @@
-{
-  "expoServerPort": 19000,
-  "packagerPort": 19000,
-  "expoServerNgrokUrl": "https://ya-mq2.emaob7.consultas.exp.direct",
-  "packagerNgrokUrl": "https://ya-mq2.emaob7.consultas.exp.direct",
-  "ngrokPid": 2792,
-  "packagerPid": null,
-  "webpackServerPort": null
-}
