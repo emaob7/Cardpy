@@ -2,11 +2,11 @@ import React  from 'react';
 import { StyleSheet, TouchableOpacity, Text} from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+
 import { Ionicons } from '@expo/vector-icons';
 import { EstadoProvider } from './EstadoContext';
-//import { MaterialCommunityIcons } from '@expo/vector-icons';
-//import { AntDesign } from '@expo/vector-icons';
 import CameraScreen from './CameraScreen';
+import TabNav from './TabNav';
 import Login from './Login';
 import DocumentListScreen from './DocumentListScreen';
 import DocumentDetailsScreen from './DocumentDetailsScreen';
@@ -31,46 +31,28 @@ const HomeScreen = () => {
   const route = useRoute();
  // const uid = "7777"
  const uid = route.params.uid;
+
   //console.log(uid)
 
+
+  //<DocumentListScreen uid={uid}/>
 
   return (
 
     
     <>
     {/*<View style={styles.container}>*/}
-      <StatusBar style="auto" /> 
+    <StatusBar style="auto" /> 
 
 
-    <DocumentListScreen uid={uid} />   
+    <TabNav uid={uid}/>
 
- 
- {/*     <View style={styles.containerAll}>
-      <View style={styles.portada}>
 
-      </View>
-      <View style={styles.buttonContainer}>
-      <TouchableOpacity
-        style={styles.button}
-        onPress={() => navigation.navigate('CameraScreen', {uid})}
-      >
-        <MaterialCommunityIcons name="credit-card-scan-outline" size={35} color="#0D7AFF" />
-        <Text style={styles.textN}>Nuevo</Text>
-      </TouchableOpacity>
-      <TouchableOpacity
-      style={styles.button}
-        onPress={() => navigation.navigate('DocumentListScreen', {uid})}
-      ><AntDesign name="pdffile1" size={35} color="black" />
-      <Text style={styles.textD}>Mis Documentos</Text>
-      </TouchableOpacity>
-      </View>
+
+   
+
      
-     </View>
-      
-      
-      */}
-      
-   {/* </View>*/}
+
    </>
   );
 };
@@ -78,6 +60,7 @@ const HomeScreen = () => {
 
 
 const Stack = createNativeStackNavigator();
+
 export default function App() {
 
 
@@ -135,11 +118,16 @@ export default function App() {
         <Stack.Screen name="DocumentDetailsScreen" component={DocumentDetailsScreen}  options={{ title: 'Vista Previa' }}/>
         <Stack.Screen name="RegisterScreen" component={RegisterScreen} options={{ title: '' }}/>
         <Stack.Screen name="Perfil" component={Perfil} options={{ title: 'Mi Perfil' }}/>
+        <Stack.Screen name="TabNav" component={TabNav}/>
       </Stack.Navigator>
+
     </NavigationContainer>
     </EstadoProvider>
   );
 }
+
+
+
 
 const styles = StyleSheet.create({
   container: {

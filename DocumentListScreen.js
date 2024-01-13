@@ -12,7 +12,13 @@ import { shareAsync } from 'expo-sharing';
 
 
 
+
+
+
+
+
 const DocumentListScreen = (props) => {
+
   const  {uid}  = props;
   //console.log(uid)
  // const {refre} = props;
@@ -227,6 +233,9 @@ const onRefresh = () => {
 
   return (
     <View style={styles.container}>
+
+
+
 {/*  <TouchableOpacity style={styles.nuevo}  onPress={() => navigation.navigate('CameraScreen', {uid})}>
       <Ionicons name="add" size={20} color="#0D7AFF" />
       <Text style={styles.textNuevo}>Agregar nuevo</Text>
@@ -236,7 +245,7 @@ const onRefresh = () => {
 
 <ActivityIndicator size="small" color="#007AFF" style={styles.load} />
 ) : null}
-       <Text style={styles.super}>Documentos</Text>
+       <Text style={styles.super}>Cedulas PDF</Text>
     
        
        
@@ -465,7 +474,7 @@ paddingTop:9,
   super: {
     fontSize: 30,
     alignContent:"flex-start",
-    marginStart:-205,
+    marginStart:-200,
     marginTop:18,
     fontWeight: 'bold',
   },

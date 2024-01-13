@@ -118,8 +118,8 @@ export default function Login() {
            style={{ width: 200, height: 200, marginTop:-25, marginLeft: -20 }} // Establece el estilo de la imagen según tus necesidades
           
           />
-        <Text style={styles.super}>Inicia en Cardpy</Text>
-        <Text style={{ marginTop:5, marginLeft: -20 }}>Nos alegra verte por aqui </Text>
+        <Text style={styles.super}>Bienvenido a Cardpy</Text>
+        <Text style={{ marginTop:5, marginLeft: -20 }}>👋 Hola! Nos alegra verte por aqui </Text>
         
       
         </View>
