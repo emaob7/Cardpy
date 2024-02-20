@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { View, Text, TouchableOpacity,StyleSheet } from 'react-native';
 import firebase from "./firebase";
 //import {getAuth} from 'firebase/auth';
@@ -25,6 +25,7 @@ const handleLogout = async() => {
     
          await AsyncStorage.removeItem('user');
          await AsyncStorage.removeItem('@datosJson');
+         await AsyncStorage.removeItem('@datosJsonCv');
          console.log('Usuario eliminado de AsyncStorage');
          navigation.navigate("Login")
         

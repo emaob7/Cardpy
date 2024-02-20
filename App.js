@@ -15,6 +15,7 @@ import { useRoute } from '@react-navigation/native';
 import { StatusBar } from 'expo-status-bar';
 //import { MaterialCommunityIcons } from '@expo/vector-icons';
 import Perfil from './Perfil';
+import FormHerramientas from './screens/FormHerramientas';
 
 //import { useNavigation } from '@react-navigation/native';
 //import {getAuth} from 'firebase/auth';
@@ -119,6 +120,7 @@ export default function App() {
         <Stack.Screen name="RegisterScreen" component={RegisterScreen} options={{ title: '' }}/>
         <Stack.Screen name="Perfil" component={Perfil} options={{ title: 'Mi Perfil' }}/>
         <Stack.Screen name="TabNav" component={TabNav}/>
+        <Stack.Screen name="FormHerramientas" component={FormHerramientas} options={{ title: 'Herramientas y Habilidades' }}/>
       </Stack.Navigator>
 
     </NavigationContainer>

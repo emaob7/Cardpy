@@ -33,11 +33,11 @@ export default function TabNav(props) {
     <>
       <Tab.Navigator>
       <Tab.Screen name="Cedulas" options={{ headerShown: false, tabBarIcon: ({ color, size }) => (
-            <Ionicons name="card-outline" size={24} color="black" />), }}> 
+            <Ionicons name="card-outline" size={24} />), }}> 
           {() => <Cedulas uid={uid} />}
         </Tab.Screen>
         <Tab.Screen name="Curriculum" options={{ headerShown: false, tabBarIcon: ({ color, size }) => (
-            <Ionicons name="document-text-outline" size={24} color="black" />
+            <Ionicons name="document-text-outline" size={24} />
           ),}}>
         {() => <Curriculum uid={uid} />}
           </Tab.Screen>

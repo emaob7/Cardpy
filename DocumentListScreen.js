@@ -95,6 +95,7 @@ const DocumentListScreen = (props) => {
 
   
 const obtenerDatos = async () => {
+ // await AsyncStorage.removeItem('@datosJsonCv');
 
   
   try {
@@ -104,8 +105,16 @@ const obtenerDatos = async () => {
     if (datosJsonGuardados) {
       // Si los datos existen en AsyncStorage, utilizarlos directamente
       const datosJson = JSON.parse(datosJsonGuardados);
-      // Hacer algo con los datosJson
       setDocuments(datosJson);
+      /*buscar cv
+      const documentoCV = datosJson.find(item => item.id === "cv");
+        const jsonValuecv = JSON.stringify(documentoCV)
+        await AsyncStorage.setItem('@datosJsonCv', jsonValuecv)
+      
+      */
+
+      
+      
       
       console.log('AsyncStorage');
     } else {
@@ -227,7 +236,7 @@ const onRefresh = () => {
   setFilteredData(filtered);
 };
   
-
+const documentosFiltrados = documents.filter(item => item.foto1);
 
 
 
@@ -311,7 +320,7 @@ style={styles.flatlist}
      
       <FlatList
       style={styles.flatlist}
-        data={documents}
+        data={documentosFiltrados}
         keyExtractor={(item) => item.id}
         refreshControl={
           <RefreshControl refreshing={refreshing} onRefresh={onRefresh} progressBackgroundColor="yellow"/>
@@ -439,7 +448,7 @@ paddingTop:9,
     maxWidth: '22%',
     margin: 0,
   backgroundColor: 'white',
-    borderRadius:"50%"
+    borderRadius:50
     //20
 
   },
@@ -449,7 +458,7 @@ paddingTop:9,
     maxWidth: '22%',
  //   marginRight: 5,
   backgroundColor: 'white',
-    borderRadius:"50%"
+    borderRadius:50
     //18
 
   },
