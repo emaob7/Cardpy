@@ -139,7 +139,7 @@ const styles = StyleSheet.create({
         eliminar:{
             width: "100%",
             flexDirection: 'row', 
-            justifyContent: 'space-between'
+          //  justifyContent: 'space-between'
         },
 
       chipsT:{

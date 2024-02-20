@@ -15,6 +15,7 @@ import { Octicons } from '@expo/vector-icons';
 import {v4 as uuidv4} from "uuid";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Plantilla1 from './Plantilla1';
+import FormDatos from './FormDatos';
 
 
 const CurriculumScreen = (props) => {
@@ -415,7 +416,138 @@ console.log(`El tamaño del objeto JSON es aproximadamente ${megabytes} MB.`);
     <>
     
      
-<View style={styles.chipsCont}>
+
+    <ScrollView>
+    {swi=== 3 ? (
+      <View style={styles.containerE}>
+      <View style={styles.separacion}>
+  <Text style={styles.subtitulo}>Datos Personales</Text>
+  <TouchableOpacity style={styles.botonE} onPress={() => setSwi("")}>
+<Text style={styles.textE}>Listo</Text>
+</TouchableOpacity>
+  </View>
+  <FormDatos 
+  nombre={nombre} setNombre={setNombre} 
+  apellido={apellido} setApellido={setApellido}
+  cin={cin} setCin={setCin}
+  fnac={fnac} setFnac={setFnac}
+  nacio={nacio} setNacio={setNacio}
+  profesion={profesion} setProfesion={setProfesion}
+  registro={registro} setRegistro={setRegistro}
+  swi={swi}
+  />
+      </View>
+    
+
+    ):(null)}
+
+    {swi=== 5 ? (
+      <View style={styles.containerE}>
+      <View style={styles.separacion}>
+  <Text style={styles.subtitulo}>Experiencias Relacionadas</Text>
+  <TouchableOpacity style={styles.botonE} onPress={() => setSwi("")}>
+<Text style={styles.textE}>Listo</Text>
+</TouchableOpacity>
+  </View>
+  <FormEspecificas especificas={especifica} setEspecificas={setEspecifica} swi={swi} />
+      </View>
+    
+
+    ):(null)}
+
+{swi=== 6 ? (
+      <View style={styles.containerE}>
+      <View style={styles.separacion}>
+  <Text style={styles.subtitulo}>Experiencias Generales</Text>
+  <TouchableOpacity style={styles.botonE} onPress={() => setSwi("")}>
+<Text style={styles.textE}>Listo</Text>
+</TouchableOpacity>
+  </View>
+  <FormGenerales especificas={general} setEspecificas={setGeneral} swi={swi} />
+      </View>
+    
+
+    ):(null)}
+
+{swi=== 7 ? (
+      <View style={styles.containerE}>
+      <View style={styles.separacion}>
+  <Text style={styles.subtitulo}>Educación</Text>
+  <TouchableOpacity style={styles.botonE} onPress={() => setSwi("")}>
+<Text style={styles.textE}>Listo</Text>
+</TouchableOpacity>
+  </View>
+  <FormEducacion educacion={educacion} setEducacion={setEducacion} swi={swi} />
+      </View>
+    
+
+    ):(null)}
+
+{swi=== 8 ? (
+      <View style={styles.containerE}>
+      <View style={styles.separacion}>
+  <Text style={styles.subtitulo}>Cursos Realizados</Text>
+  <TouchableOpacity style={styles.botonE} onPress={() => setSwi("")}>
+<Text style={styles.textE}>Listo</Text>
+</TouchableOpacity>
+  </View>
+  <FormCursos educacion={curso} setEducacion={setCurso} swi={swi} />
+      </View>
+    
+
+    ):(null)}
+
+
+{swi=== 9 ? (
+      <View style={styles.containerE}>
+      <View style={styles.separacion}>
+  <Text style={styles.subtitulo}>Idiomas</Text>
+  <TouchableOpacity style={styles.botonE} onPress={() => setSwi("")}>
+<Text style={styles.textE}>Listo</Text>
+</TouchableOpacity>
+  </View>
+  <FormIdiomas idioma={idioma} setIdioma={setIdioma} swi={swi} />
+      </View>
+    
+
+    ):(null)}
+
+{swi=== 10 ? (
+      <View style={styles.containerE}>
+      <View style={styles.separacion}>
+  <Text style={styles.subtitulo}>Habilidades y Herrramientas</Text>
+  <TouchableOpacity style={styles.botonE} onPress={() => setSwi("")}>
+<Text style={styles.textE}>Listo</Text>
+</TouchableOpacity>
+  </View>
+  <FormHerramientas herramientas={herra} setHerramientas={setHerra} swi={swi} />
+      </View>
+    
+
+    ):(null)}
+
+{swi=== 11 ? (
+      <View style={styles.containerE}>
+      <View style={styles.separacion}>
+  <Text style={styles.subtitulo}>Referencias</Text>
+  <TouchableOpacity style={styles.botonE} onPress={() => setSwi("")}>
+<Text style={styles.textE}>Listo</Text>
+</TouchableOpacity>
+  </View>
+  <FormReferencias referencias={referencia} setReferencias={setReferencia} swi={swi} />
+      </View>
+    
+
+    ):(null)}
+
+
+
+
+
+
+    {swi==="" ? (
+      <>
+      <View style={styles.chipsCont}>
 <TouchableOpacity style={styles.guardar} onPress={savePictures}>
 <Text style={styles.chipsT}>Guardar cambios</Text>
 </TouchableOpacity>
@@ -451,11 +583,9 @@ direcc={direcc}
 
 <ActivityIndicator size="small" color="#007AFF" style={styles.load} />
 ) : null}
-    <ScrollView>
-     
-    <View style={styles.container}>
-     
- <Text style={styles.super}>Curriculum</Text>
+
+<View style={styles.container}>
+    <Text style={styles.super}>Curriculum</Text>
  <View style={styles.divider}>
  <Text style={styles.subtitulo}>Foto</Text>
  {photo ? (
@@ -495,49 +625,24 @@ direcc={direcc}
       />
  </View>
  <View style={styles.divider}>
- <Text style={styles.subtitulo}>Datos personales</Text>
-  <TextInput 
-          style={styles.input}
-          placeholder="Nombres"
-          value={nombre}
-          onChangeText={setNombre}
-        />
-  <TextInput 
-          style={styles.input}
-          placeholder="Apellidos"
-          value={apellido}
-          onChangeText={setApellido}
-        />
-  <TextInput 
-          style={styles.input}
-          placeholder="CIN"
-          value={cin}
-          onChangeText={setCin}
-        />
-  <TextInput 
-          style={styles.input}
-          placeholder="Fecha de Nacimiento"
-          value={fnac}
-          onChangeText={setFnac}
-        />
-  <TextInput 
-          style={styles.input}
-          placeholder="Nacionalidad"
-          value={nacio}
-          onChangeText={setNacio}
-        />
-  <TextInput 
-          style={styles.input}
-          placeholder="Profesion"
-          value={profesion}
-          onChangeText={setProfesion}
-        />
-  <TextInput 
-          style={styles.input}
-          placeholder="Registro Profesional Numero"
-          value={registro}
-          onChangeText={setRegistro}
-        />
+ <View style={styles.separacion}>
+  <Text style={styles.subtitulo}>Datos Personales</Text>
+<TouchableOpacity style={styles.botonE} onPress={() => setSwi(3)}>
+<Text style={styles.textE}>Editar</Text>
+</TouchableOpacity>
+
+  </View>
+  <FormDatos 
+  nombre={nombre} setNombre={setNombre} 
+  apellido={apellido} setApellido={setApellido}
+  cin={cin} setCin={setCin}
+  fnac={fnac} setFnac={setFnac}
+  nacio={nacio} setNacio={setNacio}
+  profesion={profesion} setProfesion={setProfesion}
+  registro={registro} setRegistro={setRegistro}
+  swi={""}
+  />
+  
 
  </View>
  <View style={styles.divider}>
@@ -563,129 +668,92 @@ direcc={direcc}
  </View>
 
  <View style={styles.divider}>
-  <View style={styles.separacion}>
+ <View style={styles.separacion}>
   <Text style={styles.subtitulo}>Experiencias Relacionadas</Text>
-  {swi === 5 ? (
-
-<TouchableOpacity style={styles.botonE} onPress={() => setSwi("")}>
-<Text style={styles.textE}>Listo</Text>
-</TouchableOpacity>
- ) : 
 <TouchableOpacity style={styles.botonE} onPress={() => setSwi(5)}>
 <Text style={styles.textE}>Editar</Text>
 </TouchableOpacity>
- 
- }
+
   </View>
-  <FormEspecificas especificas={especifica} setEspecificas={setEspecifica} swi={swi} />
+  
+  <FormEspecificas especificas={especifica} setEspecificas={setEspecifica} swi={""} />
   </View>
 
   <View style={styles.divider}>
   <View style={styles.separacion}>
   <Text style={styles.subtitulo}>Experiencias Generales</Text>
-  {swi === 6 ? (
-
-<TouchableOpacity style={styles.botonE} onPress={() => setSwi("")}>
-<Text style={styles.textE}>Listo</Text>
-</TouchableOpacity>
- ) : 
 <TouchableOpacity style={styles.botonE} onPress={() => setSwi(6)}>
 <Text style={styles.textE}>Editar</Text>
 </TouchableOpacity>
- 
- }
+
   </View>
-  <FormGenerales especificas={general} setEspecificas={setGeneral} swi={swi} />
+  <FormGenerales especificas={general} setEspecificas={setGeneral} swi={""} />
+ 
   </View>
 
   <View style={styles.divider}>
   <View style={styles.separacion}>
   <Text style={styles.subtitulo}>Educacion</Text>
-  {swi === 7 ? (
 
-<TouchableOpacity style={styles.botonE} onPress={() => setSwi("")}>
-<Text style={styles.textE}>Listo</Text>
-</TouchableOpacity>
- ) : 
 <TouchableOpacity style={styles.botonE} onPress={() => setSwi(7)}>
 <Text style={styles.textE}>Editar</Text>
 </TouchableOpacity>
  
- }
+ 
   </View>
-  <FormEducacion educacion={educacion} setEducacion={setEducacion} swi={swi} />
+  <FormEducacion educacion={educacion} setEducacion={setEducacion} swi={""} />
   </View>
 
   <View style={styles.divider}>
   <View style={styles.separacion}>
   <Text style={styles.subtitulo}>Cursos Realizados</Text>
-  {swi === 8 ? (
 
-<TouchableOpacity style={styles.botonE} onPress={() => setSwi("")}>
-<Text style={styles.textE}>Listo</Text>
-</TouchableOpacity>
- ) : 
 <TouchableOpacity style={styles.botonE} onPress={() => setSwi(8)}>
 <Text style={styles.textE}>Editar</Text>
 </TouchableOpacity>
  
- }
+ 
   </View>
-  <FormCursos educacion={curso} setEducacion={setCurso} swi={swi} />
+  <FormCursos educacion={curso} setEducacion={setCurso} swi={""} />
   </View>
 
   <View style={styles.divider}>
   <View style={styles.separacion}>
   <Text style={styles.subtitulo}>Idiomas</Text>
-  {swi === 9 ? (
 
-<TouchableOpacity style={styles.botonE} onPress={() => setSwi("")}>
-<Text style={styles.textE}>Listo</Text>
-</TouchableOpacity>
- ) : 
 <TouchableOpacity style={styles.botonE} onPress={() => setSwi(9)}>
 <Text style={styles.textE}>Editar</Text>
 </TouchableOpacity>
  
- }
+ 
   </View>
-  <FormIdiomas idioma={idioma} setIdioma={setIdioma} swi={swi} />
+  <FormIdiomas idioma={idioma} setIdioma={setIdioma} swi={""} />
   </View>
 
   <View style={styles.divider}>
   <View style={styles.separacion}>
   <Text style={styles.subtitulo}>Herramientas y Habilidades</Text>
-  {swi === 10 ? (
 
-<TouchableOpacity style={styles.botonE} onPress={() => setSwi("")}>
-<Text style={styles.textE}>Listo</Text>
-</TouchableOpacity>
- ) : 
 <TouchableOpacity style={styles.botonE} onPress={() => setSwi(10)}>
 <Text style={styles.textE}>Editar</Text>
 </TouchableOpacity>
  
- }
+
   </View>
-  <FormHerramientas herramientas={herra} setHerramientas={setHerra} swi={swi} />
+  <FormHerramientas herramientas={herra} setHerramientas={setHerra} swi={""} />
   </View>
 
   <View style={styles.divider}>
   <View style={styles.separacion}>
   <Text style={styles.subtitulo}>Referencias</Text>
-  {swi === 11 ? (
-
-<TouchableOpacity style={styles.botonE} onPress={() => setSwi("")}>
-<Text style={styles.textE}>Listo</Text>
-</TouchableOpacity>
- ) : 
+  
 <TouchableOpacity style={styles.botonE} onPress={() => setSwi(11)}>
 <Text style={styles.textE}>Editar</Text>
 </TouchableOpacity>
  
- }
+ 
   </View>
-  <FormReferencias referencias={referencia} setReferencias={setReferencia} swi={swi} />
+  <FormReferencias referencias={referencia} setReferencias={setReferencia} swi={""} />
 </View>
 
 
@@ -694,6 +762,14 @@ direcc={direcc}
 
 
     </View>
+
+
+      </>
+      
+    
+
+    ):(null)}
+
     </ScrollView>
     </>
   );  
@@ -704,6 +780,14 @@ container: {
     flex: 1,
    // alignItems: 'center',
   marginLeft:-5,
+    width: "100%",
+    backgroundColor:"white"
+  },
+  containerE: {
+    flex: 1,
+   // alignItems: 'center',
+  paddingLeft:10,
+  paddingRight: 10,
     width: "100%",
     backgroundColor:"white"
   },
