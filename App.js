@@ -107,13 +107,7 @@ export default function App() {
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Login">
       <Stack.Screen name="Login" component={Login} options={{headerShown: false}}/>
-        <Stack.Screen name="Home" component={HomeScreen}  options={({ navigation, route }) => ({
-    title: 'Cardpy',
-    headerRight: () => <CustomToolbar navigation={navigation} uid={route.params.uid} />,
-    headerLeft: () =>  <HandleLeftButtonPress navigation={navigation} uid={route.params.uid}/>
-
-  
-  })} />
+        <Stack.Screen name="Home" component={HomeScreen}  options={{headerShown: false}} />
         <Stack.Screen name="CameraScreen" component={CameraScreen}  options={{headerShown: false}}/>
         <Stack.Screen name="DocumentListScreen" component={DocumentListScreen}  options={{ title: 'Mis Documentos'}}/>
         <Stack.Screen name="DocumentDetailsScreen" component={DocumentDetailsScreen}  options={{ title: 'Vista Previa' }}/>

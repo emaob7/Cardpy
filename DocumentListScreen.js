@@ -250,14 +250,42 @@ const documentosFiltrados = documents.filter(item => item.foto1);
       <Text style={styles.textNuevo}>Agregar nuevo</Text>
       </TouchableOpacity>
        */}
-    {progress ? (
 
-<ActivityIndicator size="small" color="#007AFF" style={styles.load} />
-) : null}
-       <Text style={styles.super}>Cedulas PDF</Text>
+<View
+      style={{
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        padding: 16,
+        paddingTop:65,
+        paddingBottom:10,
+        backgroundColor: 'white',
+        width: '100%', // O ajusta el ancho según tus necesidades
+      }}
+    >
+      {/*
+       <TouchableOpacity onPress={() => navigation.navigate('Perfil', {uid})} style={styles.perfil}>
+        <Text>{'\u{1F335}'}</Text>
+        <MaterialCommunityIcons 5 name="account-circle-outline" size={24} color="black"  style={styles.icon}/>
+      </TouchableOpacity>
+    
+      <Text style={{ fontSize: 18, flex: 1, textAlign: 'center' }}>
+        Cardpy
+      </Text>
+      */}
+      <Text style={styles.super}>Cedulas PDF</Text>
+      <TouchableOpacity onPress={() => navigation.navigate('CameraScreen', {uid})} >
+        <Ionicons name="add-circle-sharp" size={28} color="#0D7AFF" />
+       
+      </TouchableOpacity>
+    </View>
+
     
        
-       
+<View style={{
+         width: '100%',
+        backgroundColor: 'white',
+      }}>
 <View style={styles.inputContainer}>
 <Ionicons name="ios-search" size={20} color="gray" style={styles.searchIcon} />
   <TextInput
@@ -272,6 +300,12 @@ const documentosFiltrados = documents.filter(item => item.foto1);
     placeholderTextColor="gray"
   />
 </View>
+  </View>       
+
+{progress ? (
+
+<ActivityIndicator size="small" color="#007AFF" style={styles.load} />
+) : null}
 
 {searchTerm ? (
 
@@ -368,13 +402,13 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#F0F2F5',
+    backgroundColor: "#eceff1",
   },
   flatlist:{
 marginTop:10,
-borderTopWidth: 1,
-borderTopColor: '#ccc',
-paddingTop:9,
+//borderTopWidth: 1,
+//borderTopColor: '#ccc',
+//paddingTop:9,
 
   },
 
@@ -383,12 +417,14 @@ paddingTop:9,
     alignContent: 'center',
     paddingVertical: 10,
     marginVertical: 5,
-    marginLeft: 6,
+    marginLeft: 9,
     borderRadius: 10,
+    borderColor: "#cfd8dc",
+    borderWidth:1,
     justifyContent: 'space-evenly',
     backgroundColor: "white",
     //#D3E3FD #F2F6FC
-    width: '97%',
+    width: '94%',
     marginTop:3
   },
   nuevo: {
@@ -447,7 +483,7 @@ paddingTop:9,
     justifyContent: 'center',
     maxWidth: '22%',
     margin: 0,
-  backgroundColor: 'white',
+ // backgroundColor: 'white',
     borderRadius:50
     //20
 
@@ -457,7 +493,7 @@ paddingTop:9,
     justifyContent: 'center',
     maxWidth: '22%',
  //   marginRight: 5,
-  backgroundColor: 'white',
+ // backgroundColor: 'white',
     borderRadius:50
     //18
 
@@ -465,12 +501,13 @@ paddingTop:9,
   inputContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '#FFFFFF',
+    backgroundColor: '#eeeeee',
     borderRadius: 70,
     paddingHorizontal: 10,
-    marginVertical: 10,
+    marginVertical: 20,
+    marginLeft:20,
     height:40,
-    width: "95%"
+    width: "90%"
   },
   input: {
     flex: 1,
@@ -482,9 +519,9 @@ paddingTop:9,
   },
   super: {
     fontSize: 30,
-    alignContent:"flex-start",
-    marginStart:-200,
-    marginTop:18,
+   // alignContent:"flex-start",
+   // marginStart:-200,
+   // marginTop:18,
     fontWeight: 'bold',
   },
   load:{
@@ -515,7 +552,14 @@ paddingTop:9,
     fontSize:15,
     color:"white",
     fontWeight: 'bold',
-  }
+  },
+  perfil: {
+    alignItems: 'center',
+      backgroundColor: "#EAF1FB",
+      padding: 5,
+      borderRadius:20,
+      height:30
+    },
 });
 
 export default DocumentListScreen;

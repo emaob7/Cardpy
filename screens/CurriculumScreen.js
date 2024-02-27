@@ -16,6 +16,7 @@ import {v4 as uuidv4} from "uuid";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Plantilla1 from './Plantilla1';
 import FormDatos from './FormDatos';
+import FormContactos from './FormContactos';
 
 
 const CurriculumScreen = (props) => {
@@ -413,7 +414,7 @@ console.log(`El tamaño del objeto JSON es aproximadamente ${megabytes} MB.`);
 
 
   return(
-    <>
+    <View style={styles.container}>
     
      
 
@@ -434,6 +435,25 @@ console.log(`El tamaño del objeto JSON es aproximadamente ${megabytes} MB.`);
   nacio={nacio} setNacio={setNacio}
   profesion={profesion} setProfesion={setProfesion}
   registro={registro} setRegistro={setRegistro}
+  swi={swi}
+  />
+      </View>
+    
+
+    ):(null)}
+
+{swi=== 4 ? (
+      <View style={styles.containerE}>
+      <View style={styles.separacion}>
+  <Text style={styles.subtitulo}>Contactame</Text>
+  <TouchableOpacity style={styles.botonE} onPress={() => setSwi("")}>
+<Text style={styles.textE}>Listo</Text>
+</TouchableOpacity>
+  </View>
+  <FormContactos 
+  telef={telef} setTelef={setTelef} 
+  correo={correo} setCorreo={setCorreo}
+  direcc={direcc} setDirecc={setDirecc}
   swi={swi}
   />
       </View>
@@ -542,12 +562,15 @@ console.log(`El tamaño del objeto JSON es aproximadamente ${megabytes} MB.`);
 
 
 
+</ScrollView>
 
 
 
     {swi==="" ? (
       <>
+      <Text style={styles.super}>Curriculum</Text>
       <View style={styles.chipsCont}>
+      
 <TouchableOpacity style={styles.guardar} onPress={savePictures}>
 <Text style={styles.chipsT}>Guardar cambios</Text>
 </TouchableOpacity>
@@ -584,8 +607,8 @@ direcc={direcc}
 <ActivityIndicator size="small" color="#007AFF" style={styles.load} />
 ) : null}
 
-<View style={styles.container}>
-    <Text style={styles.super}>Curriculum</Text>
+<ScrollView>
+
  <View style={styles.divider}>
  <Text style={styles.subtitulo}>Foto</Text>
  {photo ? (
@@ -646,25 +669,18 @@ direcc={direcc}
 
  </View>
  <View style={styles.divider}>
+ <View style={styles.separacion}>
  <Text style={styles.subtitulo}>Contactame</Text>
-  <TextInput 
-          style={styles.input}
-          placeholder="Telefono"
-          value={telef}
-          onChangeText={setTelef}
-        />
-  <TextInput 
-          style={styles.input}
-          placeholder="Correo"
-          value={correo}
-          onChangeText={setCorreo}
-        />
-  <TextInput 
-          style={styles.input}
-          placeholder="Direccion"
-          value={direcc}
-          onChangeText={setDirecc}
-        />
+ <TouchableOpacity style={styles.botonE} onPress={() => setSwi(4)}>
+<Text style={styles.textE}>Editar</Text>
+</TouchableOpacity>
+ </View>
+ <FormContactos 
+  telef={telef} setTelef={setTelef} 
+  correo={correo} setCorreo={setCorreo}
+  direcc={direcc} setDirecc={setDirecc}
+  swi={""}
+  />
  </View>
 
  <View style={styles.divider}>
@@ -761,7 +777,8 @@ direcc={direcc}
  
 
 
-    </View>
+    
+    </ScrollView>
 
 
       </>
@@ -770,8 +787,8 @@ direcc={direcc}
 
     ):(null)}
 
-    </ScrollView>
-    </>
+    
+    </View>
   );  
 }
 const styles = StyleSheet.create({
@@ -781,7 +798,8 @@ container: {
    // alignItems: 'center',
   marginLeft:-5,
     width: "100%",
-    backgroundColor:"white"
+    backgroundColor:"white",
+    paddingTop:50,
   },
   containerE: {
     flex: 1,
@@ -876,7 +894,7 @@ container: {
         margin:16,
         backgroundColor: "#0D7AFF",
         padding: 12,
-        width:165,
+        width:145,
         justifyContent: 'center',
         alignContent: 'center',
         borderRadius:50
@@ -884,7 +902,7 @@ container: {
       chipsT:{
 
         color: "white",
-        fontSize:18
+        fontSize:15
         
               },
               chipsCont:{

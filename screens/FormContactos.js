@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, TextInput,StyleSheet,Text} from 'react-native';
 
-const FormDatos = ({ nombre,setNombre, apellido, setApellido, cin, setCin, fnac, setFnac, nacio, setNacio, profesion, setProfesion, registro, setRegistro,  swi }) => {
+const FormContactos = ({ telef, setTelef, correo, setCorreo, setDirecc, direcc,  swi }) => {
  
 
 
@@ -12,138 +12,73 @@ const FormDatos = ({ nombre,setNombre, apellido, setApellido, cin, setCin, fnac,
 
 
       
-{swi === 3 ? (
+{swi === 4 ? (
   <>
      <TextInput 
           style={styles.input}
-          placeholder="Nombres"
-          value={nombre}
-          onChangeText={setNombre}
+          placeholder="Telefono"
+          value={telef}
+          onChangeText={setTelef}
         />
         <TextInput 
           style={styles.input}
-          placeholder="Apellidos"
-          value={apellido}
-          onChangeText={setApellido}
+          placeholder="Email"
+          value={correo}
+          onChangeText={setCorreo}
         />
          <TextInput 
           style={styles.input}
-          placeholder="CIN"
-          value={cin}
-          onChangeText={setCin}
-        />
-
-  <TextInput 
-          style={styles.input}
-          placeholder="Fecha de Nacimiento"
-          value={fnac}
-          onChangeText={setFnac}
-        />
-        <TextInput 
-          style={styles.input}
-          placeholder="Nacionalidad"
-          value={nacio}
-          onChangeText={setNacio}
-        />
-        <TextInput 
-          style={styles.input}
-          placeholder="Profesion"
-          value={profesion}
-          onChangeText={setProfesion}
+          placeholder="Direccion"
+          value={direcc}
+          onChangeText={setDirecc}
         />
 
  
-  
-  
-  <TextInput 
-          style={styles.input}
-          placeholder="Registro Profesional Numero"
-          value={registro}
-          onChangeText={setRegistro}
-        />
 </>
 
       ) : 
       
       <View style={styles.chipsCont}>
-       {nombre ? (
+       {telef ? (
   <View style={styles.chips}>
     <Text style={styles.chipsT}>
-      {nombre} {apellido}
+      {telef} 
     </Text>
   </View>
 ) : (
   <View style={styles.chipsG}>
     <Text style={styles.chipsTG}>
-      Nombre y Apellido?
+      Telefono?
     </Text>
   </View>
 )}
-         {cin ? (
+         {correo ? (
   <View style={styles.chips}>
     <Text style={styles.chipsT}>
-      {cin}
+      {correo}
     </Text>
   </View>
 ) : (
   <View style={styles.chipsG}>
     <Text style={styles.chipsTG}>
-      CIN?
+      Correo?
     </Text>
   </View>
 )}
-  {fnac ? (
+  {direcc ? (
   <View style={styles.chips}>
     <Text style={styles.chipsT}>
-      {fnac}
+      {direcc}
     </Text>
   </View>
 ) : (
   <View style={styles.chipsG}>
     <Text style={styles.chipsTG}>
-      Fecha de Nacimiento?
+      Direccion?
     </Text>
   </View>
 )}
-  {nacio ? (
-  <View style={styles.chips}>
-    <Text style={styles.chipsT}>
-      {nacio}
-    </Text>
-  </View>
-) : (
-  <View style={styles.chipsG}>
-    <Text style={styles.chipsTG}>
-      Nacionalidad?
-    </Text>
-  </View>
-)}
-  {profesion ? (
-  <View style={styles.chips}>
-    <Text style={styles.chipsT}>
-      {profesion}
-    </Text>
-  </View>
-) : (
-  <View style={styles.chipsG}>
-    <Text style={styles.chipsTG}>
-      Profesión?
-    </Text>
-  </View>
-)}
-             {registro ? (
-  <View style={styles.chips}>
-    <Text style={styles.chipsT}>
-      {registro}
-    </Text>
-  </View>
-) : (
-  <View style={styles.chipsG}>
-    <Text style={styles.chipsTG}>
-      Registro Profesional?
-    </Text>
-  </View>
-)}
+  
         
 </View>
       }
@@ -214,4 +149,4 @@ color: "black"
     }, 
 
   })
-export default FormDatos;
+export default FormContactos;

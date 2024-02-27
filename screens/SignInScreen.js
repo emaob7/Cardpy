@@ -1,4 +1,4 @@
-import { Button, SafeAreaView, Text, TouchableOpacity } from "react-native";
+import { Button, Text, TouchableOpacity } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { AntDesign } from "@expo/vector-icons";
 
