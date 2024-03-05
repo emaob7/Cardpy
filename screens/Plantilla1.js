@@ -697,7 +697,7 @@ await shareAsync(file.uri);
 return(
     <>
     <TouchableOpacity style={styles.comp} onPress={generatePdf3}>
-<EvilIcons name="share-apple" size={30} color="#0D7AFF" />
+<EvilIcons name="share-apple" size={35} color="#0D7AFF" />
 </TouchableOpacity>
     </>
 )

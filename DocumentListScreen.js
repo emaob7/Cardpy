@@ -273,7 +273,7 @@ const documentosFiltrados = documents.filter(item => item.foto1);
         Cardpy
       </Text>
       */}
-      <Text style={styles.super}>Cedulas PDF</Text>
+      <Ionicons name="card-outline" size={32} /><Text style={styles.super}>Cedulas</Text>
       <TouchableOpacity onPress={() => navigation.navigate('CameraScreen', {uid})} >
         <Ionicons name="add-circle-sharp" size={28} color="#0D7AFF" />
        
@@ -315,6 +315,7 @@ style={styles.flatlist}
     keyExtractor={(item, index) => index.toString()}
     renderItem={({ item }) => (
       <View style={styles.document}>
+       <Ionicons name="card-outline" color="#546e7a" size={28} style={{  marginTop:8, marginLeft:17, marginRight:-7 }}/>
         <TouchableOpacity style={styles.textContent}   onPress={() => handleDocumentPress(item)}>
            
            <Text style={styles.textN}>{item.nombre}</Text>
@@ -362,8 +363,10 @@ style={styles.flatlist}
         renderItem={({ item }) => (
 
           <View style={styles.document}>
-            <TouchableOpacity style={styles.textContent}   onPress={() => handleDocumentPress(item)}>
+            <Ionicons name="card-outline" color="#546e7a" size={28} style={{  marginTop:8, marginLeft:17, marginRight:-7 }}/>
            
+            <TouchableOpacity style={styles.textContent}   onPress={() => handleDocumentPress(item)}>
+            
             <Text style={styles.textN}>{item.nombre}</Text>
             <Text style={styles.textC}>CIN: {item.cin}</Text>
             
@@ -402,7 +405,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: "#eceff1",
+    backgroundColor: "white",
   },
   flatlist:{
 marginTop:10,
@@ -465,7 +468,7 @@ marginTop:10,
   textC: {
     paddingVertical: 3,
     width: '56%',
-    color:"black",
+    color:"#78909c",
     //9B9CA0
     fontSize:13,
    // paddingLeft:10
@@ -501,7 +504,7 @@ marginTop:10,
   inputContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '#eeeeee',
+    backgroundColor: '#eceff1',
     borderRadius: 70,
     paddingHorizontal: 10,
     marginVertical: 20,
@@ -523,6 +526,7 @@ marginTop:10,
    // marginStart:-200,
    // marginTop:18,
     fontWeight: 'bold',
+    marginLeft:-190
   },
   load:{
     marginTop:25

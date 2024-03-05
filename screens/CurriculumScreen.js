@@ -17,6 +17,8 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import Plantilla1 from './Plantilla1';
 import FormDatos from './FormDatos';
 import FormContactos from './FormContactos';
+import { Ionicons } from '@expo/vector-icons';
+import Plantilla2 from './Plantilla2';
 
 
 const CurriculumScreen = (props) => {
@@ -567,13 +569,20 @@ console.log(`El tamaño del objeto JSON es aproximadamente ${megabytes} MB.`);
 
 
     {swi==="" ? (
+
       <>
-      <Text style={styles.super}>Curriculum</Text>
+      <View
+      style={{
+        flexDirection: 'row',
+      }}
+    >
+      <Ionicons name="document-text-outline" size={24} style={{  marginTop:23, marginLeft:17, marginRight:-7 }}/><Text style={styles.super}>Curriculum</Text>
+      </View>
       <View style={styles.chipsCont}>
-      
 <TouchableOpacity style={styles.guardar} onPress={savePictures}>
 <Text style={styles.chipsT}>Guardar cambios</Text>
 </TouchableOpacity>
+<Plantilla2/>
 <Plantilla1 
 setProgress={setProgress}
 curso={curso}
@@ -812,7 +821,7 @@ container: {
     super: {
         fontSize: 30,
         alignContent:"flex-start",
-        marginStart:20,
+        marginLeft:12,
         marginTop:18,
         fontWeight: 'bold',
       },
