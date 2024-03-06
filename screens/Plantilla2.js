@@ -5,7 +5,7 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 
 
-const Plantilla2 = ({}) => {
+const Plantilla2 = ({swi, setSwi, des}) => {
 
     
     
@@ -15,7 +15,7 @@ const Plantilla2 = ({}) => {
 
 return(
     <>
-    <TouchableOpacity style={styles.comp} onPress={""}>
+    <TouchableOpacity style={styles.comp} onPress={() => setSwi(12)}>
     <MaterialCommunityIcons name="palette-outline" size={30} color="#0D7AFF"/>
 </TouchableOpacity>
     </>

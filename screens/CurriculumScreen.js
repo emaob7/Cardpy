@@ -19,6 +19,7 @@ import FormDatos from './FormDatos';
 import FormContactos from './FormContactos';
 import { Ionicons } from '@expo/vector-icons';
 import Plantilla2 from './Plantilla2';
+import ScreenDesign from './ScreenDesign';
 
 
 const CurriculumScreen = (props) => {
@@ -27,6 +28,7 @@ const CurriculumScreen = (props) => {
     
     const [descripcion, setDescripcion] = useState('');
     const [swi, setSwi] = useState('');
+    const [des, setDes] = useState('');
     const [nombre, setNombre] = useState('');
     const [apellido, setApellido] = useState('');
     const [profesion, setProfesion] = useState('');
@@ -563,6 +565,25 @@ console.log(`El tamaño del objeto JSON es aproximadamente ${megabytes} MB.`);
     ):(null)}
 
 
+{swi=== 12 ? (
+      <View style={styles.containerE}>
+      <View style={styles.separacion}>
+  <Text style={styles.subtitulo}>Elige un Diseño</Text>
+  <TouchableOpacity style={styles.botonE} onPress={() => setSwi("")}>
+<Text style={styles.textE}>Listo</Text>
+</TouchableOpacity>
+  </View>
+  <ScreenDesign
+  des={des}
+  setDes={setDes}
+  setSwi={setSwi}
+  />
+      </View>
+    
+
+    ):(null)}
+
+
 
 </ScrollView>
 
@@ -582,7 +603,11 @@ console.log(`El tamaño del objeto JSON es aproximadamente ${megabytes} MB.`);
 <TouchableOpacity style={styles.guardar} onPress={savePictures}>
 <Text style={styles.chipsT}>Guardar cambios</Text>
 </TouchableOpacity>
-<Plantilla2/>
+<Plantilla2
+swi={swi}
+setSwi={setSwi}
+des={des}
+/>
 <Plantilla1 
 setProgress={setProgress}
 curso={curso}
