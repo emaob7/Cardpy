@@ -91,7 +91,7 @@ export default function App() {
       navigation.navigate('Perfil', { uid });
 
     };
-
+ 
     return (
       <TouchableOpacity onPress={handlePerfil} style={styles.perfil}>
         <Text>{'\u{1F335}'}</Text>

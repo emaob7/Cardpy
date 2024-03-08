@@ -28,7 +28,7 @@ const CurriculumScreen = (props) => {
     
     const [descripcion, setDescripcion] = useState('');
     const [swi, setSwi] = useState('');
-    const [des, setDes] = useState('');
+    const [des, setDes] = useState(1);
     const [nombre, setNombre] = useState('');
     const [apellido, setApellido] = useState('');
     const [profesion, setProfesion] = useState('');
@@ -592,23 +592,30 @@ console.log(`El tamaño del objeto JSON es aproximadamente ${megabytes} MB.`);
     {swi==="" ? (
 
       <>
-      <View
+     <View
       style={{
         flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        padding: 16,
+        paddingTop:5,
+        paddingBottom:10,
+        backgroundColor: 'white',
+        width: '100%', // O ajusta el ancho según tus necesidades
       }}
     >
-      <Ionicons name="document-text-outline" size={24} style={{  marginTop:23, marginLeft:17, marginRight:-7 }}/><Text style={styles.super}>Curriculum</Text>
-      </View>
-      <View style={styles.chipsCont}>
-<TouchableOpacity style={styles.guardar} onPress={savePictures}>
-<Text style={styles.chipsT}>Guardar cambios</Text>
+     
+      <Text style={styles.super}>Curriculum</Text>
+      <TouchableOpacity onPress={savePictures}  style={{
+        marginBottom:-10,
+      }}>
+      <Ionicons name="save-outline" size={24} color="#0D7AFF" />
 </TouchableOpacity>
-<Plantilla2
-swi={swi}
+      <Plantilla2
 setSwi={setSwi}
-des={des}
 />
 <Plantilla1 
+des={des}
 setProgress={setProgress}
 curso={curso}
 educacion={educacion}
@@ -629,10 +636,9 @@ nacio={nacio}
 telef={telef}
 correo={correo}
 direcc={direcc}
-
-
-
  />
+    </View>
+      <View style={styles.chipsCont}>
 
 </View>
 
@@ -846,8 +852,8 @@ container: {
     super: {
         fontSize: 30,
         alignContent:"flex-start",
-        marginLeft:12,
-        marginTop:18,
+        marginLeft:0,
+        marginTop:10,
         fontWeight: 'bold',
       },
       subtitulo: {
@@ -924,30 +930,7 @@ container: {
       load:{
         margin:20
       },
-      guardar:{
-        margin:16,
-        backgroundColor: "#0D7AFF",
-        padding: 12,
-        width:145,
-        justifyContent: 'center',
-        alignContent: 'center',
-        borderRadius:50
-      },
-      chipsT:{
 
-        color: "white",
-        fontSize:15
-        
-              },
-              chipsCont:{
-
-                flexDirection: 'row', 
-                flexWrap: 'wrap',
-                backgroundColor: "white",
-                borderBottomWidth: 1,
-                borderColor: '#ccc',
-                
-                      },
       comp:{
                         margin:16,
                         backgroundColor: "white",

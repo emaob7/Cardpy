@@ -7,7 +7,7 @@ import { shareAsync } from 'expo-sharing';
 
 
 
-const Plantilla1 = ({setProgress, curso, educacion, especifica, general, idioma, herra, referencia, photo, nombre, apellido, profesion, cin, registro, fnac, nacio, telef, correo, direcc, descripcion }) => {
+const Plantilla1 = ({setProgress, curso, educacion, especifica, general, idioma, herra, referencia, photo, nombre, apellido, profesion, cin, registro, fnac, nacio, telef, correo, direcc, descripcion, des }) => {
 
    
   
@@ -696,9 +696,23 @@ await shareAsync(file.uri);
 
 return(
     <>
-    <TouchableOpacity style={styles.comp} onPress={generatePdf3}>
-<EvilIcons name="share-apple" size={35} color="#0D7AFF" />
-</TouchableOpacity>
+    {des=== 1 ? (
+      <TouchableOpacity style={styles.comp} onPress={generatePdf}>
+      <EvilIcons name="share-apple" size={35} color="#0D7AFF" />
+      </TouchableOpacity>
+    ):(null)}
+    {des=== 2 ? (
+      <TouchableOpacity style={styles.comp} onPress={generatePdf2}>
+      <EvilIcons name="share-apple" size={35} color="#0D7AFF" />
+      </TouchableOpacity>
+    ):(null)}
+    {des=== 3 ? (
+      <TouchableOpacity style={styles.comp} onPress={generatePdf3}>
+      <EvilIcons name="share-apple" size={35} color="#0D7AFF" />
+      </TouchableOpacity>
+    ):(null)}
+
+    
     </>
 )
     
@@ -707,7 +721,7 @@ return(
 const styles = StyleSheet.create({
 
     comp:{
-        margin:16,
+      marginBottom:-10,
         backgroundColor: "white",
         justifyContent: 'center',
         alignContent: 'center',

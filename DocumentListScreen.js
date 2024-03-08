@@ -259,7 +259,7 @@ const documentosFiltrados = documents.filter(item => item.foto1);
         padding: 16,
         paddingTop:65,
         paddingBottom:10,
-        backgroundColor: 'white',
+        backgroundColor: '#F3F3F6',
         width: '100%', // O ajusta el ancho según tus necesidades
       }}
     >
@@ -273,7 +273,7 @@ const documentosFiltrados = documents.filter(item => item.foto1);
         Cardpy
       </Text>
       */}
-      <Ionicons name="card-outline" size={32} /><Text style={styles.super}>Cedulas</Text>
+      <Text style={styles.super}>Cedulas</Text>
       <TouchableOpacity onPress={() => navigation.navigate('CameraScreen', {uid})} >
         <Ionicons name="add-circle-sharp" size={28} color="#0D7AFF" />
        
@@ -284,7 +284,7 @@ const documentosFiltrados = documents.filter(item => item.foto1);
        
 <View style={{
          width: '100%',
-        backgroundColor: 'white',
+        backgroundColor: '#F3F3F6',
       }}>
 <View style={styles.inputContainer}>
 <Ionicons name="ios-search" size={20} color="gray" style={styles.searchIcon} />
@@ -405,7 +405,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: "white",
+    backgroundColor: "#F3F3F6",
   },
   flatlist:{
 marginTop:10,
@@ -422,8 +422,8 @@ marginTop:10,
     marginVertical: 5,
     marginLeft: 9,
     borderRadius: 10,
-    borderColor: "#cfd8dc",
-    borderWidth:1,
+   // borderColor: "#cfd8dc",
+   // borderWidth:1,
     justifyContent: 'space-evenly',
     backgroundColor: "white",
     //#D3E3FD #F2F6FC
@@ -504,7 +504,7 @@ marginTop:10,
   inputContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '#eceff1',
+    backgroundColor: '#E4E4E7',
     borderRadius: 70,
     paddingHorizontal: 10,
     marginVertical: 20,
@@ -526,7 +526,7 @@ marginTop:10,
    // marginStart:-200,
    // marginTop:18,
     fontWeight: 'bold',
-    marginLeft:-190
+    marginLeft:0
   },
   load:{
     marginTop:25
