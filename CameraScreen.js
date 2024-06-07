@@ -1,15 +1,17 @@
-import React, { useState, useContext} from 'react';
+import React, { useState, useContext, useEffect} from 'react';
 import { EstadoContext } from './EstadoContext';
 import { StyleSheet,View, Image, TouchableOpacity, Text, TextInput, ActivityIndicator} from 'react-native';
-import { Camera } from 'expo-camera';
+import { CameraView, useCameraPermissions } from 'expo-camera';
 import * as ImageManipulator from 'expo-image-manipulator';
 import firebase from "./firebase";
+import "react-native-get-random-values";
 import {v4 as uuidv4} from "uuid";
 import { printToFileAsync } from 'expo-print';
 import { shareAsync } from 'expo-sharing';
 import { EvilIcons } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Ionicons } from '@expo/vector-icons';
+
 
 
  
@@ -25,14 +27,41 @@ export default function CameraScreen({ route, navigation }) {
   const [cin, setCin] = useState("");
   const [progress, setProgress] = useState(null);
   const { setRefre } = useContext(EstadoContext);
-  const [permission, requestPermission] = Camera.useCameraPermissions();
+  const [facing, setFacing] = useState('back');
+  const [permission, requestPermission] = useCameraPermissions();
   
  //  const [photos, setPhotos] = useState([]);
 
-  const { uid } = route.params;
-  //console.log(uid)
 
- 
+  const { uid } = route.params;
+ // console.log(uid)
+/*
+  useEffect(() => {
+    (async () => {
+      const { status } = await Camera.requestCameraPermissionsAsync();
+      if (status !== 'granted') {
+        alert('Permission to access camera is required!');
+      }
+    })();
+  }, []);
+
+  */
+
+  if (!permission) {
+    // Camera permissions are still loading.
+    return <View />;
+  }
+
+  if (!permission.granted) {
+    // Camera permissions are not granted yet.
+    return (
+      <View style={styles.container}>
+        <Text style={{ textAlign: 'center' }}>We need your permission to show the camera</Text>
+        <Button onPress={requestPermission} title="Grant Permission" />
+      </View>
+    );
+  }
+
   const handleBackButton = () => {
     // Lógica para volver a la pantalla anterior
     navigation.goBack()
@@ -43,45 +72,51 @@ export default function CameraScreen({ route, navigation }) {
   const html = `
   <html>
   <head>
-<title>Dos licencias de conducir</title>
-<style>
-.image-container {
-  display: flex;
-  justify-content: space-between;
-}
-
-.image-wrapper {
-  position: relative;
-  width: 100%;
-  left: 10%;
-}
-  .imagen {
-    border-radius: 10px;
-    max-width: 50px;
-    transform: rotate(-90deg);
-  }
-
-  .image-wrapper img {
-    max-width: 52%;
-    max-height: 52%;
-    border-radius: 10px;
-    object-fit: cover;
-  }
-
-</style>
-</head>
-    <body>
-      <p style="color: red;">Hello. Bonjour. Hola.</p>
-      <div class="image-container">
-      <div class="image-wrapper">
-        <img class="imagen" src=${fotoUrl1}>
+    <style>
+      .container {
+        text-align: center;
+        padding: 20px;
+      }
+  
+      .title {
+        font-size: 18px;
+        margin-bottom: 20px;
+      }
+  
+      .image-container {
+        display: flex;
+        justify-content: center;
+        gap: 130px; /* Añade espacio entre las imágenes */
+        padding: 10px 50px 20px;
+        margin-top: -50px;
+      }
+    
+      .image-wrapper {
+        width: auto;
+      }
+    
+      .imagen {
+        border-radius: 10px;
+        width: 200px; /* Ajusta el tamaño aquí según sea necesario */
+        transform: rotate(-90deg);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="title">
+        Fotocopia de cédula de ${nombre}, con número de cédula ${cin}
       </div>
-      <div class="image-wrapper">
-        <img class="imagen" src=${fotoUrl2}>
-        
+      <div class="image-container">
+        <div class="image-wrapper">
+          <img class="imagen" src="${fotoUrl1}" alt="Licencia 1">
+        </div>
+        <div class="image-wrapper">
+          <img class="imagen" src="${fotoUrl2}" alt="Licencia 2">
+        </div>
       </div>
     </div>
-    </body>
+  </body>
   </html>
 `;
 
@@ -120,6 +155,7 @@ console.log(picture1)
 const takePicture = async () => {
   if (cameraRef) {
     const photo = await cameraRef.takePictureAsync({
+      skipProcessing: true,
       quality: 0.10,
       width: 371,
       height: 595
@@ -249,10 +285,7 @@ return (
         )}
         </View>
 
-     <Camera
-      style={styles.camera}
-      type={Camera.Constants.Type.back}
-      ref={ref => setCameraRef(ref)}>
+        <CameraView style={styles.camera} facing={facing} ref={ref => setCameraRef(ref)}>
         
         <View style={styles.rectangleN} />
         {!picture1 ? (
@@ -261,7 +294,7 @@ return (
         <View style={styles.square2} />
         )}
         <View style={styles.rectangle} />
-      </Camera>
+      </CameraView>
      
 
       <View style={styles.buttonsContainer}>
@@ -275,7 +308,9 @@ return (
         </View>
       <TouchableOpacity onPress={takePicture} style={styles.circleButton}>
           <View style={styles.circle} >
-          <Ionicons name="ios-camera-outline" size={40} color="white" style={styles.cam}/>
+         
+          <Ionicons name="camera-outline" size={40} color="white" />
+
           </View>
         </TouchableOpacity>
      
@@ -289,17 +324,19 @@ return (
  
 ) : (
   <>
-{progress ? (
 
-       <ActivityIndicator size="small" color="#007AFF" style={styles.load} />
-      ) : null}
 
 <View style={styles.volver1}> 
       <TouchableOpacity 
     onPress={handleBackButton}  >
         <Ionicons name="chevron-back-circle-outline" size={30} color="black" />
-      </TouchableOpacity></View>
+      </TouchableOpacity>
+      </View>
 
+      {progress ? (
+
+<ActivityIndicator size="small" color="#007AFF" style={styles.load} />
+) : null}
   <View style={styles.lineCont}>
 
     <View style={styles.inputContainer}>
@@ -335,11 +372,19 @@ return (
    <View style={styles.previewContainer}>
 
    
-   
+   <View style={styles.previewContainer}>
+      <Text style={styles.title}>
+          Fotocopia de cédula de {nombre}, con número de cédula {cin}
+        </Text>
+        <View style={styles.imagesContainer}>
+        {picture1 && <Image source={{ uri: picture1 }} style={styles.preview} />}
+        {picture2 && <Image source={{ uri: picture2 }} style={styles.preview} />}
+        </View>
+    </View>
    
     <>
-    {picture1 && <Image source={{ uri: picture1 }} style={styles.preview} />}
-      {picture2 && <Image source={{ uri: picture2 }} style={styles.preview} />}
+   
+      
     </>
     
      
@@ -436,6 +481,18 @@ const styles = StyleSheet.create({
     width: '90%',
     
   },
+  title: {
+    fontSize: 10,
+    marginTop:10,
+    textAlign: 'center',
+    padding:12
+  },
+  imagesContainer: {
+    flexDirection: 'row',
+    marginTop:-15
+   // justifyContent: 'space-between',
+    //alignItems: 'center',
+  },
   inputContainer: {
     flexDirection: 'column',
     justifyContent: 'space-evenly',
@@ -466,20 +523,21 @@ const styles = StyleSheet.create({
     fontSize: 17,
   },
   previewContainer: {
-    flexDirection: 'row',
+    flexDirection: 'column',
     backgroundColor: '#fff',
-   // justifyContent: 'center',
-    justifyContent: 'space-evenly',
-    width: 351, //90
-    height: 550, //70
+   //justifyContent: 'center',
+   alignItems: 'center',
+    width: '90%',
+    height: '60%',
     borderRadius: 3,
-    padding:0
+    padding:0,
+    marginTop:0
 
   },
   preview: {
-    width: '25%',//24
-    height: '25%',
-    marginTop: 5,
+    width: 100,
+    height: 150,
+    marginHorizontal: 30,
     borderRadius: 5,
     transform: [{ rotate: '-90deg' }]
     
@@ -603,7 +661,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#e0e0e0",
     padding: 5,
     marginTop:2,
-    marginRight:10,
+    marginRight:0,
     borderRadius:20,
     height:30
   },

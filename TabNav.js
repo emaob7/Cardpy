@@ -4,6 +4,7 @@ import CurriculumScreen from './screens/CurriculumScreen';
 import {Text, StyleSheet} from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Perfil from './Perfil';
+import { Ionicons } from '@expo/vector-icons';
 
 
 
@@ -40,17 +41,18 @@ export default function TabNav(props) {
   return (
     <>
       <Tab.Navigator>
-      <Tab.Screen name="Cedulas" options={{ headerShown: false, tabBarIcon: ({ color, size }) => (
-            <Text style={styles.perfil}>{'🪪'}</Text>), }}> 
+      <Tab.Screen name="Cedulas" options={{ headerShown: false,  tabBarIcon: ({ color, size }) => (
+              <Ionicons name="card-outline" size={24} color={color} />
+            ),  }}> 
           {() => <Cedulas uid={uid} />}
         </Tab.Screen>
         <Tab.Screen name="Curriculum" options={{ headerShown: false, tabBarIcon: ({ color, size }) => (
-            <Text style={styles.perfil}>{'📋'}</Text>
+            <Ionicons name="document-text-outline" size={24} color={color} />
           ),}}>
         {() => <Curriculum uid={uid} />}
           </Tab.Screen>
           <Tab.Screen name="Cuenta" options={{ headerShown: false, tabBarIcon: ({ color, size }) => (
-            <Text style={styles.perfil}>{'🎛️'}</Text>
+            <Ionicons name="settings-outline" size={24} color={color} />
             
           ),}}>
         {() => <Cuenta uid={uid} />}

@@ -15,52 +15,55 @@ const DocumentDetailsScreen = ({ route }) => {
   //desde aqui
 
   const html = `
-    <html>
-    <head>
-	<style>
-  .image-container {
-    display: flex;
-    justify-content: space-between;
-    padding: 10px 50px 20px;
-  }
+  <html>
+  <head>
+    <style>
+      .container {
+        text-align: center;
+        padding: 20px;
+      }
   
-  .image-wrapper {
-    position: relative;
-    width: 100%;
-    left: 10%;
+      .title {
+        font-size: 18px;
+        margin-bottom: 20px;
+      }
+  
+      .image-container {
+        display: flex;
+        justify-content: center;
+        gap: 130px; /* Añade espacio entre las imágenes */
+        padding: 10px 50px 20px;
+        margin-top: -50px;
+      }
     
-  }
-		.imagen {
-			border-radius: 10px;
-			max-width: 50px;
-      transform: rotate(-90deg);
-      
-		}
-   
-    .image-wrapper img {
-      max-width: 52%;
-      max-height: 52%;
-      border-radius: 10px;
-      object-fit: cover;
-    }
-
-	</style>
-</head>
-      <body>
-        
-        
-        <div class="image-container">
+      .image-wrapper {
+        width: auto;
+      }
+    
+      .imagen {
+        border-radius: 10px;
+        width: 200px; /* Ajusta el tamaño aquí según sea necesario */
+        transform: rotate(-90deg);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="title">
+        Fotocopia de cédula de ${documents.nombre}, con número de cédula ${documents.cin}
+      </div>
+      <div class="image-container">
         <div class="image-wrapper">
-          <img class="imagen" src=${documents.foto1} alt="Licencia 1">
-          
+          <img class="imagen" src="${documents.foto1}" alt="Licencia 1">
         </div>
         <div class="image-wrapper">
-          <img class="imagen" src=${documents.foto2} alt="Licencia 2">
-          
+          <img class="imagen" src="${documents.foto2}" alt="Licencia 2">
         </div>
       </div>
-      </body>
-    </html>
+    </div>
+  </body>
+  </html>
+  
   `;
 
   let generatePdf = async () => {
@@ -80,9 +83,15 @@ const DocumentDetailsScreen = ({ route }) => {
 
 <ActivityIndicator size="small" color="#007AFF" style={styles.load} />
 ) : null}
+ 
       <View style={styles.previewContainer}>
-      <Image source={{ uri: documents.foto1 }} style={styles.preview} />
-      <Image source={{ uri: documents.foto2 }} style={styles.preview} />
+      <Text style={styles.title}>
+          Fotocopia de cédula de {documents.nombre}, con número de cédula {documents.cin}
+        </Text>
+        <View style={styles.imagesContainer}>
+          <Image source={{ uri: documents.foto1 }} style={styles.preview} />
+          <Image source={{ uri: documents.foto2 }} style={styles.preview} />
+        </View>
     </View>
 
     <View style={styles.buttonsContainer}>
@@ -103,28 +112,42 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
    // backgroundColor: "#F6F6F6"
   },
+  title: {
+    fontSize: 11,
+    marginTop:10,
+    textAlign: 'center',
+    padding:12
+  },
+  imagesContainer: {
+    flexDirection: 'row',
+    marginTop:-15
+   // justifyContent: 'space-between',
+    //alignItems: 'center',
+  },
+
   textInput: {
     alignSelf: "stretch",
     padding: 8,
     margin: 8
   },
   preview: {
-    width: '24%',
-    height: '24%',
-    marginTop: 5,
+    width: 100,
+    height: 150,
+    marginHorizontal: 30,
     borderRadius: 5,
     transform: [{ rotate: '-90deg' }]
     
   },
   previewContainer: {
-    flexDirection: 'row',
+    flexDirection: 'column',
     backgroundColor: '#fff',
-    justifyContent: 'space-evenly',
+   //justifyContent: 'center',
+   alignItems: 'center',
     width: '90%',
     height: '70%',
     borderRadius: 3,
     padding:0,
-    marginTop:5
+    marginTop:0
 
   },
   buttonsContainer: {

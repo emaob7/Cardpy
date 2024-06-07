@@ -13,7 +13,7 @@ import { shareAsync } from 'expo-sharing';
 
 
 
-
+//npx expo install expo@next --fix
 
 
 
@@ -40,49 +40,51 @@ const DocumentListScreen = (props) => {
   const html = `
   <html>
   <head>
-<style>
-.image-container {
-  display: flex;
-  justify-content: space-between;
-  padding: 10px 50px 20px;
-}
-
-.image-wrapper {
-  position: relative;
-  width: 100%;
-  left: 10%;
+    <style>
+      .container {
+        text-align: center;
+        padding: 20px;
+      }
   
-}
-  .imagen {
-    border-radius: 10px;
-    max-width: 50px;
-    transform: rotate(-90deg);
+      .title {
+        font-size: 18px;
+        margin-bottom: 20px;
+      }
+  
+      .image-container {
+        display: flex;
+        justify-content: center;
+        gap: 130px; /* Añade espacio entre las imágenes */
+        padding: 10px 50px 20px;
+        margin-top: -50px;
+      }
     
-  }
- 
-  .image-wrapper img {
-    max-width: 52%;
-    max-height: 52%;
-    border-radius: 10px;
-    object-fit: cover;
-  }
-
-</style>
-</head>
-    <body>
-      
-      
-      <div class="image-container">
-      <div class="image-wrapper">
-        <img class="imagen" src=${item.foto1} alt="Licencia 1">
-        
+      .image-wrapper {
+        width: auto;
+      }
+    
+      .imagen {
+        border-radius: 10px;
+        width: 200px; /* Ajusta el tamaño aquí según sea necesario */
+        transform: rotate(-90deg);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="title">
+        Fotocopia de cédula de ${item.nombre}, con número de cédula ${item.cin}
       </div>
-      <div class="image-wrapper">
-        <img class="imagen" src=${item.foto2} alt="Licencia 2">
-        
+      <div class="image-container">
+        <div class="image-wrapper">
+          <img class="imagen" src="${item.foto1}" alt="Licencia 1">
+        </div>
+        <div class="image-wrapper">
+          <img class="imagen" src="${item.foto2}" alt="Licencia 2">
+        </div>
       </div>
     </div>
-    </body>
+  </body>
   </html>
 `;
     const file = await printToFileAsync({
@@ -274,20 +276,21 @@ const documentosFiltrados = documents.filter(item => item.foto1);
       </Text>
       */}
       <Text style={styles.super}>Cedulas</Text>
+     
       <TouchableOpacity onPress={() => navigation.navigate('CameraScreen', {uid})} >
         <Ionicons name="add-circle-sharp" size={28} color="#0D7AFF" />
        
       </TouchableOpacity>
     </View>
-
-    
+   
+ 
        
 <View style={{
          width: '100%',
         backgroundColor: '#F3F3F6',
       }}>
 <View style={styles.inputContainer}>
-<Ionicons name="ios-search" size={20} color="gray" style={styles.searchIcon} />
+<Ionicons name="search" size={20} color="gray" style={styles.searchIcon} />
   <TextInput
     style={styles.input}
     value={searchTerm}
@@ -349,7 +352,7 @@ style={styles.flatlist}
                   onPress={() => onRefresh()}
                   style={styles.actualizar}
                 >
-                  <Ionicons name="ios-arrow-up-outline" size={18} color="white"/>
+                  <Ionicons name="arrow-up-outline" size={18} color="white"/>
                       <Text  style={styles.textAc}>Actualizar</Text>
                 </TouchableOpacity> ) : null}
      
@@ -363,7 +366,7 @@ style={styles.flatlist}
         renderItem={({ item }) => (
 
           <View style={styles.document}>
-            <Ionicons name="card-outline" color="#546e7a" size={28} style={{  marginTop:8, marginLeft:17, marginRight:-7 }}/>
+            <Ionicons name="card-outline" color="black" size={38} style={{  marginTop:5, marginLeft:17, marginRight:-7 }}/>
            
             <TouchableOpacity style={styles.textContent}   onPress={() => handleDocumentPress(item)}>
             

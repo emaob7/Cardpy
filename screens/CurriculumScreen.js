@@ -650,7 +650,7 @@ direcc={direcc}
 <ScrollView>
 
  <View style={styles.divider}>
- <Text style={styles.subtitulo}>Foto</Text>
+ <Text style={styles.subtitulo}>1. Foto</Text>
  {photo ? (
   <>
    <View style={styles.nuevo}>
@@ -671,7 +671,7 @@ direcc={direcc}
   )}
  </View>
  <View style={styles.divider}>
- <Text style={styles.subtitulo}>Perfil</Text>
+ <Text style={styles.subtitulo}>2. Perfil</Text>
  <TextInput
         multiline
         numberOfLines={3}
@@ -689,7 +689,7 @@ direcc={direcc}
  </View>
  <View style={styles.divider}>
  <View style={styles.separacion}>
-  <Text style={styles.subtitulo}>Datos Personales</Text>
+  <Text style={styles.subtitulo}>3. Datos Personales</Text>
 <TouchableOpacity style={styles.botonE} onPress={() => setSwi(3)}>
 <Text style={styles.textE}>Editar</Text>
 </TouchableOpacity>
@@ -710,7 +710,7 @@ direcc={direcc}
  </View>
  <View style={styles.divider}>
  <View style={styles.separacion}>
- <Text style={styles.subtitulo}>Contactame</Text>
+ <Text style={styles.subtitulo}>4. Contactame</Text>
  <TouchableOpacity style={styles.botonE} onPress={() => setSwi(4)}>
 <Text style={styles.textE}>Editar</Text>
 </TouchableOpacity>
@@ -725,7 +725,7 @@ direcc={direcc}
 
  <View style={styles.divider}>
  <View style={styles.separacion}>
-  <Text style={styles.subtitulo}>Experiencias Relacionadas</Text>
+  <Text style={styles.subtitulo}>5. Experiencias Relacionadas</Text>
 <TouchableOpacity style={styles.botonE} onPress={() => setSwi(5)}>
 <Text style={styles.textE}>Editar</Text>
 </TouchableOpacity>
@@ -737,7 +737,7 @@ direcc={direcc}
 
   <View style={styles.divider}>
   <View style={styles.separacion}>
-  <Text style={styles.subtitulo}>Experiencias Generales</Text>
+  <Text style={styles.subtitulo}>6. Experiencias Generales</Text>
 <TouchableOpacity style={styles.botonE} onPress={() => setSwi(6)}>
 <Text style={styles.textE}>Editar</Text>
 </TouchableOpacity>
@@ -749,7 +749,7 @@ direcc={direcc}
 
   <View style={styles.divider}>
   <View style={styles.separacion}>
-  <Text style={styles.subtitulo}>Educacion</Text>
+  <Text style={styles.subtitulo}>7. Educacion</Text>
 
 <TouchableOpacity style={styles.botonE} onPress={() => setSwi(7)}>
 <Text style={styles.textE}>Editar</Text>
@@ -762,7 +762,7 @@ direcc={direcc}
 
   <View style={styles.divider}>
   <View style={styles.separacion}>
-  <Text style={styles.subtitulo}>Cursos Realizados</Text>
+  <Text style={styles.subtitulo}>8. Cursos Realizados</Text>
 
 <TouchableOpacity style={styles.botonE} onPress={() => setSwi(8)}>
 <Text style={styles.textE}>Editar</Text>
@@ -775,7 +775,7 @@ direcc={direcc}
 
   <View style={styles.divider}>
   <View style={styles.separacion}>
-  <Text style={styles.subtitulo}>Idiomas</Text>
+  <Text style={styles.subtitulo}>9. Idiomas</Text>
 
 <TouchableOpacity style={styles.botonE} onPress={() => setSwi(9)}>
 <Text style={styles.textE}>Editar</Text>
@@ -788,7 +788,7 @@ direcc={direcc}
 
   <View style={styles.divider}>
   <View style={styles.separacion}>
-  <Text style={styles.subtitulo}>Herramientas y Habilidades</Text>
+  <Text style={styles.subtitulo}>10. Herramientas y Habilidades</Text>
 
 <TouchableOpacity style={styles.botonE} onPress={() => setSwi(10)}>
 <Text style={styles.textE}>Editar</Text>
@@ -801,7 +801,7 @@ direcc={direcc}
 
   <View style={styles.divider}>
   <View style={styles.separacion}>
-  <Text style={styles.subtitulo}>Referencias</Text>
+  <Text style={styles.subtitulo}>11. Referencias</Text>
   
 <TouchableOpacity style={styles.botonE} onPress={() => setSwi(11)}>
 <Text style={styles.textE}>Editar</Text>
@@ -868,7 +868,7 @@ container: {
     borderBottomWidth: 1,
     borderColor: '#ccc',
     marginLeft:22,
-    paddingBottom:17
+    paddingBottom:37
     ,width: "92%",
     
       }, 
