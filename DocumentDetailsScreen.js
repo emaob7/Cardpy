@@ -14,6 +14,10 @@ const DocumentDetailsScreen = ({ route }) => {
   const [progress, setProgress] = useState(null);
   //desde aqui
 
+
+  const dcin= documents.cin.length > 0 ? `<span>, con CIN: ${documents.cin}</span>` : '';
+  const dnombre= documents.nombre.length > 0 ? `<span>Fotocopia de cédula de ${documents.nombre}</span>` : '';
+
   const html = `
   <html>
   <head>
@@ -50,7 +54,9 @@ const DocumentDetailsScreen = ({ route }) => {
   <body>
     <div class="container">
       <div class="title">
-        Fotocopia de cédula de ${documents.nombre}, con número de cédula ${documents.cin}
+      <p>
+        ${dnombre} ${dcin}
+        </p>
       </div>
       <div class="image-container">
         <div class="image-wrapper">
@@ -85,9 +91,11 @@ const DocumentDetailsScreen = ({ route }) => {
 ) : null}
  
       <View style={styles.previewContainer}>
+      {documents.nombre ? (
       <Text style={styles.title}>
-          Fotocopia de cédula de {documents.nombre}, con número de cédula {documents.cin}
+          Fotocopia de cédula de {documents.nombre}, con CIN {documents.cin}
         </Text>
+) : null}
         <View style={styles.imagesContainer}>
           <Image source={{ uri: documents.foto1 }} style={styles.preview} />
           <Image source={{ uri: documents.foto2 }} style={styles.preview} />

@@ -33,10 +33,12 @@ const DocumentListScreen = (props) => {
   
   const navigation = useNavigation();
 
-
+  
 
   let generatePdf = async (item) => {
     setProgress(true);
+    const dcin= item.cin.length > 0 ? `<span>, con CIN: ${item.cin}</span>` : '';
+  const dnombre= item.nombre.length > 0 ? `<span>Fotocopia de cédula de ${item.nombre}</span>` : '';
   const html = `
   <html>
   <head>
@@ -73,7 +75,7 @@ const DocumentListScreen = (props) => {
   <body>
     <div class="container">
       <div class="title">
-        Fotocopia de cédula de ${item.nombre}, con número de cédula ${item.cin}
+      ${dnombre} ${dcin}
       </div>
       <div class="image-container">
         <div class="image-wrapper">

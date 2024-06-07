@@ -67,7 +67,8 @@ export default function CameraScreen({ route, navigation }) {
     navigation.goBack()
   };
 
-
+  const dcin= cin.length > 0 ? `<span>, con CIN: ${cin}</span>` : '';
+  const dnombre= nombre.length > 0 ? `<span>Fotocopia de cédula de ${nombre}</span>` : '';
 
   const html = `
   <html>
@@ -105,7 +106,7 @@ export default function CameraScreen({ route, navigation }) {
   <body>
     <div class="container">
       <div class="title">
-        Fotocopia de cédula de ${nombre}, con número de cédula ${cin}
+         ${dnombre} ${dcin}
       </div>
       <div class="image-container">
         <div class="image-wrapper">
@@ -373,9 +374,11 @@ return (
 
    
    <View style={styles.previewContainer}>
+   {nombre ? (
       <Text style={styles.title}>
-          Fotocopia de cédula de {nombre}, con número de cédula {cin}
+          Fotocopia de cédula de {nombre}, con CIN {cin}
         </Text>
+) : null}
         <View style={styles.imagesContainer}>
         {picture1 && <Image source={{ uri: picture1 }} style={styles.preview} />}
         {picture2 && <Image source={{ uri: picture2 }} style={styles.preview} />}
@@ -483,9 +486,9 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 10,
-    marginTop:10,
+    marginTop:0,
     textAlign: 'center',
-    padding:12
+    padding:8
   },
   imagesContainer: {
     flexDirection: 'row',
@@ -531,7 +534,7 @@ const styles = StyleSheet.create({
     height: '60%',
     borderRadius: 3,
     padding:0,
-    marginTop:0
+    marginTop:8
 
   },
   preview: {
