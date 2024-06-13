@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import firebase from "../firebase";
-import { Text, TextInput, View, StyleSheet, Keyboard, ScrollView,Alert,ActivityIndicator, TouchableOpacity, Image} from 'react-native';
+import { Text, TextInput, View, StyleSheet, Keyboard, ScrollView,Alert,ActivityIndicator, TouchableOpacity, Image, Button} from 'react-native';
+import { Snackbar, Provider as PaperProvider } from 'react-native-paper';
+import { useSnackbar } from './../useSnackbar'; // Importa tu hook personalizado
 import FormHerramientas from './FormHerramientas';
 import FormIdiomas from './FormIdiomas';
 import FormReferencias from './FormReferencias';
@@ -24,8 +26,7 @@ import ScreenDesign from './ScreenDesign';
 
 const CurriculumScreen = (props) => {
     const  {uid}  = props;
-    
-    
+    const { visible, message, showSnackbar, hideSnackbar } = useSnackbar();
     const [descripcion, setDescripcion] = useState('');
     const [swi, setSwi] = useState('');
     const [des, setDes] = useState(1);
@@ -49,11 +50,15 @@ const CurriculumScreen = (props) => {
     const [photo, setPhoto] = useState(null);
     const [photoUrl, setPhotoUrl] = useState(null);
     const [progress, setProgress] = useState(null);
+    const [showButton, setShowButton] = useState(null);
+    
     
     
     const handleListo = () => {
       Keyboard.dismiss();
     };
+
+
 
 
     useEffect(() => {
@@ -174,6 +179,18 @@ console.log(`El tamaño del objeto JSON es aproximadamente ${megabytes} MB.`);
     
     };
 
+
+    const saveDataToAsyncStorage = async (datos) => {
+  try {
+    const jsonValue = JSON.stringify(datos);
+    await AsyncStorage.setItem('@datosJsonCv', jsonValue);
+    console.log('Datos guardados correctamente sin photo.');
+  } catch (error) {
+    console.error('Error al guardar datos en AsyncStorage:', error);
+    throw error; // Lanzar el error para manejarlo en la función principal
+  }
+};
+
     const removePhoto = () => {
 
       Alert.alert(
@@ -187,7 +204,7 @@ console.log(`El tamaño del objeto JSON es aproximadamente ${megabytes} MB.`);
             {
               text: 'Eliminar',
               style: 'destructive',
-              onPress:  () => {
+              onPress: async () => {
                 if (photoUrl) {
                   // Si photoUrl existe, ejecutar el comando
                   let imageRef1 = firebase.storage.refFromURL(photoUrl).delete();
@@ -196,6 +213,36 @@ console.log(`El tamaño del objeto JSON es aproximadamente ${megabytes} MB.`);
               
                   setPhoto(null);
                   setPhotoUrl(null);
+
+                  const datos = {
+                    descripcion,
+                    nombre,
+                    apellido,
+                    profesion,
+                    cin,
+                    registro,
+                    fnac,
+                    nacio,
+                    telef,
+                    correo,
+                    direcc,
+                    especifica,
+                    general,
+                    educacion,
+                    curso,
+                    idioma,
+                    herra,
+                    referencia,
+                    photoUrl: null, // Actualizar photoUrl a null ya que la foto fue eliminada
+                  };
+
+                  // Guardar los datos en AsyncStorage
+              await saveDataToAsyncStorage(datos);
+
+
+                  
+
+                  showSnackbar('Foto eliminada 🔥');
                 } else {
                   // Si photoUrl no existe, mostrar un mensaje en el console.log
                   console.log("no existe url")
@@ -215,7 +262,7 @@ console.log(`El tamaño del objeto JSON es aproximadamente ${megabytes} MB.`);
       //const db = firebase.firestore();
      setProgress(true);
 
-     if (photo) {
+     if (showButton) {
      const nombreArchivo = uuidv4();
      const extension = photo.split('.').pop();
      const file = await fetch(photo);
@@ -231,6 +278,8 @@ console.log(`El tamaño del objeto JSON es aproximadamente ${megabytes} MB.`);
           setPhotoUrl(enlaceUrl);
           agregarDatos(uid, enlaceUrl);
           guardarEnAsyncStorage(enlaceUrl);
+          showSnackbar('Foto agregada ✅');
+          setShowButton(null);
           
         } else {
           console.error('Error: enlaceUrl es undefined');
@@ -240,13 +289,21 @@ console.log(`El tamaño del objeto JSON es aproximadamente ${megabytes} MB.`);
      }   else {
 
       agregarDatos(uid);
-      guardarEnAsyncStorage();
+      guardarEnAsyncStorage(photo);
+      showSnackbar('Datos guardados ✅');
+
 
      }   
     // setRefre(true);
      setProgress(false);
+     
 
      };
+
+
+
+
+
 
 
     const agregarDatos = async (uid, enlaceUrl) => {
@@ -276,7 +333,7 @@ console.log(`El tamaño del objeto JSON es aproximadamente ${megabytes} MB.`);
             photoUrl: enlaceUrl
            });
         } else {
-          await firebase.db.collection(uid).doc("cv").set({
+          await firebase.db.collection(uid).doc("cv").update({
             nombre: nombre,
             apellido: apellido,
             descripcion: descripcion,
@@ -295,7 +352,6 @@ console.log(`El tamaño del objeto JSON es aproximadamente ${megabytes} MB.`);
             idioma: idioma,
             herra: herra,
             referencia: referencia,
-            photoUrl: null
            });
         }
    
@@ -305,6 +361,7 @@ console.log(`El tamaño del objeto JSON es aproximadamente ${megabytes} MB.`);
         
         
         console.log('Datos agregados firebase');
+        
       } catch (error) {
         console.error('Error al agregar datos firebase:', error);
       }
@@ -391,6 +448,9 @@ console.log(`El tamaño del objeto JSON es aproximadamente ${megabytes} MB.`);
     };
      
 
+    
+    
+    
     const pickImage = async () => {
       let result = await ImagePicker.launchImageLibraryAsync({
         mediaTypes: ImagePicker.MediaTypeOptions.Images,
@@ -398,18 +458,24 @@ console.log(`El tamaño del objeto JSON es aproximadamente ${megabytes} MB.`);
         aspect: [4, 3],
         quality: 1,
       });
-
+    
+      if (result.canceled || !result.assets || !result.assets.length) {
+        // Si el usuario cancela o no hay imágenes seleccionadas, salir de la función
+        return;
+      }
+    
       const result2 = await ImageManipulator.manipulateAsync(
         result.assets[0].uri,
-        // [{ crop: { originX: 185, originY: 297, width: 351, height: 550 } }],
-            [{ resize: { width: 371 } }], // Redimensionar la imagen a un ancho máximo de 800 píxeles
-            { compress: 0.02 } // Ajustar la calidad al 2%// Ajustar la calidad al 2%
-          );
-  
-      if (!result2.canceled) {
+        [{ resize: { width: 371 } }], // Redimensionar la imagen a un ancho máximo de 371 píxeles
+        { compress: 0.01 } // Ajustar la calidad al 2%
+      );
+    
+      if (result2 && result2.uri) {
         setPhoto(result.assets[0].uri);
+        setShowButton(true);
       }
     };
+    
   
 
 
@@ -597,6 +663,7 @@ console.log(`El tamaño del objeto JSON es aproximadamente ${megabytes} MB.`);
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-between',
+        marginTop:-3,
         padding: 16,
         paddingTop:5,
         paddingBottom:10,
@@ -606,10 +673,18 @@ console.log(`El tamaño del objeto JSON es aproximadamente ${megabytes} MB.`);
     >
      
       <Text style={styles.super}>Curriculum</Text>
-      <TouchableOpacity onPress={savePictures}  style={{
-        marginBottom:-10,
+      <View 
+      style={styles.iconContainer}
+      >
+      <TouchableOpacity onPress={savePictures}  style={{    width: 40, // Ancho del círculo
+    height: 40, // Alto del círculo
+    borderRadius: 20, // Mitad del ancho y alto para hacer el círculo
+    backgroundColor: "#F3F3F6", // Color gris claro
+    justifyContent: 'center', // Centrar contenido verticalmente
+    alignItems: 'center', // Centrar contenido horizontalmente
+    marginHorizontal: 5, // Espacio entre los botones
       }}>
-      <Ionicons name="save-outline" size={24} color="#0D7AFF" />
+      <Ionicons name="save-outline" size={20} color="#0D7AFF" />
 </TouchableOpacity>
       <Plantilla2
 setSwi={setSwi}
@@ -637,15 +712,17 @@ telef={telef}
 correo={correo}
 direcc={direcc}
  />
-    </View>
-      <View style={styles.chipsCont}>
 
 </View>
+    </View>
+  
 
 {progress ? (
 
 <ActivityIndicator size="small" color="#007AFF" style={styles.load} />
 ) : null}
+
+
 
 <ScrollView>
 
@@ -661,7 +738,11 @@ direcc={direcc}
     <TouchableOpacity style={styles.remove} onPress={removePhoto} >
     <Octicons name="x-circle-fill" size={24} color="red" />
       </TouchableOpacity>
-   
+      {showButton && (
+            <TouchableOpacity style={styles.newButton} onPress={savePictures}>
+              <Text style={styles.textButton}>Guardar Foto</Text>
+            </TouchableOpacity>
+          )}
     </>
   ) : (
     <TouchableOpacity style={styles.nuevo} onPress={pickImage}>
@@ -820,6 +901,8 @@ direcc={direcc}
     
     </ScrollView>
 
+    
+
 
       </>
       
@@ -828,6 +911,17 @@ direcc={direcc}
     ):(null)}
 
     
+
+<View style={styles.snackbarContainer}>
+          <Snackbar
+            visible={visible}
+            onDismiss={hideSnackbar}
+            duration={3000} // Duración del Snackbar (3 segundos)
+            style={styles.snackbar}
+          >
+            {message}
+          </Snackbar>
+        </View>
     </View>
   );  
 }
@@ -840,6 +934,27 @@ container: {
     width: "100%",
     backgroundColor:"white",
     paddingTop:50,
+  },
+  snackbarContainer: {
+    position: 'absolute',
+    top: 160, // Posición desde la parte superior
+    left: '50%',
+    transform: [{ translateX: -150 }], // Ajusta según el ancho del Snackbar
+    width: 300, // Ajusta el ancho según sea necesario
+    alignItems: 'center',
+    paddingHorizontal:52
+  },
+  snackbar: {
+    width: '100%', // Hace que el Snackbar ocupe todo el ancho del contenedor
+    backgroundColor: '#3498DB',
+    borderRadius:30
+  },
+  iconContainer: {
+    flexDirection: 'row',
+    justifyContent: 'center', // Centrar horizontalmente
+    alignItems: 'center', // Centrar verticalmente
+    marginLeft:-30,
+    marginTop:15
   },
   containerE: {
     flex: 1,
@@ -918,6 +1033,21 @@ container: {
         backgroundColor:"white",
         padding:4,
         borderRadius:50
+      },
+      newButton: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
+        paddingVertical: 10,
+        borderRadius: 40,
+        backgroundColor: '#0D7AFF',
+        width: 150,
+        marginTop: 10,
+        marginBottom:-15
+      },
+      textButton: {
+        fontSize: 16,
+        color: 'white',
       },
       toca: {
         position: 'absolute',

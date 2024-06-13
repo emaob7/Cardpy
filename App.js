@@ -1,8 +1,8 @@
 import React  from 'react';
+import { Provider as PaperProvider } from 'react-native-paper';
 import { StyleSheet, TouchableOpacity, Text} from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-
 import { Ionicons } from '@expo/vector-icons';
 import { EstadoProvider } from './EstadoContext';
 import CameraScreen from './CameraScreen';
@@ -43,11 +43,12 @@ const HomeScreen = () => {
     
     <>
     {/*<View style={styles.container}>*/}
+
+
+    <PaperProvider>
     <StatusBar style="auto" /> 
-
-
     <TabNav uid={uid}/>
-
+    </PaperProvider>
 
 
    

@@ -698,17 +698,17 @@ return(
     <>
     {des=== 1 ? (
       <TouchableOpacity style={styles.comp} onPress={generatePdf}>
-      <EvilIcons name="share-apple" size={35} color="#0D7AFF" />
+      <EvilIcons name="share-apple" size={28} color="#0D7AFF" />
       </TouchableOpacity>
     ):(null)}
     {des=== 2 ? (
       <TouchableOpacity style={styles.comp} onPress={generatePdf2}>
-      <EvilIcons name="share-apple" size={35} color="#0D7AFF" />
+      <EvilIcons name="share-apple" size={28} color="#0D7AFF" />
       </TouchableOpacity>
     ):(null)}
     {des=== 3 ? (
       <TouchableOpacity style={styles.comp} onPress={generatePdf3}>
-      <EvilIcons name="share-apple" size={35} color="#0D7AFF" />
+      <EvilIcons name="share-apple" size={28} color="#0D7AFF" />
       </TouchableOpacity>
     ):(null)}
 
@@ -717,15 +717,17 @@ return(
 )
     
 }
-
+ 
 const styles = StyleSheet.create({
 
     comp:{
-      marginBottom:-10,
-        backgroundColor: "white",
-        justifyContent: 'center',
-        alignContent: 'center',
-        borderRadius:50
+      width: 40, // Ancho del círculo
+      height: 40, // Alto del círculo
+      borderRadius: 20, // Mitad del ancho y alto para hacer el círculo
+      backgroundColor: "#F3F3F6", // Color gris claro
+      justifyContent: 'center', // Centrar contenido verticalmente
+      alignItems: 'center', // Centrar contenido horizontalmente
+      marginHorizontal: 5, // Espacio entre los botones
       },
 })
 

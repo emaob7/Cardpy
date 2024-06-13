@@ -1,9 +1,10 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { EstadoContext } from './EstadoContext';
+import { useSnackbar } from './useSnackbar'; // Importa tu hook personalizado
+import { Snackbar, Provider as PaperProvider } from 'react-native-paper';
 import { FlatList, StyleSheet, Text, TouchableOpacity, View,Platform, Alert, RefreshControl, TextInput,ActivityIndicator} from 'react-native';
 import firebase from "./firebase";
 import { useNavigation } from '@react-navigation/native';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { MaterialIcons } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Ionicons } from '@expo/vector-icons';
@@ -25,6 +26,7 @@ const DocumentListScreen = (props) => {
  // const { uid } = route.params;
 //  console.log("prop",uid)
   const [documents, setDocuments] = useState([]);
+  const { visible, message, showSnackbar, hideSnackbar } = useSnackbar();
   const [refreshing, setRefreshing] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
   const [filteredData, setFilteredData] = useState([]);
@@ -168,6 +170,8 @@ const onRefresh = () => {
   setTimeout(() => {
     setRefreshing(false);
   }, 1500);
+
+  showSnackbar('Datos actualizados ⚡️');
   
 };
 
@@ -219,6 +223,7 @@ const onRefresh = () => {
           }
 
           storeData(jsonActualizado); 
+          showSnackbar('Documento eliminado!');
 
             
           },
@@ -327,20 +332,22 @@ style={styles.flatlist}
            <Text style={styles.textC}>CIN: {item.cin}</Text>
            
          </TouchableOpacity>
-         <TouchableOpacity 
-              style={styles.buttonE}
-              onPress={() => generatePdf(item)}
-            >
-              <MaterialIcons name="ios-share" size={20} color="#0D7AFF" />
-          </TouchableOpacity>
-         <TouchableOpacity 
-             style={styles.button}
-             onPress={() => {
-               deleteDocumen(item.id,item.foto1,item.foto2);
-             }}
-           >
-             <MaterialIcons name="delete-outline" size={22} color="#0D7AFF" />
-         </TouchableOpacity>
+         <View style={styles.iconContainer}>
+      <TouchableOpacity
+        style={styles.buttonC}
+        onPress={() => generatePdf(item)}
+      >
+        <MaterialIcons name="ios-share" size={20} color="#0D7AFF" />
+      </TouchableOpacity>
+      <TouchableOpacity
+        style={styles.buttonC}
+        onPress={() => {
+          deleteDocumen(item.id, item.foto1, item.foto2);
+        }}
+      >
+        <MaterialIcons name="delete-outline" size={22} color="#0D7AFF" />
+      </TouchableOpacity>
+    </View>
         
       </View>
     )}
@@ -378,21 +385,22 @@ style={styles.flatlist}
             
 
           </TouchableOpacity>
-          <TouchableOpacity 
-              style={styles.buttonE}
-              onPress={() => generatePdf(item)}
-            >
-              <MaterialIcons name="ios-share" size={20} color="#0D7AFF" />
-          </TouchableOpacity>
-
-          <TouchableOpacity 
-              style={styles.button}
-              onPress={() => {
-                deleteDocumen(item.id,item.foto1,item.foto2);
-              }}
-            >
-              <MaterialCommunityIcons name="delete-outline" size={22} color="#0D7AFF" />
-          </TouchableOpacity>
+          <View style={styles.iconContainer}>
+      <TouchableOpacity
+        style={styles.buttonC}
+        onPress={() => generatePdf(item)}
+      >
+        <MaterialIcons name="ios-share" size={20} color="#0D7AFF" />
+      </TouchableOpacity>
+      <TouchableOpacity
+        style={styles.buttonC}
+        onPress={() => {
+          deleteDocumen(item.id, item.foto1, item.foto2);
+        }}
+      >
+        <MaterialIcons name="delete-outline" size={22} color="#0D7AFF" />
+      </TouchableOpacity>
+    </View>
          
 
           </View>
@@ -401,6 +409,18 @@ style={styles.flatlist}
       />
       </>
       )}
+
+<View style={styles.snackbarContainer}>
+          <Snackbar
+            visible={visible}
+            onDismiss={hideSnackbar}
+            duration={3000} // Duración del Snackbar (3 segundos)
+            style={styles.snackbar}
+           
+          >
+            {message}
+          </Snackbar>
+        </View>
     </View>
   );
 };
@@ -419,6 +439,36 @@ marginTop:10,
 //paddingTop:9,
 
   },
+  snackbarContainer: {
+    position: 'absolute',
+    top: 160, // Posición desde la parte superior
+    left: '50%',
+    transform: [{ translateX: -150 }], // Ajusta según el ancho del Snackbar
+    width: 300, // Ajusta el ancho según sea necesario
+    alignItems: 'center',
+    paddingHorizontal:52
+  },
+  snackbar: {
+    width: '100%', // Hace que el Snackbar ocupe todo el ancho del contenedor
+    backgroundColor: '#3498DB',
+    borderRadius:30
+  },
+  iconContainer: {
+    flexDirection: 'row',
+    justifyContent: 'center', // Centrar horizontalmente
+    alignItems: 'center', // Centrar verticalmente
+    marginLeft:-30,
+  },
+  buttonC: {
+    width: 40, // Ancho del círculo
+    height: 40, // Alto del círculo
+    borderRadius: 20, // Mitad del ancho y alto para hacer el círculo
+    backgroundColor: "#F3F3F6", // Color gris claro
+    justifyContent: 'center', // Centrar contenido verticalmente
+    alignItems: 'center', // Centrar contenido horizontalmente
+    marginHorizontal: 5, // Espacio entre los botones
+    
+  }, 
 
   document: {
     flexDirection: 'row',
@@ -433,7 +483,8 @@ marginTop:10,
     backgroundColor: "white",
     //#D3E3FD #F2F6FC
     width: '94%',
-    marginTop:3
+    marginTop:3,
+    paddingRight:5
   },
   nuevo: {
     flexDirection: 'row',
