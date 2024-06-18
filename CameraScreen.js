@@ -609,6 +609,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#0D7AFF',
     alignItems: 'center',
     justifyContent: 'center',
+    transform: [{ rotate: '90deg' }]
   },
   text: {
    // paddingVertical: 10,

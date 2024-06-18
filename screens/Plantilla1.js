@@ -19,7 +19,7 @@ const Plantilla1 = ({setProgress, curso, educacion, especifica, general, idioma,
         const tEspecifica = especifica.length > 0 ? `<h2>Experiencia Laboral</h2>` : '';
         const tCursos = curso.length > 0 ? `<h2>Cursos Realizados</h2>` : '';
         const tReferencia = referencia.length > 0 ? `<h2>Referencias</h2>` : '';
-        const tEducacion= educacion.length > 0 ? `<h2>Formacion Academica</h2>` : '';
+        const tEducacion= educacion.length > 0 ? `<h2>Educación</h2>` : '';
         const imgphoto= photo ? `<section><img src="${photo}" alt="Foto de perfil" style="max-width: 80%; height: auto; border-radius: 10px;"></section>` : '';
 //datos
         const dregistro= registro.length > 0 ? `<p>Registro Profesional: ${registro}</p>` : '';
@@ -31,57 +31,55 @@ const Plantilla1 = ({setProgress, curso, educacion, especifica, general, idioma,
         const dcin= cin.length > 0 ? `<p>CIN: ${cin}</p>` : '';
 //algunos casos
 const cimg= photo ? `<div id="left-column1"><img src="${photo}" alt="Foto de perfil" style="max-width: 80%; height: auto; border-radius: 10px;"></div>` : '';
-        //secciones
-
-        const especificaSection = especifica.map((especificaItem, index) => `
-        <section key="especifica-${index}">
-          <h3>${especificaItem.empre}  (${especificaItem.desde} - ${especificaItem.hasta})</h3>
-          <p>${especificaItem.puesto} </p>
-          <p>Tareas: ${especificaItem.tareas}</p>
-        </section>
-      `).join('');
-
-
-      const generalSection = general.map((generalItem, index) => `
-      <section key="general-${index}">
-        <h3>${generalItem.empre} (${generalItem.desde} - ${generalItem.hasta})</h3>
-        <p>${generalItem.puesto}</p>
-        <p>Tareas: ${generalItem.tareas}</p>
-      </section>
-    `).join('');
-
-      const idiomaSection = idioma.map((idiomaItem, index) => `
-      <section key="idioma-${index}">
-        <p>${idiomaItem.idi}: ${idiomaItem.nivel}</p>
-      </section>
-    `).join('');
-
-    const referenciaSection = referencia.map((referenciaItem, index) => `
-      <section key="referencia-${index}">
-        <p>${referenciaItem.refe}: ${referenciaItem.telef}</p>
-      </section>
-    `).join('');
-
-    const herramientaSection = herra.map((herraItem, index) => `
-    <section key="herra-${index}">
-      <p>${herraItem.herrami}: ${herraItem.nivel}</p>
-    </section>
+  // Secciones con viñetas
+  const especificaSection = especifica.map((especificaItem, index) => `
+    <li key="especifica-${index}">
+      <h3>${especificaItem.empre}</h3>
+       <span style=" display: flex; justify-content: space-between; margin-right: 15px;"><p>${especificaItem.puesto}</p><p> (${especificaItem.desde} - ${especificaItem.hasta})</p></span>
+      <p>Tareas: ${especificaItem.tareas}</p>
+    </li>
   `).join('');
 
+  const generalSection = general.map((generalItem, index) => `
+    <li key="general-${index}">
+      <h3>${generalItem.empre} </h3>
+      <span style=" display: flex; justify-content: space-between; margin-right: 15px;"><p>${generalItem.puesto}</p><p> (${generalItem.desde} - ${generalItem.hasta})</p></span>
+      <p>Tareas: ${generalItem.tareas}</p>
+    </li>
+  `).join('');
 
-        const cursosSection = curso.map((cursoItem, index) => `
-        <section key="curso-${index}">
-          <h3>${cursoItem.titulo}</h3>
-          <p>${cursoItem.institucion}, Duracion: ${cursoItem.duracion}</p><p>Culminacion: ${cursoItem.culminacion}</p>
-        </section>
-      `).join('');
+  const idiomaSection = idioma.map((idiomaItem, index) => `
+    <li key="idioma-${index}">
+      <p>${idiomaItem.idi}: ${idiomaItem.nivel}</p>
+    </li>
+  `).join('');
 
-      const educacionSection = educacion.map((educacionItem, index) => `
-      <section key="educacion-${index}">
-        <h3>${educacionItem.titulo}</h3>
-        <p>${educacionItem.institucion}, Duracion: ${educacionItem.duracion}</p><p>Culminacion: ${educacionItem.culminacion}</p>
-      </section>
-    `).join('');
+  const referenciaSection = referencia.map((referenciaItem, index) => `
+    <li key="referencia-${index}">
+      <p>${referenciaItem.refe}: ${referenciaItem.telef}</p>
+    </li>
+  `).join('');
+
+  const herramientaSection = herra.map((herraItem, index) => `
+    <li key="herra-${index}">
+      <p>${herraItem.herrami}: ${herraItem.nivel}</p>
+    </li>
+  `).join('');
+
+  const cursosSection = curso.map((cursoItem, index) => `
+    <li key="curso-${index}">
+      <h3>${cursoItem.titulo}</h3>
+      <p>${cursoItem.institucion}, Duración: ${cursoItem.duracion}</p>
+      <p>Culminación: ${cursoItem.culminacion}</p>
+    </li>
+  `).join('');
+
+  const educacionSection = educacion.map((educacionItem, index) => `
+    <li key="educacion-${index}">
+      <h3>${educacionItem.titulo}</h3>
+       <span style=" display: flex; justify-content: space-between; margin-right: 15px;"><p>${educacionItem.institucion}, Duración: ${educacionItem.duracion}</p><p>Culminación: ${educacionItem.culminacion}</p></span>
+    </li>
+  `).join('');
 
 
     
@@ -236,7 +234,9 @@ const cimg= photo ? `<div id="left-column1"><img src="${photo}" alt="Foto de per
 
      const file = await printToFileAsync({
       html: html,
-      base64: false
+      base64: false,
+    //  width: 612,  // Legal width in points (8.5 inches * 72 points/inch)
+    //  height: 1008, // Legal height in points (14 inches * 72 points/inch)
     });
  setProgress(false);
     await shareAsync(file.uri);
@@ -694,21 +694,157 @@ await shareAsync(file.uri);
 };
 
 
+let generatePdf4 = async () => {
+  setProgress(true);
+
+
+// <section> <img src="${photo}" alt="Foto de perfil" style="max-width: 100%; height: auto;"> </section>    
+
+
+const html = `
+    <!DOCTYPE html>
+    <html lang="es">
+    <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Currículum Vitae - Harvard</title>
+      <style>
+        body {
+          font-family: Arial, sans-serif;
+          margin: 0;
+          padding: 20px;
+          line-height: 1.6;
+        }
+        #header {
+          text-align: center;
+        }
+        #header h1 {
+          margin: 0;
+          font-size: 24px;
+          margin-bottom: -12px;
+          text-transform: uppercase; /* Convertimos el texto en mayúsculas */
+        }
+        #header p {
+          margin: 5px 0;
+        }
+        #contact-info {
+      border-top: 1px solid #000;
+      padding-top: 5px;
+    }
+        #profesion {
+      margin-top: -10px;
+    }
+        h2 {
+          font-size: 18px;
+          margin-bottom:-5px;
+          margin-top: 20px;
+          text-align: center; /* Centramos los h2 */
+          text-transform: uppercase; /* Convertimos el texto en mayúsculas */
+        }
+        .section {
+          margin-bottom: 0px;
+        }
+        .section h3 {
+          margin: 0;
+          font-size: 16px;
+          text-transform: uppercase; /* Convertimos el texto en mayúsculas */
+        }
+        .section p {
+          margin: 0;
+          text-indent: 20px; /* Agregamos sangría a los párrafos */
+        }
+        ul {
+          list-style-type: disc;
+          margin-left: 20px;
+        }
+      </style>
+    </head>
+    <body>
+      <div id="header">
+        <h1>${nombre} ${apellido}</h1>
+        <p id="profesion">${profesion}</p>
+        <p id="contact-info">${correo} | ${telef} | ${direcc} </p>
+      </div>
+    
+      <div class="section">
+        <h2>Perfil</h2>
+        <p>${descripcion}</p>
+      </div>
+    
+      <div class="section">
+        ${tEspecifica}
+        <ul>${especificaSection}</ul>
+        <ul>${generalSection}</ul>
+      </div>
+    
+      <div class="section">
+          ${tEducacion}
+        <ul>${educacionSection}</ul>
+      </div>
+    
+      <div class="section">
+      ${tCursos}
+        <ul>${cursosSection}</ul>
+      </div>
+    
+      <div class="section">
+      ${tHerramienta}
+        <ul>${herramientaSection}</ul>
+      </div>
+    
+      <div class="section">
+      ${tIdiomas}
+        <ul>${idiomaSection}</ul>
+      </div>
+    
+      <div class="section">
+      ${tReferencia}
+        <ul>${referenciaSection}</ul>
+      </div>
+
+            <div class="section">
+        <h2>Datos Personales</h2>
+        <p>${dcin}</p>
+        <p>${dregistro}</p>
+        <p>${dfnacimiento}</p>
+        <p>${dnacionalidad}</p>
+      </div>
+    
+    </body>
+    </html>
+    `;
+
+const file = await printToFileAsync({
+html: html,
+base64: false,
+width: 612,  // Legal width in points (8.5 inches * 72 points/inch)
+height: 1008, // Legal height in points (14 inches * 72 points/inch)
+});
+setProgress(false);
+await shareAsync(file.uri);
+};
+
+
 return(
     <>
     {des=== 1 ? (
       <TouchableOpacity style={styles.comp} onPress={generatePdf}>
-      <EvilIcons name="share-apple" size={28} color="#0D7AFF" />
+      <EvilIcons name="share-apple" size={25} color="#fff" />
       </TouchableOpacity>
     ):(null)}
     {des=== 2 ? (
       <TouchableOpacity style={styles.comp} onPress={generatePdf2}>
-      <EvilIcons name="share-apple" size={28} color="#0D7AFF" />
+      <EvilIcons name="share-apple" size={25} color="#fff" />
       </TouchableOpacity>
     ):(null)}
     {des=== 3 ? (
       <TouchableOpacity style={styles.comp} onPress={generatePdf3}>
-      <EvilIcons name="share-apple" size={28} color="#0D7AFF" />
+      <EvilIcons name="share-apple" size={25} color="#fff" />
+      </TouchableOpacity>
+    ):(null)}
+     {des=== 4 ? (
+      <TouchableOpacity style={styles.comp} onPress={generatePdf4}>
+      <EvilIcons name="share-apple" size={25} color="#fff" />
       </TouchableOpacity>
     ):(null)}
 
@@ -721,10 +857,10 @@ return(
 const styles = StyleSheet.create({
 
     comp:{
-      width: 40, // Ancho del círculo
-      height: 40, // Alto del círculo
+      width: 35, // Ancho del círculo
+      height: 35, // Alto del círculo
       borderRadius: 20, // Mitad del ancho y alto para hacer el círculo
-      backgroundColor: "#F3F3F6", // Color gris claro
+      backgroundColor: "#0D7AFF", // Color gris claro
       justifyContent: 'center', // Centrar contenido verticalmente
       alignItems: 'center', // Centrar contenido horizontalmente
       marginHorizontal: 5, // Espacio entre los botones

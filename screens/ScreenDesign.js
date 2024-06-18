@@ -28,6 +28,9 @@ return(
       <TouchableOpacity style={styles.comp} onPress={() => handleButtonPress(3)}>
         <Text>General</Text>
       </TouchableOpacity>
+      <TouchableOpacity style={styles.comp} onPress={() => handleButtonPress(4)}>
+        <Text>Harvard</Text>
+      </TouchableOpacity>
     </>
 )
     

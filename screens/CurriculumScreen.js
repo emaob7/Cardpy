@@ -22,6 +22,7 @@ import FormContactos from './FormContactos';
 import { Ionicons } from '@expo/vector-icons';
 import Plantilla2 from './Plantilla2';
 import ScreenDesign from './ScreenDesign';
+import FormPerfil from './FormPerfil';
 
 
 const CurriculumScreen = (props) => {
@@ -489,6 +490,25 @@ console.log(`El tamaño del objeto JSON es aproximadamente ${megabytes} MB.`);
      
 
     <ScrollView>
+
+    {swi=== 2 ? (
+      <View style={styles.containerE}>
+      <View style={styles.separacion}>
+  <Text style={styles.subtitulo}>Perfil</Text>
+  <TouchableOpacity style={styles.botonE} onPress={() => setSwi("")}>
+<Text style={styles.textE}>Listo</Text>
+</TouchableOpacity>
+  </View>
+  <FormPerfil 
+  descripcion={descripcion} setDescripcion={setDescripcion} 
+  swi={swi}
+  />
+      </View>
+    
+
+    ):(null)}
+
+
     {swi=== 3 ? (
       <View style={styles.containerE}>
       <View style={styles.separacion}>
@@ -677,14 +697,17 @@ console.log(`El tamaño del objeto JSON es aproximadamente ${megabytes} MB.`);
       style={styles.iconContainer}
       >
       <TouchableOpacity onPress={savePictures}  style={{    width: 40, // Ancho del círculo
-    height: 40, // Alto del círculo
+    height: 35, // Alto del círculo
+    width: 35,
     borderRadius: 20, // Mitad del ancho y alto para hacer el círculo
-    backgroundColor: "#F3F3F6", // Color gris claro
+   // borderColor:"#0D7AFF",
+   // borderWidth:1,
+  //  backgroundColor: "#F3F3F6", // Color gris claro
     justifyContent: 'center', // Centrar contenido verticalmente
     alignItems: 'center', // Centrar contenido horizontalmente
     marginHorizontal: 5, // Espacio entre los botones
       }}>
-      <Ionicons name="save-outline" size={20} color="#0D7AFF" />
+      <Ionicons name="save-outline" size={18} color="#0D7AFF" />
 </TouchableOpacity>
       <Plantilla2
 setSwi={setSwi}
@@ -752,21 +775,16 @@ direcc={direcc}
   )}
  </View>
  <View style={styles.divider}>
+ <View style={styles.separacion}>
  <Text style={styles.subtitulo}>2. Perfil</Text>
- <TextInput
-        multiline
-        numberOfLines={3}
-        value={descripcion}
-        onChangeText={setDescripcion}
-        placeholder="Escribe aquí..."
-        style={{
-          borderWidth: 1,
-          borderColor: '#ccc',
-          borderRadius: 10,
-          padding: 10,
-          height: 100, // Ajusta la altura según tus necesidades
-        }}
-      />
+ <TouchableOpacity style={styles.botonE} onPress={() => setSwi(2)}>
+<Text style={styles.textE}>Editar</Text>
+</TouchableOpacity>
+</View>
+<FormPerfil
+descripcion={descripcion} setDescripcion={setDescripcion}
+swi={""}
+/>
  </View>
  <View style={styles.divider}>
  <View style={styles.separacion}>
