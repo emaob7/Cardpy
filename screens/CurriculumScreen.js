@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import firebase from "../firebase";
-import { Text, TextInput, View, StyleSheet, Keyboard, ScrollView,Alert,ActivityIndicator, TouchableOpacity, Image, Button} from 'react-native';
+import { Text, View, StyleSheet, ScrollView,Alert,ActivityIndicator, TouchableOpacity, Image, Button} from 'react-native';
 import { Snackbar, Provider as PaperProvider } from 'react-native-paper';
 import { useSnackbar } from './../useSnackbar'; // Importa tu hook personalizado
 import FormHerramientas from './FormHerramientas';
@@ -23,6 +23,8 @@ import { Ionicons } from '@expo/vector-icons';
 import Plantilla2 from './Plantilla2';
 import ScreenDesign from './ScreenDesign';
 import FormPerfil from './FormPerfil';
+import * as FileSystem from 'expo-file-system';
+import * as MediaLibrary from 'expo-media-library';
 
 
 const CurriculumScreen = (props) => {
@@ -52,12 +54,12 @@ const CurriculumScreen = (props) => {
     const [photoUrl, setPhotoUrl] = useState(null);
     const [progress, setProgress] = useState(null);
     const [showButton, setShowButton] = useState(null);
+
+    const [localPhotoUri, setLocalPhotoUri] = useState(null);
     
     
     
-    const handleListo = () => {
-      Keyboard.dismiss();
-    };
+ 
 
 
 
@@ -85,10 +87,23 @@ const CurriculumScreen = (props) => {
           // Si los datos existen en AsyncStorage, utilizarlos directamente
         
           const datosJson = JSON.parse(datosJsonGuardados);
+
+          //desde
+
+ setPhotoUrl(datosJson.photoUrl);
+ if (datosJson.localPhotoUri) {
+     setLocalPhotoUri(datosJson.localPhotoUri);
+    // console.log(localPhotoUri);
+ } else {
+     downloadAndSaveImage(datosJson.photoUrl);
+ }
+     //hasta
           /* calcular el tamaño del json
           const bytes = new Blob([datosJson]).size;
           const megabytes = bytes / (1024 * 1024);
 console.log(`El tamaño del objeto JSON es aproximadamente ${megabytes} MB.`);
+
+
 */
           // Hacer algo con los datosJson
           setDescripcion(datosJson.descripcion);
@@ -105,7 +120,7 @@ console.log(`El tamaño del objeto JSON es aproximadamente ${megabytes} MB.`);
           setIdioma(datosJson.idioma);
           setNacio(datosJson.nacio);
           setNombre(datosJson.nombre);
-          setPhoto(datosJson.photoUrl);
+        //  setPhoto(datosJson.photoUrl);
           setPhotoUrl(datosJson.photoUrl);
           setProfesion(datosJson.profesion);
           setRegistro(datosJson.registro);
@@ -131,6 +146,11 @@ console.log(`El tamaño del objeto JSON es aproximadamente ${megabytes} MB.`);
             const jsonValuecv = JSON.stringify(documentoCV)
            // console.log(jsonValue);
             await AsyncStorage.setItem('@datosJsonCv', jsonValuecv)
+//desde
+            if (documentoCV.photoUrl) {
+              downloadAndSaveImage(documentoCV.photoUrl);
+          }
+//hasta
 
 
                  //buscar cv
@@ -154,7 +174,7 @@ console.log(`El tamaño del objeto JSON es aproximadamente ${megabytes} MB.`);
               setIdioma(documentoCV.idioma);
               setNacio(documentoCV.nacio);
               setNombre(documentoCV.nombre);
-              setPhoto(documentoCV.photoUrl);
+            //  setPhoto(documentoCV.photoUrl);
               setPhotoUrl(datosJson.photoUrl);
               setProfesion(documentoCV.profesion);
               setRegistro(documentoCV.registro);
@@ -211,7 +231,7 @@ console.log(`El tamaño del objeto JSON es aproximadamente ${megabytes} MB.`);
                   let imageRef1 = firebase.storage.refFromURL(photoUrl).delete();
                   const documentsRef = firebase.db.collection(uid);
                   documentsRef.doc("cv").update({ photoUrl: null });
-              
+                  setLocalPhotoUri(null);
                   setPhoto(null);
                   setPhotoUrl(null);
 
@@ -235,6 +255,7 @@ console.log(`El tamaño del objeto JSON es aproximadamente ${megabytes} MB.`);
                     herra,
                     referencia,
                     photoUrl: null, // Actualizar photoUrl a null ya que la foto fue eliminada
+                    localPhotoUri:null,
                   };
 
                   // Guardar los datos en AsyncStorage
@@ -248,6 +269,7 @@ console.log(`El tamaño del objeto JSON es aproximadamente ${megabytes} MB.`);
                   // Si photoUrl no existe, mostrar un mensaje en el console.log
                   console.log("no existe url")
                   setPhoto(null);
+                  setLocalPhotoUri(null);
                 }
               },
             },
@@ -256,7 +278,6 @@ console.log(`El tamaño del objeto JSON es aproximadamente ${megabytes} MB.`);
         );
      
     };
-
 
      const savePictures = async () => {
   
@@ -280,6 +301,28 @@ console.log(`El tamaño del objeto JSON es aproximadamente ${megabytes} MB.`);
           agregarDatos(uid, enlaceUrl);
           guardarEnAsyncStorage(enlaceUrl);
           showSnackbar('Foto agregada ✅');
+//desde
+// Guardar localmente
+const fileUri = `${FileSystem.documentDirectory}${nombreArchivo}.${extension}`;
+const reader = new FileReader();
+reader.onloadend = async () => {
+  const base64data = reader.result.split(',')[1];
+  await FileSystem.writeAsStringAsync(fileUri, base64data, { encoding: FileSystem.EncodingType.Base64 });
+  const asset = await MediaLibrary.createAssetAsync(fileUri);
+  await MediaLibrary.createAlbumAsync('Download', asset, false);
+  setLocalPhotoUri(fileUri);
+
+  const datos = {
+    descripcion, nombre, apellido, profesion, cin, registro, fnac, nacio, telef, correo, direcc, especifica,
+    general, educacion, curso, idioma, herra, referencia, photoUrl: enlaceUrl, localPhotoUri: fileUri
+  };
+  await AsyncStorage.setItem('@datosJsonCv', JSON.stringify(datos));
+};
+reader.readAsDataURL(blob);
+
+      
+//hasta
+
           setShowButton(null);
           
         } else {
@@ -301,11 +344,27 @@ console.log(`El tamaño del objeto JSON es aproximadamente ${megabytes} MB.`);
 
      };
 
+     const downloadAndSaveImage = async (imageUrl) => {
+      if (!imageUrl) return;
 
+      try {
+          const fileUri = `${FileSystem.documentDirectory}${uuidv4()}.jpg`;
+          const { uri } = await FileSystem.downloadAsync(imageUrl, fileUri);
+          
+          const asset = await MediaLibrary.createAssetAsync(uri);
+          await MediaLibrary.createAlbumAsync('Download', asset, false);
+          setLocalPhotoUri(uri);
 
-
-
-
+          const datosJsonGuardados = await AsyncStorage.getItem('@datosJsonCv');
+          if (datosJsonGuardados) {
+              const datosJson = JSON.parse(datosJsonGuardados);
+              datosJson.localPhotoUri = uri;
+              await AsyncStorage.setItem('@datosJsonCv', JSON.stringify(datosJson));
+          }
+      } catch (error) {
+          console.error('Error al descargar y guardar la imagen:', error);
+      }
+  };
 
     const agregarDatos = async (uid, enlaceUrl) => {
       
@@ -448,10 +507,6 @@ console.log(`El tamaño del objeto JSON es aproximadamente ${megabytes} MB.`);
 
     };
      
-
-    
-    
-    
     const pickImage = async () => {
       let result = await ImagePicker.launchImageLibraryAsync({
         mediaTypes: ImagePicker.MediaTypeOptions.Images,
@@ -751,10 +806,10 @@ direcc={direcc}
 
  <View style={styles.divider}>
  <Text style={styles.subtitulo}>1. Foto</Text>
- {photo ? (
+ {localPhotoUri  || photo ? (
   <>
    <View style={styles.nuevo}>
-      <Image source={{ uri: photo }} style={{ width: 150, height: 150, borderRadius: 10 }} />
+      <Image source={{ uri: localPhotoUri  || photo }} style={{ width: 150, height: 150, borderRadius: 10 }} />
    
     </View> 
   

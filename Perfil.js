@@ -126,3 +126,46 @@ const styles = StyleSheet.create({
 
 
 });
+
+/*
+
+import React, { useEffect, useState } from 'react';
+import { View, Text, Button, AsyncStorage } from 'react-native';
+
+const App = () => {
+  const [storageSize, setStorageSize] = useState(0);
+
+  useEffect(() => {
+    calcularTamanoAsyncStorage();
+  }, []);
+
+  const calcularTamanoAsyncStorage = async () => {
+    try {
+      const keys = await AsyncStorage.getAllKeys();
+      let totalSize = 0;
+
+      for (let key of keys) {
+        const value = await AsyncStorage.getItem(key);
+        if (value) {
+          totalSize += value.length;
+        }
+      }
+
+      setStorageSize(totalSize);
+    } catch (error) {
+      console.error('Error calculando el tamaño del AsyncStorage:', error);
+    }
+  };
+
+  return (
+    <View style={{ padding: 20 }}>
+      <Text>Tamaño total de AsyncStorage: {storageSize} bytes</Text>
+      <Button title="Recalcular" onPress={calcularTamanoAsyncStorage} />
+    </View>
+  );
+};
+
+export default App;
+
+
+*/

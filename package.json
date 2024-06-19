@@ -27,6 +27,7 @@
     "expo-crypto": "~13.0.2",
     "expo-dev-client": "~4.0.15",
     "expo-facebook": "^12.2.0",
+    "expo-file-system": "~17.0.1",
     "expo-google-app-auth": "~8.3.0",
     "expo-image-manipulator": "~12.0.5",
     "expo-image-picker": "~15.0.5",
