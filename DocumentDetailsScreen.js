@@ -104,7 +104,7 @@ const DocumentDetailsScreen = ({ route }) => {
 
     <View style={styles.buttonsContainer}>
       <TouchableOpacity style={styles.button} onPress={generatePdf}>
-      <EvilIcons name="share-apple" size={30} color="#0D7AFF" /><Text style={styles.text} >Compartir PDF</Text>
+      <EvilIcons name="share-apple" size={30} color="#fff" /><Text style={styles.text} >Enviar PDF</Text>
       </TouchableOpacity>
        </View>
      
@@ -170,14 +170,19 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-evenly',
     alignItems: 'center',
-    //backgroundColor: 'gray'
+    backgroundColor: "#0D7AFF",
+    paddingHorizontal: 20,
+    paddingVertical:10,
+    marginTop:5,
+    borderRadius:20,
+    height:40
   },
   text: {
-    paddingVertical: 10,
+   // paddingVertical: 10,
     marginLeft: 10,
     justifyContent: 'center',
     fontSize:20,
-    color:"#0D7AFF"
+    color:"white"
   },
   load:{
     marginBottom:25

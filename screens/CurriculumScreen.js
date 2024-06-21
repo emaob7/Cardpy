@@ -120,15 +120,15 @@ console.log(`El tamaño del objeto JSON es aproximadamente ${megabytes} MB.`);
           setIdioma(datosJson.idioma);
           setNacio(datosJson.nacio);
           setNombre(datosJson.nombre);
-        //  setPhoto(datosJson.photoUrl);
           setPhotoUrl(datosJson.photoUrl);
           setProfesion(datosJson.profesion);
           setRegistro(datosJson.registro);
           setReferencia(datosJson.referencia);
           setTelef(datosJson.telef);
+          setDes(datosJson.des);
 
 
-          console.log('AsyncStorage Cv');
+         // console.log(datosJson);
 
         } else {
           // Si los datos no existen en AsyncStorage, obtenerlos de Firebase Firestore
@@ -174,8 +174,7 @@ console.log(`El tamaño del objeto JSON es aproximadamente ${megabytes} MB.`);
               setIdioma(documentoCV.idioma);
               setNacio(documentoCV.nacio);
               setNombre(documentoCV.nombre);
-            //  setPhoto(documentoCV.photoUrl);
-              setPhotoUrl(datosJson.photoUrl);
+              setPhotoUrl(documentoCV.photoUrl);
               setProfesion(documentoCV.profesion);
               setRegistro(documentoCV.registro);
               setReferencia(documentoCV.referencia);
@@ -205,7 +204,7 @@ console.log(`El tamaño del objeto JSON es aproximadamente ${megabytes} MB.`);
   try {
     const jsonValue = JSON.stringify(datos);
     await AsyncStorage.setItem('@datosJsonCv', jsonValue);
-    console.log('Datos guardados correctamente sin photo.');
+    console.log('Datos guardados y photo null.');
   } catch (error) {
     console.error('Error al guardar datos en AsyncStorage:', error);
     throw error; // Lanzar el error para manejarlo en la función principal
@@ -228,9 +227,9 @@ console.log(`El tamaño del objeto JSON es aproximadamente ${megabytes} MB.`);
               onPress: async () => {
                 if (photoUrl) {
                   // Si photoUrl existe, ejecutar el comando
-                  let imageRef1 = firebase.storage.refFromURL(photoUrl).delete();
-                  const documentsRef = firebase.db.collection(uid);
-                  documentsRef.doc("cv").update({ photoUrl: null });
+                //  let imageRef1 = firebase.storage.refFromURL(photoUrl).delete();
+                //  const documentsRef = firebase.db.collection(uid);
+                //  documentsRef.doc("cv").update({ photoUrl: null });
                   setLocalPhotoUri(null);
                   setPhoto(null);
                   setPhotoUrl(null);
@@ -256,6 +255,7 @@ console.log(`El tamaño del objeto JSON es aproximadamente ${megabytes} MB.`);
                     referencia,
                     photoUrl: null, // Actualizar photoUrl a null ya que la foto fue eliminada
                     localPhotoUri:null,
+                    des,
                   };
 
                   // Guardar los datos en AsyncStorage
@@ -333,7 +333,7 @@ reader.readAsDataURL(blob);
      }   else {
 
       agregarDatos(uid);
-      guardarEnAsyncStorage(photo);
+      guardarEnAsyncStorage();
       showSnackbar('Datos guardados ✅');
 
 
@@ -412,6 +412,7 @@ reader.readAsDataURL(blob);
             idioma: idioma,
             herra: herra,
             referencia: referencia,
+            photoUrl: photoUrl,
            });
         }
    
@@ -430,8 +431,8 @@ reader.readAsDataURL(blob);
     };
 
     const guardarEnAsyncStorage = async (enlaceUrl) => {
-      
-      if (enlaceUrl) {
+      console.log(photoUrl);
+     if(enlaceUrl) {
       const photoUrl = enlaceUrl;
       try {
         const datos = {
@@ -454,6 +455,8 @@ reader.readAsDataURL(blob);
         herra,
         referencia,
         photoUrl,
+        localPhotoUri,
+        des,
         };
 
         
@@ -466,8 +469,9 @@ reader.readAsDataURL(blob);
         console.error('Error al guardar datos en AsyncStorage:', error);
         throw error; // Lanzar el error para manejarlo en la función principal
       }
-    } else {
-      const photoUrl = null;
+
+
+    } else  {
       try {
         const datos = {
           descripcion,
@@ -489,6 +493,8 @@ reader.readAsDataURL(blob);
         herra,
         referencia,
         photoUrl,
+        localPhotoUri,
+        des,
         };
 
         
@@ -496,7 +502,7 @@ reader.readAsDataURL(blob);
         const jsonValuecv = JSON.stringify(datos);
         await AsyncStorage.setItem('@datosJsonCv', jsonValuecv);
     
-        console.log('Datos guardados correctamente sin photo.');
+        console.log('Datos guardados correctamente en AsyncStorage.');
       } catch (error) {
         console.error('Error al guardar datos en AsyncStorage:', error);
         throw error; // Lanzar el error para manejarlo en la función principal
@@ -504,6 +510,7 @@ reader.readAsDataURL(blob);
 
 
     }
+  
 
     };
      
@@ -755,9 +762,6 @@ reader.readAsDataURL(blob);
     height: 35, // Alto del círculo
     width: 35,
     borderRadius: 20, // Mitad del ancho y alto para hacer el círculo
-   // borderColor:"#0D7AFF",
-   // borderWidth:1,
-  //  backgroundColor: "#F3F3F6", // Color gris claro
     justifyContent: 'center', // Centrar contenido verticalmente
     alignItems: 'center', // Centrar contenido horizontalmente
     marginHorizontal: 5, // Espacio entre los botones
@@ -809,7 +813,7 @@ direcc={direcc}
  {localPhotoUri  || photo ? (
   <>
    <View style={styles.nuevo}>
-      <Image source={{ uri: localPhotoUri  || photo }} style={{ width: 150, height: 150, borderRadius: 10 }} />
+      <Image source={{ uri: localPhotoUri  || photo}} style={{ width: 150, height: 150, borderRadius: 10 }} />
    
     </View> 
   

@@ -825,30 +825,45 @@ await shareAsync(file.uri);
 };
 
 
+const renderButton = () => {
+  switch (des) {
+    case 1:
+      return (
+        <TouchableOpacity style={styles.comp} onPress={generatePdf}>
+          <EvilIcons name="share-apple" size={25} color="#fff" />
+        </TouchableOpacity>
+      );
+    case 2:
+      return (
+        <TouchableOpacity style={styles.comp} onPress={generatePdf2}>
+          <EvilIcons name="share-apple" size={25} color="#fff" />
+        </TouchableOpacity>
+      );
+    case 3:
+      return (
+        <TouchableOpacity style={styles.comp} onPress={generatePdf3}>
+          <EvilIcons name="share-apple" size={25} color="#fff" />
+        </TouchableOpacity>
+      );
+    case 4:
+      return (
+        <TouchableOpacity style={styles.comp} onPress={generatePdf4}>
+          <EvilIcons name="share-apple" size={25} color="#fff" />
+        </TouchableOpacity>
+      );
+    default:
+      return (
+        <TouchableOpacity style={styles.comp} onPress={generatePdf4}>
+          <EvilIcons name="share-apple" size={25} color="#fff" />
+        </TouchableOpacity>
+      );
+  }
+};
+
+
 return(
     <>
-    {des=== 1 ? (
-      <TouchableOpacity style={styles.comp} onPress={generatePdf}>
-      <EvilIcons name="share-apple" size={25} color="#fff" />
-      </TouchableOpacity>
-    ):(null)}
-    {des=== 2 ? (
-      <TouchableOpacity style={styles.comp} onPress={generatePdf2}>
-      <EvilIcons name="share-apple" size={25} color="#fff" />
-      </TouchableOpacity>
-    ):(null)}
-    {des=== 3 ? (
-      <TouchableOpacity style={styles.comp} onPress={generatePdf3}>
-      <EvilIcons name="share-apple" size={25} color="#fff" />
-      </TouchableOpacity>
-    ):(null)}
-     {des=== 4 ? (
-      <TouchableOpacity style={styles.comp} onPress={generatePdf4}>
-      <EvilIcons name="share-apple" size={25} color="#fff" />
-      </TouchableOpacity>
-    ):(null)}
-
-    
+    {renderButton()}
     </>
 )
     

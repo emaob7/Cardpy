@@ -404,7 +404,7 @@ return (
     <Text style={styles.text}>GUARDAR</Text>
     </View>
      <TouchableOpacity style={styles.button} onPress={generatePdf}>
-     <EvilIcons name="share-apple" size={22} color="white" /><Text style={styles.text} >PDF</Text>
+     <EvilIcons name="share-apple" size={22} color="white" /><Text style={styles.text} >Enviar PDF</Text>
      </TouchableOpacity>
       </>  
    ) : (
@@ -415,7 +415,7 @@ return (
    
 
     <View style={styles.buttonOff} >
-     <EvilIcons name="share-apple" size={22} color="white" /><Text style={styles.text} >PDF</Text>
+     <EvilIcons name="share-apple" size={22} color="white" /><Text style={styles.text} >Enviar PDF</Text>
      </View>
 
     
