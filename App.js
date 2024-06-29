@@ -1,6 +1,6 @@
 import React  from 'react';
 import { Provider as PaperProvider } from 'react-native-paper';
-import { StyleSheet, TouchableOpacity, Text} from 'react-native';
+import { AppRegistry, StyleSheet, TouchableOpacity, Text } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { Ionicons } from '@expo/vector-icons';
@@ -157,3 +157,7 @@ const styles = StyleSheet.create({
       height:30
     },
 });
+
+// Registra el componente principal
+import { name as appName } from './app.json';
+AppRegistry.registerComponent(appName, () => App);

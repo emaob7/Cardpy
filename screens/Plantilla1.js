@@ -3,6 +3,11 @@ import {TouchableOpacity, StyleSheet} from 'react-native';
 import { EvilIcons } from '@expo/vector-icons';
 import { printToFileAsync } from 'expo-print';
 import { shareAsync } from 'expo-sharing';
+import { InterstitialAd, AdEventType, TestIds } from 'react-native-google-mobile-ads';
+
+
+
+
 
 
 
@@ -10,8 +15,14 @@ import { shareAsync } from 'expo-sharing';
 const Plantilla1 = ({setProgress, curso, educacion, especifica, general, idioma, herra, referencia, photo, nombre, apellido, profesion, cin, registro, fnac, nacio, telef, correo, direcc, descripcion, des }) => {
 
    
+  const adUnitId = __DEV__ ? TestIds.INTERSTITIAL : 'ca-app-pub-xxxxxxxxxxxxx/yyyyyyyyyyyyyy';
+
+  const interstitial = InterstitialAd.createForAdRequest(adUnitId, {
+    keywords: ['fashion', 'clothing'],
+  });
   
 
+        const [loaded, setLoaded] = useState(false);
         //titulos
 
         const tHerramienta = herra.length > 0 ? `<h2>Habilidades y Herramientas</h2>` : '';
@@ -29,7 +40,30 @@ const Plantilla1 = ({setProgress, curso, educacion, especifica, general, idioma,
         const dcorreo= correo.length > 0 ? `<p>email: ${correo}</p>` : '';
         const ddireccion= direcc.length > 0 ? `<p>Direccion: ${direcc}</p>` : '';
         const dcin= cin.length > 0 ? `<p>CIN: ${cin}</p>` : '';
-//algunos casos
+
+
+
+        useEffect(() => {
+          const unsubscribe = interstitial.addAdEventListener(AdEventType.LOADED, () => {
+            setLoaded(true);
+          });
+      
+          // Start loading the interstitial straight away
+          interstitial.load();
+      
+          // Unsubscribe from events on unmount
+          return unsubscribe;
+        }, []);
+
+
+         // No advert ready to show yet
+  if (!loaded) {
+    return null;
+  }
+
+
+
+        //algunos casos
 const cimg= photo ? `<div id="left-column1"><img src="${photo}" alt="Foto de perfil" style="max-width: 80%; height: auto; border-radius: 10px;"></div>` : '';
   // Secciones con viñetas
   const especificaSection = especifica.map((especificaItem, index) => `
@@ -84,6 +118,7 @@ const cimg= photo ? `<div id="left-column1"><img src="${photo}" alt="Foto de per
 
     
     let generatePdf = async (item) => {
+      interstitial.show();
         setProgress(true);
 
      
@@ -246,6 +281,7 @@ const cimg= photo ? `<div id="left-column1"><img src="${photo}" alt="Foto de per
 
 
   let generatePdf2 = async () => {
+    interstitial.show();
     setProgress(true);
 
  
@@ -469,6 +505,7 @@ await shareAsync(file.uri);
 
 
 let generatePdf3 = async () => {
+  interstitial.show();
   setProgress(true);
 
 
@@ -695,6 +732,7 @@ await shareAsync(file.uri);
 
 
 let generatePdf4 = async () => {
+  interstitial.show();
   setProgress(true);
 
 

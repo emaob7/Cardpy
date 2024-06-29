@@ -12,6 +12,12 @@
       "backgroundColor": "#ffffff",
       "plugins": [
         [
+          "expo-build-properties",
+          {
+            "ios": {
+              "useFrameworks": "static"
+            }
+          },
           "expo-media-library",
           {
             "photosPermission": "Allow $(PRODUCT_NAME) to access your photos.",
@@ -48,7 +54,8 @@
         }
       ],
       "@react-native-google-signin/google-signin",
-      "react-native-vision-camera"
+      "react-native-vision-camera",
+      "expo-build-properties"
     ],
     "web": {
       "favicon": "./assets/favicon1.png"
@@ -59,6 +66,9 @@
       }
     },
     "scheme": "consultas"
-    
+  },
+  "react-native-google-mobile-ads": {
+    "android_app_id": "ca-app-pub-4622872693950947~9382285867",
+    "ios_app_id": "ca-app-pub-4622872693950947~1714714682"
   }
 }
