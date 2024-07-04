@@ -27,7 +27,7 @@
       <dict>
         <key>CFBundleURLSchemes</key>
         <array>
-          <string>consultas</string>
+          <string>cardpy</string>
           <string>com.consultas.cedu</string>
         </array>
       </dict>
@@ -40,17 +40,7 @@
       <dict>
         <key>CFBundleURLSchemes</key>
         <array>
-          <string>exp+consultas</string>
-        </array>
-      </dict>
-      <dict>
-        <key>CFBundleTypeRole</key>
-        <string>Editor</string>
-        <key>CFBundleURLName</key>
-        <string>OAuthRedirect</string>
-        <key>CFBundleURLSchemes</key>
-        <array>
-          <string>com.consultas.cedu</string>
+          <string>exp+cardpy</string>
         </array>
       </dict>
     </array>
@@ -69,8 +59,6 @@
     <string>Allow $(PRODUCT_NAME) to access your camera.</string>
     <key>NSMicrophoneUsageDescription</key>
     <string>Allow $(PRODUCT_NAME) to access your microphone</string>
-    <key>NSMotionUsageDescription</key>
-    <string>Allow $(PRODUCT_NAME) to access your device motion</string>
     <key>NSPhotoLibraryAddUsageDescription</key>
     <string>Allow $(PRODUCT_NAME) to save photos</string>
     <key>NSPhotoLibraryUsageDescription</key>

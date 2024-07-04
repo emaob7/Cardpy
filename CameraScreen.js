@@ -1,6 +1,6 @@
-import React, { useState, useContext, useEffect} from 'react';
+import React, { useState, useContext} from 'react';
 import { EstadoContext } from './EstadoContext';
-import { StyleSheet,View, Image, TouchableOpacity, Text, TextInput, ActivityIndicator} from 'react-native';
+import { StyleSheet,View, Image, TouchableOpacity, Text, TextInput, ActivityIndicator, Button} from 'react-native';
 import { CameraView, useCameraPermissions } from 'expo-camera';
 import * as ImageManipulator from 'expo-image-manipulator';
 import firebase from "./firebase";

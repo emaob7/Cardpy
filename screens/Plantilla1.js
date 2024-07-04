@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import {TouchableOpacity, StyleSheet} from 'react-native';
 import { EvilIcons } from '@expo/vector-icons';
 import { printToFileAsync } from 'expo-print';
@@ -15,14 +15,10 @@ import { InterstitialAd, AdEventType, TestIds } from 'react-native-google-mobile
 const Plantilla1 = ({setProgress, curso, educacion, especifica, general, idioma, herra, referencia, photo, nombre, apellido, profesion, cin, registro, fnac, nacio, telef, correo, direcc, descripcion, des }) => {
 
    
-  const adUnitId = __DEV__ ? TestIds.INTERSTITIAL : 'ca-app-pub-xxxxxxxxxxxxx/yyyyyyyyyyyyyy';
 
-  const interstitial = InterstitialAd.createForAdRequest(adUnitId, {
-    keywords: ['fashion', 'clothing'],
-  });
   
 
-        const [loaded, setLoaded] = useState(false);
+      //  const [loaded, setLoaded] = useState(false);
         //titulos
 
         const tHerramienta = herra.length > 0 ? `<h2>Habilidades y Herramientas</h2>` : '';
@@ -41,27 +37,69 @@ const Plantilla1 = ({setProgress, curso, educacion, especifica, general, idioma,
         const ddireccion= direcc.length > 0 ? `<p>Direccion: ${direcc}</p>` : '';
         const dcin= cin.length > 0 ? `<p>CIN: ${cin}</p>` : '';
 
-
-
+        const [interstitial, setInterstitial] = useState(null);
+        const [isAdLoaded, setIsAdLoaded] = useState(false);
+      
         useEffect(() => {
-          const unsubscribe = interstitial.addAdEventListener(AdEventType.LOADED, () => {
-            setLoaded(true);
+          const interstitialAd = InterstitialAd.createForAdRequest(TestIds.INTERSTITIAL, {
+            requestNonPersonalizedAdsOnly: true,
+            keywords: ['fashion', 'clothing'],
           });
       
-          // Start loading the interstitial straight away
-          interstitial.load();
+          const onAdLoaded = () => {
+            setIsAdLoaded(true);
+          };
+          const onAdClosed = () => {
+            generatePdf();
+          };
       
-          // Unsubscribe from events on unmount
-          return unsubscribe;
+          interstitialAd.addAdEventListener(AdEventType.LOADED, onAdLoaded);
+          interstitialAd.addAdEventListener(AdEventType.CLOSED, onAdClosed);
+          interstitialAd.load();
+      
+          setInterstitial(interstitialAd);
+      
+          return () => {
+            interstitialAd.removeAllListeners();
+          };
         }, []);
+      
+        const showInterstitialAd = () => {
+          if (isAdLoaded && interstitial) {
+            interstitial.show();
+            setIsAdLoaded(false);
+            interstitial.load(); // Pre-carga otro anuncio
+          } else {
+            // Si el anuncio no está cargado, ejecuta la lógica inmediatamente
+            generatePdf();
+          }
+        };
 
+
+
+   /*     useEffect(() => {
+          let interstitial = InterstitialAd.createForAdRequest(TestIds.INTERSTITIAL, {
+      
+              requestNonPersonalizedAdsOnly: true,
+              keywords: ['fashion', 'clothing'],
+          });
+          interstitial.addAdEventListener(AdEventType.LOADED, () => {
+              interstitial.show();
+          }); 
+          interstitial.load();
+          return () => {
+              interstitialListener = null;
+          };
+      }, []);
+      
+*/
 
          // No advert ready to show yet
-  if (!loaded) {
+ /* if (!loaded) {
     return null;
   }
 
-
+*/
 
         //algunos casos
 const cimg= photo ? `<div id="left-column1"><img src="${photo}" alt="Foto de perfil" style="max-width: 80%; height: auto; border-radius: 10px;"></div>` : '';
@@ -117,15 +155,28 @@ const cimg= photo ? `<div id="left-column1"><img src="${photo}" alt="Foto de per
 
 
     
-    let generatePdf = async (item) => {
-      interstitial.show();
-        setProgress(true);
 
-     
-  // <section> <img src="${photo}" alt="Foto de perfil" style="max-width: 100%; height: auto;"> </section>    
-    
-    
-    const html= `
+
+
+
+
+
+
+
+
+
+
+
+
+
+const generatePdf = async () => {
+  setProgress(true);
+
+  let html;
+
+  switch(des) {
+    case 1:
+      html= `
     
     <!DOCTYPE html>
 <html lang="es">
@@ -265,30 +316,10 @@ const cimg= photo ? `<div id="left-column1"><img src="${photo}" alt="Foto de per
 
     
     
-    `;
-
-     const file = await printToFileAsync({
-      html: html,
-      base64: false,
-    //  width: 612,  // Legal width in points (8.5 inches * 72 points/inch)
-    //  height: 1008, // Legal height in points (14 inches * 72 points/inch)
-    });
- setProgress(false);
-    await shareAsync(file.uri);
-  };
-
-
-
-
-  let generatePdf2 = async () => {
-    interstitial.show();
-    setProgress(true);
-
- 
-// <section> <img src="${photo}" alt="Foto de perfil" style="max-width: 100%; height: auto;"> </section>    
-
-
-const html= `
+    `
+      break;
+    case 2:
+      html= `
 
 <!DOCTYPE html>
 <html lang="es">
@@ -494,25 +525,9 @@ ${generalSection}
 
 
 `;
-
- const file = await printToFileAsync({
-  html: html,
-  base64: false
-});
-setProgress(false);
-await shareAsync(file.uri);
-};
-
-
-let generatePdf3 = async () => {
-  interstitial.show();
-  setProgress(true);
-
-
-// <section> <img src="${photo}" alt="Foto de perfil" style="max-width: 100%; height: auto;"> </section>    
-
-
-const html= `
+      break;
+    case 3:
+      html= `
 
 <!DOCTYPE html>
 <html lang="es">
@@ -721,25 +736,9 @@ ${cursosSection}
 
 
 `;
-
-const file = await printToFileAsync({
-html: html,
-base64: false
-});
-setProgress(false);
-await shareAsync(file.uri);
-};
-
-
-let generatePdf4 = async () => {
-  interstitial.show();
-  setProgress(true);
-
-
-// <section> <img src="${photo}" alt="Foto de perfil" style="max-width: 100%; height: auto;"> </section>    
-
-
-const html = `
+      break;
+    case 4:
+      html = `
     <!DOCTYPE html>
     <html lang="es">
     <head>
@@ -851,57 +850,140 @@ const html = `
     </body>
     </html>
     `;
-
-const file = await printToFileAsync({
-html: html,
-base64: false,
-width: 612,  // Legal width in points (8.5 inches * 72 points/inch)
-height: 1008, // Legal height in points (14 inches * 72 points/inch)
-});
-setProgress(false);
-await shareAsync(file.uri);
-};
-
-
-const renderButton = () => {
-  switch (des) {
-    case 1:
-      return (
-        <TouchableOpacity style={styles.comp} onPress={generatePdf}>
-          <EvilIcons name="share-apple" size={25} color="#fff" />
-        </TouchableOpacity>
-      );
-    case 2:
-      return (
-        <TouchableOpacity style={styles.comp} onPress={generatePdf2}>
-          <EvilIcons name="share-apple" size={25} color="#fff" />
-        </TouchableOpacity>
-      );
-    case 3:
-      return (
-        <TouchableOpacity style={styles.comp} onPress={generatePdf3}>
-          <EvilIcons name="share-apple" size={25} color="#fff" />
-        </TouchableOpacity>
-      );
-    case 4:
-      return (
-        <TouchableOpacity style={styles.comp} onPress={generatePdf4}>
-          <EvilIcons name="share-apple" size={25} color="#fff" />
-        </TouchableOpacity>
-      );
+      break;
     default:
-      return (
-        <TouchableOpacity style={styles.comp} onPress={generatePdf4}>
-          <EvilIcons name="share-apple" size={25} color="#fff" />
-        </TouchableOpacity>
-      );
+      html = `
+      <!DOCTYPE html>
+      <html lang="es">
+      <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Currículum Vitae - Harvard</title>
+        <style>
+          body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            line-height: 1.6;
+          }
+          #header {
+            text-align: center;
+          }
+          #header h1 {
+            margin: 0;
+            font-size: 24px;
+            margin-bottom: -12px;
+            text-transform: uppercase; /* Convertimos el texto en mayúsculas */
+          }
+          #header p {
+            margin: 5px 0;
+          }
+          #contact-info {
+        border-top: 1px solid #000;
+        padding-top: 5px;
+      }
+          #profesion {
+        margin-top: -10px;
+      }
+          h2 {
+            font-size: 18px;
+            margin-bottom:-5px;
+            margin-top: 20px;
+            text-align: center; /* Centramos los h2 */
+            text-transform: uppercase; /* Convertimos el texto en mayúsculas */
+          }
+          .section {
+            margin-bottom: 0px;
+          }
+          .section h3 {
+            margin: 0;
+            font-size: 16px;
+            text-transform: uppercase; /* Convertimos el texto en mayúsculas */
+          }
+          .section p {
+            margin: 0;
+            text-indent: 20px; /* Agregamos sangría a los párrafos */
+          }
+          ul {
+            list-style-type: disc;
+            margin-left: 20px;
+          }
+        </style>
+      </head>
+      <body>
+        <div id="header">
+          <h1>${nombre} ${apellido}</h1>
+          <p id="profesion">${profesion}</p>
+          <p id="contact-info">${correo} | ${telef} | ${direcc} </p>
+        </div>
+      
+        <div class="section">
+          <h2>Perfil</h2>
+          <p>${descripcion}</p>
+        </div>
+      
+        <div class="section">
+          ${tEspecifica}
+          <ul>${especificaSection}</ul>
+          <ul>${generalSection}</ul>
+        </div>
+      
+        <div class="section">
+            ${tEducacion}
+          <ul>${educacionSection}</ul>
+        </div>
+      
+        <div class="section">
+        ${tCursos}
+          <ul>${cursosSection}</ul>
+        </div>
+      
+        <div class="section">
+        ${tHerramienta}
+          <ul>${herramientaSection}</ul>
+        </div>
+      
+        <div class="section">
+        ${tIdiomas}
+          <ul>${idiomaSection}</ul>
+        </div>
+      
+        <div class="section">
+        ${tReferencia}
+          <ul>${referenciaSection}</ul>
+        </div>
+  
+              <div class="section">
+          <h2>Datos Personales</h2>
+          <p>${dcin}</p>
+          <p>${dregistro}</p>
+          <p>${dfnacimiento}</p>
+          <p>${dnacionalidad}</p>
+        </div>
+      
+      </body>
+      </html>
+      `;
+      break;
   }
+
+  const file = await printToFileAsync({
+    html: html,
+    base64: false,
+  });
+  setProgress(false);
+  await shareAsync(file.uri);
 };
+
+
+
 
 
 return(
     <>
-    {renderButton()}
+    <TouchableOpacity style={styles.comp} onPress={showInterstitialAd}>
+          <EvilIcons name="share-apple" size={25} color="#fff" />
+        </TouchableOpacity>
     </>
 )
     

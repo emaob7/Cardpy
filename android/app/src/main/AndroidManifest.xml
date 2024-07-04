@@ -26,9 +26,9 @@
         <action android:name="android.intent.action.VIEW"/>
         <category android:name="android.intent.category.DEFAULT"/>
         <category android:name="android.intent.category.BROWSABLE"/>
-        <data android:scheme="consultas"/>
+        <data android:scheme="cardpy"/>
         <data android:scheme="com.consultas.cedu"/>
-        <data android:scheme="exp+consultas"/>
+        <data android:scheme="exp+cardpy"/>
       </intent-filter>
     </activity>
     <activity android:name="com.facebook.react.devsupport.DevSettingsActivity" android:exported="false"/>

@@ -125,7 +125,6 @@ console.log(`El tamaño del objeto JSON es aproximadamente ${megabytes} MB.`);
           setRegistro(datosJson.registro);
           setReferencia(datosJson.referencia);
           setTelef(datosJson.telef);
-          setDes(datosJson.des);
 
 
          // console.log(datosJson);
@@ -227,9 +226,9 @@ console.log(`El tamaño del objeto JSON es aproximadamente ${megabytes} MB.`);
               onPress: async () => {
                 if (photoUrl) {
                   // Si photoUrl existe, ejecutar el comando
-                //  let imageRef1 = firebase.storage.refFromURL(photoUrl).delete();
-                //  const documentsRef = firebase.db.collection(uid);
-                //  documentsRef.doc("cv").update({ photoUrl: null });
+                  let imageRef1 = firebase.storage.refFromURL(photoUrl).delete();
+                  const documentsRef = firebase.db.collection(uid);
+                  documentsRef.doc("cv").update({ photoUrl: null });
                   setLocalPhotoUri(null);
                   setPhoto(null);
                   setPhotoUrl(null);
@@ -255,7 +254,6 @@ console.log(`El tamaño del objeto JSON es aproximadamente ${megabytes} MB.`);
                     referencia,
                     photoUrl: null, // Actualizar photoUrl a null ya que la foto fue eliminada
                     localPhotoUri:null,
-                    des,
                   };
 
                   // Guardar los datos en AsyncStorage
@@ -390,7 +388,7 @@ reader.readAsDataURL(blob);
             idioma: idioma,
             herra: herra,
             referencia: referencia,
-            photoUrl: enlaceUrl
+            photoUrl: enlaceUrl,
            });
         } else {
           await firebase.db.collection(uid).doc("cv").update({
@@ -456,7 +454,6 @@ reader.readAsDataURL(blob);
         referencia,
         photoUrl,
         localPhotoUri,
-        des,
         };
 
         
@@ -494,7 +491,6 @@ reader.readAsDataURL(blob);
         referencia,
         photoUrl,
         localPhotoUri,
-        des,
         };
 
         
