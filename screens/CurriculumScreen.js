@@ -745,7 +745,7 @@ reader.readAsDataURL(blob);
         padding: 16,
         paddingTop:5,
         paddingBottom:10,
-        backgroundColor: 'white',
+        backgroundColor: '#FFFFFF',
         width: '100%', // O ajusta el ancho según tus necesidades
       }}
     >
@@ -814,7 +814,7 @@ direcc={direcc}
     </View> 
   
     <TouchableOpacity style={styles.remove} onPress={removePhoto} >
-    <Octicons name="x-circle-fill" size={24} color="red" />
+    <Octicons name="x-circle-fill" size={24} color="#003e2e" />
       </TouchableOpacity>
       {showButton && (
             <TouchableOpacity style={styles.newButton} onPress={savePictures}>
@@ -1005,7 +1005,7 @@ container: {
    // alignItems: 'center',
   marginLeft:-5,
     width: "100%",
-    backgroundColor:"white",
+    backgroundColor:"#FFFFFF",
     paddingTop:50,
   },
   snackbarContainer: {
@@ -1035,7 +1035,7 @@ container: {
   paddingLeft:10,
   paddingRight: 10,
     width: "100%",
-    backgroundColor:"white"
+    backgroundColor:"#FFFFFF"
   },
     super: {
         fontSize: 30,
@@ -1054,7 +1054,7 @@ container: {
       },
       divider:{
     borderBottomWidth: 1,
-    borderColor: '#ccc',
+    borderColor: '#FAFAFA',
     marginLeft:22,
     paddingBottom:37
     ,width: "92%",
@@ -1062,7 +1062,7 @@ container: {
       }, 
       input:{
             borderWidth: 1,
-            borderColor: '#ccc',
+            borderColor: '#FAFAFA',
             padding: 10,
             marginBottom: 10,
             borderRadius: 10,
@@ -1087,7 +1087,7 @@ container: {
         borderColor: '#0D7AFF',
         borderRadius: 10,
         borderStyle: 'dashed',
-        backgroundColor: 'white',
+        backgroundColor: '#FFFFFF',
         width: 150,
         height:150,
         marginTop:7,
@@ -1103,7 +1103,7 @@ container: {
         marginLeft: 129,
         marginTop: 53,
         position: 'absolute',
-        backgroundColor:"white",
+        backgroundColor:"#FFFFFF",
         padding:4,
         borderRadius:50
       },
@@ -1120,11 +1120,11 @@ container: {
       },
       textButton: {
         fontSize: 16,
-        color: 'white',
+        color: '#FFFFFF',
       },
       toca: {
         position: 'absolute',
-        backgroundColor:"white",
+        backgroundColor:"#FFFFFF",
         borderRadius:20,
         padding:4,
 
@@ -1136,7 +1136,7 @@ container: {
 
       comp:{
                         margin:16,
-                        backgroundColor: "white",
+                        backgroundColor: "#FFFFFF",
                         justifyContent: 'center',
                         alignContent: 'center',
                         borderRadius:50

@@ -20,8 +20,8 @@ export default function SignInScreen({ promptAsync }) {
         }}
         onPress={() => promptAsync()}
       >
-        <AntDesign name="google" size={30} color="white" />
-        <Text style={{ fontWeight: "bold", color: "white", fontSize: 17 }}>
+        <AntDesign name="google" size={30} color="#FFFFFF" />
+        <Text style={{ fontWeight: "bold", color: "#FFFFFF", fontSize: 17 }}>
           Iniciar con Google
         </Text>
       </TouchableOpacity>

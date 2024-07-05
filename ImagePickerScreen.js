@@ -168,7 +168,7 @@ marginBottom: 36,
 marginHorizontal: 20,
 },
 button: {
-backgroundColor: '#fff',
+backgroundColor: '#FFFFFF',
 borderRadius: 5,
 padding: 15,
 paddingHorizontal: 20,
@@ -176,7 +176,7 @@ alignSelf: 'center',
 margin: 20,
 },
 text: {
-color: '#000',
+color: '#000000',
 fontSize: 16,
 },
 imageContainer: {

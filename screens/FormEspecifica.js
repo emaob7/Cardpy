@@ -57,7 +57,7 @@ const FormEspecificas = ({ especificas, setEspecificas, swi }) => {
         </View>
                 
             <TouchableOpacity onPress={() => removeEspecifica(index)} >
-          <Feather name="x-circle" size={24} color="red" />
+          <Feather name="x-circle" size={24} color="#003e2e" />
       </TouchableOpacity>
             </View>
             
@@ -145,7 +145,7 @@ const styles = StyleSheet.create({
 
       chipsT:{
 
-color: "black"
+color: "#000000"
 
       },
       chipsCont:{
@@ -167,7 +167,7 @@ color: "black"
         input:{
           
               borderWidth: 1,
-              borderColor: '#ccc',
+              borderColor: '#FAFAFA',
               padding: 10,
               margin: 5,
               width: "47%",
@@ -175,7 +175,7 @@ color: "black"
         }, 
         inputN:{
           borderWidth: 1,
-          borderColor: '#ccc',
+          borderColor: '#FAFAFA',
           padding: 10,
           margin: 5,
           width: "97%",
@@ -183,7 +183,7 @@ color: "black"
     }, 
     inputTa:{
         borderWidth: 1,
-        borderColor: '#ccc',
+        borderColor: '#FAFAFA',
         padding: 10,
         margin: 5,
         width: "97%",

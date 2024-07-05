@@ -269,7 +269,7 @@ return (
     <View style={styles.volver}> 
       <TouchableOpacity 
     onPress={handleBackButton}  >
-        <Ionicons name="chevron-back-circle-outline" size={30} color="black" />
+        <Ionicons name="chevron-back-circle-outline" size={30} color="#000000" />
       </TouchableOpacity></View>
     <View style={styles.ayudaContainer}>
    
@@ -310,7 +310,7 @@ return (
       <TouchableOpacity onPress={takePicture} style={styles.circleButton}>
           <View style={styles.circle} >
          
-          <Ionicons name="camera-outline" size={40} color="white" />
+          <Ionicons name="camera-outline" size={40} color="#FFFFFF" />
 
           </View>
         </TouchableOpacity>
@@ -330,7 +330,7 @@ return (
 <View style={styles.volver1}> 
       <TouchableOpacity 
     onPress={handleBackButton}  >
-        <Ionicons name="chevron-back-circle-outline" size={30} color="black" />
+        <Ionicons name="chevron-back-circle-outline" size={30} color="#000000" />
       </TouchableOpacity>
       </View>
 
@@ -404,7 +404,7 @@ return (
     <Text style={styles.text}>GUARDAR</Text>
     </View>
      <TouchableOpacity style={styles.button} onPress={generatePdf}>
-     <EvilIcons name="share-apple" size={22} color="white" /><Text style={styles.text} >Enviar PDF</Text>
+     <EvilIcons name="share-apple" size={22} color="#FFFFFF" /><Text style={styles.text} >Enviar PDF</Text>
      </TouchableOpacity>
       </>  
    ) : (
@@ -415,7 +415,7 @@ return (
    
 
     <View style={styles.buttonOff} >
-     <EvilIcons name="share-apple" size={22} color="white" /><Text style={styles.text} >Enviar PDF</Text>
+     <EvilIcons name="share-apple" size={22} color="#FFFFFF" /><Text style={styles.text} >Enviar PDF</Text>
      </View>
 
     
@@ -527,7 +527,7 @@ const styles = StyleSheet.create({
   },
   previewContainer: {
     flexDirection: 'column',
-    backgroundColor: '#fff',
+    backgroundColor: '#FFFFFF',
    //justifyContent: 'center',
    alignItems: 'center',
     width: '90%',
@@ -598,7 +598,7 @@ const styles = StyleSheet.create({
     width: 110,
     height: 110,
     borderRadius: 60,
-    backgroundColor: 'white',
+    backgroundColor: '#FFFFFF',
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -616,7 +616,7 @@ const styles = StyleSheet.create({
     //marginLeft: 10,
     justifyContent: 'center',
     fontSize:16,
-    color:"white"
+    color:"#FFFFFF"
   },
   textAyuda: {
      justifyContent: 'center',

@@ -100,11 +100,11 @@ const styles = StyleSheet.create({
 
       chipsT:{
 
-color: "black"
+color: "#000000"
 
       },
       chipsTG:{
-        color: "gray",
+        color: "FAFAFA",
               },
       chipsCont:{
 
@@ -133,7 +133,7 @@ color: "black"
         input:{
           
               borderWidth: 1,
-              borderColor: '#ccc',
+              borderColor: '#FAFAFA',
               padding: 10,
               margin: 5,
               width: "95%",
@@ -141,7 +141,7 @@ color: "black"
         }, 
         inputN:{
           borderWidth: 1,
-          borderColor: '#ccc',
+          borderColor: '#FAFAFA',
           padding: 10,
           margin: 5,
           width: "30%",

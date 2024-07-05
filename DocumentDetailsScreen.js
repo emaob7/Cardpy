@@ -104,7 +104,7 @@ const DocumentDetailsScreen = ({ route }) => {
 
     <View style={styles.buttonsContainer}>
       <TouchableOpacity style={styles.button} onPress={generatePdf}>
-      <EvilIcons name="share-apple" size={30} color="#fff" /><Text style={styles.text} >Enviar PDF</Text>
+      <EvilIcons name="share-apple" size={30} color="#FFFFFF" /><Text style={styles.text} >Enviar PDF</Text>
       </TouchableOpacity>
        </View>
      
@@ -148,7 +148,7 @@ const styles = StyleSheet.create({
   },
   previewContainer: {
     flexDirection: 'column',
-    backgroundColor: '#fff',
+    backgroundColor: '#FFFFFF',
    //justifyContent: 'center',
    alignItems: 'center',
     width: '90%',
@@ -182,7 +182,7 @@ const styles = StyleSheet.create({
     marginLeft: 10,
     justifyContent: 'center',
     fontSize:20,
-    color:"white"
+    color:"#FFFFFF"
   },
   load:{
     marginBottom:25

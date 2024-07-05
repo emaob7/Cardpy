@@ -204,14 +204,14 @@ const generatePdf = async () => {
     }
 
     #left-column {
-      color: #333;
+      color: #333000;
       padding-right: 15px
       
     }
 
     #right-column {
       width: 69%;
-      color: #333;
+      color: #333000;
       border-left: 0.1px solid #2c3e50;
       padding-left: 15px;
       min-height: 100%;
@@ -354,7 +354,7 @@ body {
   width: 41%;
   box-sizing: border-box;
   padding: 20px 20px;
-  color: #333;
+  color: #333000;
   padding-bottom: 15px;
   background-color: #CBD4C2;
 }
@@ -362,7 +362,7 @@ body {
 
 #right-column1 {
   width: 100%;
-  color: #333;
+  color: #333000;
   padding-left: 15px;
   background-color: #CBD4C2;
   
@@ -386,14 +386,14 @@ h4{
   width: 30%;
   box-sizing: border-box;
   padding: 0 20px;
-  color: #333;
+  color: #333000;
   padding-right: 15px;
 }
 
 
 #right-column {
   width: 69%;
-  color: #333;
+  color: #333000;
   border-left: 0.1px solid #2c3e50;
   padding-left: 15px;
   min-height: 100%;
@@ -562,7 +562,7 @@ margin-bottom: -32px;
 width: 41%;
 box-sizing: border-box;
 padding: 20px 20px;
-color: #333;
+color: #333000;
 padding-bottom: 15px;
 background-color: #F4F4F9;
 }
@@ -570,7 +570,7 @@ background-color: #F4F4F9;
 
 #right-column1 {
 width: 100%;
-color: #333;
+color: #333000;
 padding-left: 15px;
 background-color: #F4F4F9;
 }
@@ -593,14 +593,14 @@ text-align: center; /* Alinea el texto al centro */
 width: 30%;
 box-sizing: border-box;
 padding: 0 20px;
-color: #333;
+color: #333000;
 padding-right: 15px;
 }
 
 
 #right-column {
 width: 69%;
-color: #333;
+color: #333000;
 border-left: 0.1px solid #2c3e50;
 padding-left: 15px;
 min-height: 100%;
@@ -982,7 +982,7 @@ ${cursosSection}
 return(
     <>
     <TouchableOpacity style={styles.comp} onPress={showInterstitialAd}>
-          <EvilIcons name="share-apple" size={25} color="#fff" />
+          <EvilIcons name="share-apple" size={25} color="#FFFFFF" />
         </TouchableOpacity>
     </>
 )

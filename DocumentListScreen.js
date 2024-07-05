@@ -297,7 +297,7 @@ const documentosFiltrados = documents.filter(item => item.foto1);
         backgroundColor: '#F3F3F6',
       }}>
 <View style={styles.inputContainer}>
-<Ionicons name="search" size={20} color="gray" style={styles.searchIcon} />
+<Ionicons name="search" size={20} color="#FAFAFA" style={styles.searchIcon} />
   <TextInput
     style={styles.input}
     value={searchTerm}
@@ -307,7 +307,7 @@ const documentosFiltrados = documents.filter(item => item.foto1);
   }}
     placeholder="Buscar"
     onSubmitEditing={handleSearch}
-    placeholderTextColor="gray"
+    placeholderTextColor="#FAFAFA"
   />
 </View>
   </View>       
@@ -361,7 +361,7 @@ style={styles.flatlist}
                   onPress={() => onRefresh()}
                   style={styles.actualizar}
                 >
-                  <Ionicons name="arrow-up-outline" size={18} color="white"/>
+                  <Ionicons name="arrow-up-outline" size={18} color="#FFFFFF"/>
                       <Text  style={styles.textAc}>Actualizar</Text>
                 </TouchableOpacity> ) : null}
      
@@ -370,12 +370,12 @@ style={styles.flatlist}
         data={documentosFiltrados}
         keyExtractor={(item) => item.id}
         refreshControl={
-          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} progressBackgroundColor="yellow"/>
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh}/>
         }
         renderItem={({ item }) => (
 
           <View style={styles.document}>
-            <Ionicons name="card-outline" color="black" size={38} style={{  marginTop:5, marginLeft:17, marginRight:-7 }}/>
+            <Ionicons name="card-outline" color="#000000" size={38} style={{  marginTop:5, marginLeft:17, marginRight:-7 }}/>
            
             <TouchableOpacity style={styles.textContent}   onPress={() => handleDocumentPress(item)}>
             
@@ -481,7 +481,7 @@ marginTop:10,
    // borderWidth:1,
   //  backgroundColor: "#F3F3F6",
     justifyContent: 'space-evenly',
-    backgroundColor: "white",
+    backgroundColor: "#FFFFFF",
     //#D3E3FD #F2F6FC
     width: '94%',
     marginTop:3,
@@ -497,7 +497,7 @@ marginTop:10,
     borderColor: '#0D7AFF',
     borderRadius: 10,
     borderStyle: 'dashed',
-    backgroundColor: 'white',
+    backgroundColor: '#FFFFFF',
     width: '95%',
     marginTop:7,
     
@@ -601,7 +601,7 @@ marginTop:10,
     elevation: 5,
     ...Platform.select({
       ios: {
-        shadowColor: '#000',
+        shadowColor: '#000000',
         shadowOffset: { width: 0, height: 3 },
         shadowOpacity: 0.3,
         shadowRadius: 4,
@@ -611,7 +611,7 @@ marginTop:10,
   },
   textAc:{
     fontSize:15,
-    color:"white",
+    color:"#FFFFFF",
     fontWeight: 'bold',
   },
   perfil: {

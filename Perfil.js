@@ -80,7 +80,7 @@ const styles = StyleSheet.create({
   },
   textButton:{
     fontWeight: 'bold',
-    color: "#fff"
+    color: "#FFFFFF"
   },
    super: {
     fontSize: 27,
