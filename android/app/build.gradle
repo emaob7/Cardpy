@@ -1,6 +1,9 @@
 apply plugin: "com.android.application"
 apply plugin: "org.jetbrains.kotlin.android"
 apply plugin: "com.facebook.react"
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-parcelize'
+
 
 def projectRoot = rootDir.getAbsoluteFile().getParentFile().getAbsolutePath()
 
@@ -91,6 +94,9 @@ android {
         versionCode 1
         versionName "1.0.0"
     }
+    viewBinding {
+        enabled = true
+    }
     signingConfigs {
         debug {
             storeFile file('debug.keystore')
@@ -141,7 +147,9 @@ android {
 
 dependencies {
     // The version of react-native is set by the React Native Gradle Plugin
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion"
     implementation("com.facebook.react:react-android")
+
 
     def isGifEnabled = (findProperty('expo.gif.enabled') ?: "") == "true";
     def isWebpEnabled = (findProperty('expo.webp.enabled') ?: "") == "true";

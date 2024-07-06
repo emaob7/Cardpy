@@ -7,3 +7,16 @@ target 'cardpy' do
   pod 'Firebase/Core', '~> 10.19.0'
   pod 'FirebaseCoreInternal', :modular_headers => true
   pod 'GoogleUtilities', :modular_headers => true
+
+
+
+  resolvio 
+  ./gradlew wrapper --gradle-version 8.6 --distribution-type all
+
+
+"postinstall": "node ./scripts/postinstall.js"
+
+
+
+comandos 
+npm cache clean --force

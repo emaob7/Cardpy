@@ -1,16 +1,10 @@
-/*
-Config plugin required when upgrading from 
-Expo 50 & react native 0.73 --> Expo 51 & react native 0.74
-ReactCommon.modulemap and React-RuntimeApple.modulemap have the same content and are defining the ReactCommon module, then the issue lies in the redefinition of the module.
-The error message "redefinition of module 'ReactCommon'" suggests that the module is being defined more than once in your project, leading to a conflict.
-*/
-
 // postinstall.js
 const fs = require('fs');
 const path = require('path');
+const { exec } = require('child_process');
 
 const commentOutCode = (fileContent) => {
-  console.log('File content to commen out:', { fileContent });
+  console.log('File content to comment out:', { fileContent });
 
   return fileContent
     .split('\n')
@@ -58,4 +52,18 @@ const executePostInstall = () => {
   }
 };
 
+const runJetifier = () => {
+  exec('npx react-native-jetifier', (error, stdout, stderr) => {
+    if (error) {
+      console.error(`Error running jetifier: ${error}`);
+      return;
+    }
+    if (stderr) {
+      console.error(`Jetifier stderr: ${stderr}`);
+    }
+    console.log(`Jetifier stdout: ${stdout}`);
+  });
+};
+
 executePostInstall();
+runJetifier();

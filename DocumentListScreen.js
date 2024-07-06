@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useContext } from 'react';
+import firebase from "./firebase";
 import { EstadoContext } from './EstadoContext';
 import { useSnackbar } from './useSnackbar'; // Importa tu hook personalizado
 import { Snackbar, Provider as PaperProvider } from 'react-native-paper';
 import { FlatList, StyleSheet, Text, TouchableOpacity, View,Platform, Alert, RefreshControl, TextInput,ActivityIndicator} from 'react-native';
-import firebase from "./firebase";
 import { useNavigation } from '@react-navigation/native';
 import { MaterialIcons } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-async-storage/async-storage';

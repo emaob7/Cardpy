@@ -12,6 +12,10 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff",
       "plugins": [
+        "@react-native-firebase/app",
+        "@react-native-firebase/auth",
+        "@react-native-firebase/firestore",
+        "@react-native-firebase/storage",
         [
           "expo-build-properties",
           {
@@ -90,4 +94,5 @@
     "android_app_id": "ca-app-pub-4622872693950947~9382285867",
     "ios_app_id": "ca-app-pub-4622872693950947~1714714682"
   }
+  
 }
