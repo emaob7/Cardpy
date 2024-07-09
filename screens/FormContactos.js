@@ -104,7 +104,7 @@ color: "#000000"
 
       },
       chipsTG:{
-        color: "FAFAFA",
+        color: "CCCCCC",
               },
       chipsCont:{
 
@@ -133,7 +133,7 @@ color: "#000000"
         input:{
           
               borderWidth: 1,
-              borderColor: '#FAFAFA',
+              borderColor: '#CCCCCC',
               padding: 10,
               margin: 5,
               width: "95%",
@@ -141,7 +141,7 @@ color: "#000000"
         }, 
         inputN:{
           borderWidth: 1,
-          borderColor: '#FAFAFA',
+          borderColor: '#CCCCCC',
           padding: 10,
           margin: 5,
           width: "30%",

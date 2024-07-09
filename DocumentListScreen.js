@@ -10,6 +10,8 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Ionicons } from '@expo/vector-icons';
 import { printToFileAsync } from 'expo-print';
 import { shareAsync } from 'expo-sharing';
+import ShareInstructions from './screens/ShareInstructions';
+import EnviarCom from './EnviarCom';
 
 
 
@@ -285,7 +287,7 @@ const documentosFiltrados = documents.filter(item => item.foto1);
       <Text style={styles.super}>Cedulas</Text>
      
       <TouchableOpacity onPress={() => navigation.navigate('CameraScreen', {uid})} >
-        <Ionicons name="add-circle-sharp" size={28} color="#0D7AFF" />
+        <Ionicons name="add-circle-sharp" size={28} color="#1863FF" />
        
       </TouchableOpacity>
     </View>
@@ -297,7 +299,7 @@ const documentosFiltrados = documents.filter(item => item.foto1);
         backgroundColor: '#F3F3F6',
       }}>
 <View style={styles.inputContainer}>
-<Ionicons name="search" size={20} color="#FAFAFA" style={styles.searchIcon} />
+<Ionicons name="search" size={20} color="#CCCCCC" style={styles.searchIcon} />
   <TextInput
     style={styles.input}
     value={searchTerm}
@@ -307,7 +309,7 @@ const documentosFiltrados = documents.filter(item => item.foto1);
   }}
     placeholder="Buscar"
     onSubmitEditing={handleSearch}
-    placeholderTextColor="#FAFAFA"
+    placeholderTextColor="#CCCCCC"
   />
 </View>
   </View>       
@@ -333,21 +335,20 @@ style={styles.flatlist}
            
          </TouchableOpacity>
          <View style={styles.iconContainer}>
-      <TouchableOpacity
-        style={styles.buttonC}
-        onPress={() => generatePdf(item)}
-      >
-        <MaterialIcons name="ios-share" size={20} color="#0D7AFF" />
-      </TouchableOpacity>
-      <TouchableOpacity
+         <TouchableOpacity
         style={styles.buttonC}
         onPress={() => {
           deleteDocumen(item.id, item.foto1, item.foto2);
         }}
       >
-        <MaterialIcons name="delete-outline" size={22} color="#0D7AFF" />
+        <MaterialIcons name="delete-outline" size={22} color="#5A5E61" />
       </TouchableOpacity>
-    </View>
+      <EnviarCom
+      setProgress={setProgress}
+      item={item}
+      />
+      
+    </View> 
         
       </View>
     )}
@@ -364,7 +365,10 @@ style={styles.flatlist}
                   <Ionicons name="arrow-up-outline" size={18} color="#FFFFFF"/>
                       <Text  style={styles.textAc}>Actualizar</Text>
                 </TouchableOpacity> ) : null}
-     
+                <ShareInstructions 
+          icon="share-apple"
+          text="Solo apareceran anuncios antes de compartir un archivo, es para mantener la app gratuita" 
+        />
       <FlatList
       style={styles.flatlist}
         data={documentosFiltrados}
@@ -375,7 +379,7 @@ style={styles.flatlist}
         renderItem={({ item }) => (
 
           <View style={styles.document}>
-            <Ionicons name="card-outline" color="#000000" size={38} style={{  marginTop:5, marginLeft:17, marginRight:-7 }}/>
+            <Ionicons name="card-outline" color="#000000" size={20} style={{  marginTop:3, marginLeft:2, marginRight:-22 }}/>
            
             <TouchableOpacity style={styles.textContent}   onPress={() => handleDocumentPress(item)}>
             
@@ -386,20 +390,19 @@ style={styles.flatlist}
 
           </TouchableOpacity>
           <View style={styles.iconContainer}>
-      <TouchableOpacity
-        style={styles.buttonC}
-        onPress={() => generatePdf(item)}
-      >
-        <MaterialIcons name="ios-share" size={20} color="#0D7AFF" />
-      </TouchableOpacity>
-      <TouchableOpacity
+          <TouchableOpacity
         style={styles.buttonC}
         onPress={() => {
           deleteDocumen(item.id, item.foto1, item.foto2);
         }}
       >
-        <MaterialIcons name="delete-outline" size={22} color="#0D7AFF" />
+        <MaterialIcons name="delete-outline" size={22} color="#5A5E61" />
       </TouchableOpacity>
+      <EnviarCom
+      setProgress={setProgress}
+      item={item}
+      />
+     
     </View>
          
 
@@ -430,7 +433,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: "#F3F3F6",
+    backgroundColor: "#F0F3F5",
   },
   flatlist:{
 marginTop:10,
@@ -457,7 +460,7 @@ marginTop:10,
     flexDirection: 'row',
     justifyContent: 'center', // Centrar horizontalmente
     alignItems: 'center', // Centrar verticalmente
-    marginLeft:-30,
+    marginLeft:-15,
   },
   buttonC: {
     width: 40, // Ancho del círculo
@@ -477,15 +480,21 @@ marginTop:10,
     marginVertical: 5,
     marginLeft: 9,
     borderRadius: 10,
-   // borderColor:"#D3E3FD",
+   // borderColor:"#FAFAFA",
    // borderWidth:1,
   //  backgroundColor: "#F3F3F6",
     justifyContent: 'space-evenly',
     backgroundColor: "#FFFFFF",
     //#D3E3FD #F2F6FC
-    width: '94%',
+    width: '95%',
     marginTop:3,
-    paddingRight:5
+   // paddingRight:5,
+   // shadowColor: '#000000',
+    //shadowOffset: { width: 0, height: 1 },
+   // shadowOpacity: 0.10,
+    //shadowRadius: 2.84,
+    // Shadow property for Android
+   // elevation: 1,
   },
   nuevo: {
     flexDirection: 'row',
@@ -525,7 +534,7 @@ marginTop:10,
   textC: {
     paddingVertical: 3,
     width: '56%',
-    color:"#78909c",
+    color:"#5A5E61",
     //9B9CA0
     fontSize:13,
    // paddingLeft:10
@@ -561,7 +570,7 @@ marginTop:10,
   inputContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '#E4E4E7',
+    backgroundColor: '#ffffff',
     borderRadius: 70,
     paddingHorizontal: 10,
     marginVertical: 20,

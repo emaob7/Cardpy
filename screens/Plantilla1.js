@@ -6,7 +6,7 @@ import { shareAsync } from 'expo-sharing';
 import { InterstitialAd, AdEventType, TestIds } from 'react-native-google-mobile-ads';
 
 
-
+// Compartir Boton
 
 
 
@@ -995,7 +995,7 @@ const styles = StyleSheet.create({
       width: 35, // Ancho del círculo
       height: 35, // Alto del círculo
       borderRadius: 20, // Mitad del ancho y alto para hacer el círculo
-      backgroundColor: "#0D7AFF", // Color gris claro
+      backgroundColor: "#1863FF", // Color gris claro
       justifyContent: 'center', // Centrar contenido verticalmente
       alignItems: 'center', // Centrar contenido horizontalmente
       marginHorizontal: 5, // Espacio entre los botones

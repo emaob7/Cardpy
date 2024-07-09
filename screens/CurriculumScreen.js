@@ -25,6 +25,7 @@ import ScreenDesign from './ScreenDesign';
 import FormPerfil from './FormPerfil';
 import * as FileSystem from 'expo-file-system';
 import * as MediaLibrary from 'expo-media-library';
+import ShareInstructions from './ShareInstructions';
 
 
 const CurriculumScreen = (props) => {
@@ -749,6 +750,7 @@ reader.readAsDataURL(blob);
         width: '100%', // O ajusta el ancho según tus necesidades
       }}
     >
+      
      
       <Text style={styles.super}>Curriculum</Text>
       <View 
@@ -762,7 +764,7 @@ reader.readAsDataURL(blob);
     alignItems: 'center', // Centrar contenido horizontalmente
     marginHorizontal: 5, // Espacio entre los botones
       }}>
-      <Ionicons name="save-outline" size={18} color="#0D7AFF" />
+      <Ionicons name="save-outline" size={18} color="#1863FF" />
 </TouchableOpacity>
       <Plantilla2
 setSwi={setSwi}
@@ -803,7 +805,10 @@ direcc={direcc}
 
 
 <ScrollView>
-
+<ShareInstructions 
+          icon="share-apple"
+          text="Antes de compartir aparecerá un anuncio." 
+        />
  <View style={styles.divider}>
  <Text style={styles.subtitulo}>1. Foto</Text>
  {localPhotoUri  || photo ? (
@@ -814,7 +819,7 @@ direcc={direcc}
     </View> 
   
     <TouchableOpacity style={styles.remove} onPress={removePhoto} >
-    <Octicons name="x-circle-fill" size={24} color="#003e2e" />
+    <Octicons name="x-circle-fill" size={24} color="#FF6B6B" />
       </TouchableOpacity>
       {showButton && (
             <TouchableOpacity style={styles.newButton} onPress={savePictures}>
@@ -1054,7 +1059,7 @@ container: {
       },
       divider:{
     borderBottomWidth: 1,
-    borderColor: '#FAFAFA',
+    borderColor: '#CCCCCC',
     marginLeft:22,
     paddingBottom:37
     ,width: "92%",
@@ -1062,7 +1067,7 @@ container: {
       }, 
       input:{
             borderWidth: 1,
-            borderColor: '#FAFAFA',
+            borderColor: '#CCCCCC',
             padding: 10,
             marginBottom: 10,
             borderRadius: 10,

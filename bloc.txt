@@ -20,3 +20,4 @@ target 'cardpy' do
 
 comandos 
 npm cache clean --force
+npx expo run:ios --device

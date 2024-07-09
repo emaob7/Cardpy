@@ -4,6 +4,9 @@ import { Ionicons } from '@expo/vector-icons';
 
 
 
+// Diseños
+
+
 
 const Plantilla2 = ({ setSwi}) => {
 
@@ -16,7 +19,7 @@ const Plantilla2 = ({ setSwi}) => {
 return(
     <>
     <TouchableOpacity style={styles.comp} onPress={() => setSwi(12)}>
-    <Ionicons name="color-palette-outline" size={22} color="#0D7AFF" />
+    <Ionicons name="color-palette-outline" size={22} color="#1863FF" />
 </TouchableOpacity>
     </>
 )

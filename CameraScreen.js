@@ -6,11 +6,11 @@ import * as ImageManipulator from 'expo-image-manipulator';
 import firebase from "./firebase";
 import "react-native-get-random-values";
 import {v4 as uuidv4} from "uuid";
-import { printToFileAsync } from 'expo-print';
 import { shareAsync } from 'expo-sharing';
 import { EvilIcons } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Ionicons } from '@expo/vector-icons';
+import EnviarPdf from './EnviarPdf';
 
 
 
@@ -56,8 +56,8 @@ export default function CameraScreen({ route, navigation }) {
     // Camera permissions are not granted yet.
     return (
       <View style={styles.container}>
-        <Text style={{ textAlign: 'center' }}>We need your permission to show the camera</Text>
-        <Button onPress={requestPermission} title="Grant Permission" />
+        <Text style={{ textAlign: 'center' }}>Necesitamos tu permiso para usar la cámara</Text>
+        <Button onPress={requestPermission} title="Conceder permiso" />
       </View>
     );
   }
@@ -67,71 +67,11 @@ export default function CameraScreen({ route, navigation }) {
     navigation.goBack()
   };
 
-  const dcin= cin.length > 0 ? `<span>, con CIN: ${cin}</span>` : '';
-  const dnombre= nombre.length > 0 ? `<span>Fotocopia de cédula de ${nombre}</span>` : '';
-
-  const html = `
-  <html>
-  <head>
-    <style>
-      .container {
-        text-align: center;
-        padding: 20px;
-      }
-  
-      .title {
-        font-size: 18px;
-        margin-bottom: 20px;
-      }
-  
-      .image-container {
-        display: flex;
-        justify-content: center;
-        gap: 130px; /* Añade espacio entre las imágenes */
-        padding: 10px 50px 20px;
-        margin-top: -50px;
-      }
-    
-      .image-wrapper {
-        width: auto;
-      }
-    
-      .imagen {
-        border-radius: 10px;
-        width: 200px; /* Ajusta el tamaño aquí según sea necesario */
-        transform: rotate(-90deg);
-      }
-    </style>
-  </head>
-  <body>
-    <div class="container">
-      <div class="title">
-         ${dnombre} ${dcin}
-      </div>
-      <div class="image-container">
-        <div class="image-wrapper">
-          <img class="imagen" src="${fotoUrl1}" alt="Licencia 1">
-        </div>
-        <div class="image-wrapper">
-          <img class="imagen" src="${fotoUrl2}" alt="Licencia 2">
-        </div>
-      </div>
-    </div>
-  </body>
-  </html>
-`;
 
 
 
-let generatePdf = async () => {
-  setProgress(true);
-  const file = await printToFileAsync({
-    html: html,
-    base64: false
-  });
-setProgress(false);
-  await shareAsync(file.uri);
-};
+
+
  // console.log(uid);
 
 
@@ -403,9 +343,13 @@ return (
     <View style={styles.buttonOff}>
     <Text style={styles.text}>GUARDAR</Text>
     </View>
-     <TouchableOpacity style={styles.button} onPress={generatePdf}>
-     <EvilIcons name="share-apple" size={22} color="#FFFFFF" /><Text style={styles.text} >Enviar PDF</Text>
-     </TouchableOpacity>
+     <EnviarPdf
+     nombre={nombre}
+     cin={cin}
+     fotoUrl1={fotoUrl1}
+     fotoUrl2={fotoUrl2}
+     setProgress={setProgress}
+     />
       </>  
    ) : (
     <>
@@ -545,6 +489,13 @@ const styles = StyleSheet.create({
     transform: [{ rotate: '-90deg' }]
     
   },
+  text: {
+    // paddingVertical: 10,
+     //marginLeft: 10,
+     justifyContent: 'center',
+     fontSize:16,
+     color:"#FFFFFF"
+   },
   rectangle: {
     position: 'absolute',
     alignItems: 'center',
@@ -606,18 +557,12 @@ const styles = StyleSheet.create({
     width: 100,
     height: 100,
     borderRadius: 50,
-    backgroundColor: '#0D7AFF',
+    backgroundColor: '#1462fc',
     alignItems: 'center',
     justifyContent: 'center',
     transform: [{ rotate: '90deg' }]
   },
-  text: {
-   // paddingVertical: 10,
-    //marginLeft: 10,
-    justifyContent: 'center',
-    fontSize:16,
-    color:"#FFFFFF"
-  },
+
   textAyuda: {
      justifyContent: 'center',
      fontSize:16,
@@ -634,10 +579,10 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-evenly',
     alignItems: 'center',
-    backgroundColor: "#0D7AFF",
+    backgroundColor: "#1462fc",
     paddingHorizontal: 17,
     marginTop:20,
-    borderRadius:20,
+    borderRadius:10,
     height:40
   },
   buttonOff: {
@@ -647,7 +592,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#e0e0e0",
     paddingHorizontal: 17,
     marginTop:20,
-    borderRadius:20,
+    borderRadius:10,
     height:40
   },
   buttonS: {
@@ -666,7 +611,7 @@ const styles = StyleSheet.create({
     padding: 5,
     marginTop:2,
     marginRight:0,
-    borderRadius:20,
+    borderRadius:10,
     height:30
   },
   load:{
