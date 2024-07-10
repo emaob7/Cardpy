@@ -255,7 +255,7 @@ export default function Login() {
           <View style={styles.modalView}>
             <ScrollView>
               <Text style={styles.modalTitle}>Declaración de Privacidad</Text>
-              <Text style={styles.modalTitle}>Última actualización: [10 de julio, 2024]</Text>
+              <Text style={styles.modalTitle}>Última actualización: 10 de julio, 2024</Text>
               <Text style={styles.modalText}>
                 {/* Aquí puedes copiar y pegar los términos de servicio que redactaste anteriormente */}
                 En Cardpy, respetamos tu privacidad y nos comprometemos a proteger tu información personal. Esta declaración de privacidad explica cómo recopilamos, usamos y compartimos tu información.
