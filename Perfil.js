@@ -29,7 +29,7 @@ const handleLogout = async() => {
          console.log('Usuario eliminado de AsyncStorage');
          navigation.navigate("Login")
         
-  };
+  }; 
   
   return (
     <View style={styles.container}>

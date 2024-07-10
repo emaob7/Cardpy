@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, View, TextInput,Text,TouchableOpacity, Image } from 'react-native';
-import { signInWithEmailAndPassword } from "firebase/auth";
+import { StyleSheet, View,Text, Image,Pressable } from 'react-native';
+//import { StyleSheet, View, TextInput,Text,TouchableOpacity, Image,Pressable } from 'react-native';
+//import { signInWithEmailAndPassword } from "firebase/auth";
 import {getAuth} from 'firebase/auth';
 import { useNavigation } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
-
-//desde aca
 import * as WebBrowser from "expo-web-browser";
 import * as Google from "expo-auth-session/providers/google";
 import {
@@ -21,12 +19,12 @@ import SignInScreen from "./screens/SignInScreen";
 
 
 export default function Login() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+//  const [email, setEmail] = useState('');
+//  const [password, setPassword] = useState('');
   const [showLoginForm, setShowLoginForm] = useState(false);
-
-  const [userInfo, setUserInfo] = React.useState();
-  const [loading, setLoading] = React.useState(false);
+  const [checked, setChecked] = useState(false);
+  //const [userInfo, setUserInfo] = React.useState();
+ // const [loading, setLoading] = React.useState(false);
   const [request, response, promptAsync] = Google.useAuthRequest({
     iosClientId: "632865725104-n237v30hh3vhp3c0psfkt1ivl39g4hff.apps.googleusercontent.com",
     androidClientId: "632865725104-hm2tb0okcnvg73bmj8h6kt7v7tchu7v4.apps.googleusercontent.com",
@@ -81,6 +79,7 @@ export default function Login() {
 
 
  useEffect(() => {
+ 
     if (response?.type === "success") {
       const { id_token } = response.params;
       const credential = GoogleAuthProvider.credential(id_token);
@@ -93,7 +92,7 @@ export default function Login() {
     
   }, []);
 
-
+/*
   const signIn = async (email, password) => {
     try {
       await signInWithEmailAndPassword(auth,email, password);
@@ -105,7 +104,7 @@ export default function Login() {
       console.error("Failed to log in:", error);
     }
   };
-
+*/
  
   return (
     <View style={styles.container}>
@@ -121,9 +120,29 @@ export default function Login() {
         <Text style={styles.super}>Bienvenido a Cardpy</Text>
         <Text style={{ marginTop:5, marginLeft: -20 }}>👋 Hola! Nos alegra verte por aqui </Text>
         
+
+        <SignInScreen 
+        promptAsync={promptAsync}
+        checked={checked}
+         />
+        
+        <View style={styles.checkboxContainer}>
+        <Pressable
+      style={[styles.checkboxBase, checked && styles.checkboxChecked]}
+      onPress={() => setChecked(!checked)}>
+    </Pressable>
+    <Text style={styles.label}>
+      Acepto los <Text style={styles.link}>Términos de Servicio</Text>
+    </Text>
+    
+    </View>
+    <Text style={styles.link}>Declaración de privacidad</Text>
       
         </View>
-        <SignInScreen promptAsync={promptAsync} />
+       
+
+
+        {/** 
 <View style={{ flexDirection: "row" }}>
 
 <View style={{ borderTopWidth: 1, borderColor: "#424242", width: "31%", marginTop:17 }} />
@@ -171,11 +190,11 @@ export default function Login() {
     <TouchableOpacity style={styles.buttonC} onPress={() => navigation.navigate("RegisterScreen")}>
     <Text>¿Aún no tienes una cuenta?</Text><Text style={styles.textButtonC} >Crea una cuenta</Text>
     </TouchableOpacity>
-
-
+</View>
+*/}
     
 
-       </View>
+       
 
        
        
@@ -193,7 +212,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#FAFAFA',
-    paddingTop: 50,
+    paddingTop: 100,
     paddingLeft: 20
   },
   inputContainer: {
@@ -267,8 +286,36 @@ const styles = StyleSheet.create({
   buttonContent:{
     alignItems:"center",
     marginBottom:38,
+  },
+  checkboxBase: {
+    width: 24,
+    height: 24,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 4,
+    borderWidth: 2,
+    borderColor: 'coral',
+    backgroundColor: 'transparent',
+
     
   },
-
+  checkboxChecked: {
+    backgroundColor: 'coral',
+  },
+  checkboxContainer: {
+    flexDirection: 'row',
+    marginBottom: 20,
+    marginTop:15,
+    marginLeft: -20,
+    alignItems: 'center',
+  },
+  label: {
+    fontSize: 16,
+    marginLeft:10,
+  },
+  link: {
+    color: 'blue',
+   // textDecorationLine: 'underline',
+  },
 
 });

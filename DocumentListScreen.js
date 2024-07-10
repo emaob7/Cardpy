@@ -8,8 +8,6 @@ import { useNavigation } from '@react-navigation/native';
 import { MaterialIcons } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Ionicons } from '@expo/vector-icons';
-import { printToFileAsync } from 'expo-print';
-import { shareAsync } from 'expo-sharing';
 import ShareInstructions from './screens/ShareInstructions';
 import EnviarCom from './EnviarCom';
 
@@ -39,67 +37,7 @@ const DocumentListScreen = (props) => {
 
   
 
-  let generatePdf = async (item) => {
-    setProgress(true);
-    const dcin= item.cin.length > 0 ? `<span>, con CIN: ${item.cin}</span>` : '';
-  const dnombre= item.nombre.length > 0 ? `<span>Fotocopia de cédula de ${item.nombre}</span>` : '';
-  const html = `
-  <html>
-  <head>
-    <style>
-      .container {
-        text-align: center;
-        padding: 20px;
-      }
   
-      .title {
-        font-size: 18px;
-        margin-bottom: 20px;
-      }
-  
-      .image-container {
-        display: flex;
-        justify-content: center;
-        gap: 130px; /* Añade espacio entre las imágenes */
-        padding: 10px 50px 20px;
-        margin-top: -50px;
-      }
-    
-      .image-wrapper {
-        width: auto;
-      }
-    
-      .imagen {
-        border-radius: 10px;
-        width: 200px; /* Ajusta el tamaño aquí según sea necesario */
-        transform: rotate(-90deg);
-      }
-    </style>
-  </head>
-  <body>
-    <div class="container">
-      <div class="title">
-      ${dnombre} ${dcin}
-      </div>
-      <div class="image-container">
-        <div class="image-wrapper">
-          <img class="imagen" src="${item.foto1}" alt="Licencia 1">
-        </div>
-        <div class="image-wrapper">
-          <img class="imagen" src="${item.foto2}" alt="Licencia 2">
-        </div>
-      </div>
-    </div>
-  </body>
-  </html>
-`;
-    const file = await printToFileAsync({
-      html: html,
-      base64: false
-    });
- setProgress(false);
-    await shareAsync(file.uri);
-  };
 
   
 const obtenerDatos = async () => {
