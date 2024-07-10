@@ -305,7 +305,7 @@ style={styles.flatlist}
                 </TouchableOpacity> ) : null}
                 <ShareInstructions 
           icon="share-apple"
-          text="Solo apareceran anuncios antes de compartir un archivo, es para mantener la app gratuita" 
+          text="Solo aparecerán anuncios antes de compartir un archivo, esto es para que la app siga siendo gratuita" 
         />
       <FlatList
       style={styles.flatlist}

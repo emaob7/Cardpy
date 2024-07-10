@@ -17,8 +17,9 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         paddingHorizontal: 10,
+        paddingRight:22,
         marginLeft:10,
-        width:'100%'
+        width:'90%'
       },
       textIn: {
         marginLeft: 2,
