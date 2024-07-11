@@ -553,7 +553,7 @@ reader.readAsDataURL(blob);
     {swi=== 2 ? (
       <View style={styles.containerE}>
       <View style={styles.separacion}>
-  <Text style={styles.subtitulo}>Perfil</Text>
+  <Text style={styles.subtitulo2}>Perfil</Text>
   <TouchableOpacity style={styles.botonE} onPress={() => setSwi("")}>
 <Text style={styles.textE}>Listo</Text>
 </TouchableOpacity>
@@ -571,7 +571,7 @@ reader.readAsDataURL(blob);
     {swi=== 3 ? (
       <View style={styles.containerE}>
       <View style={styles.separacion}>
-  <Text style={styles.subtitulo}>Datos Personales</Text>
+  <Text style={styles.subtitulo2}>Datos Personales</Text>
   <TouchableOpacity style={styles.botonE} onPress={() => setSwi("")}>
 <Text style={styles.textE}>Listo</Text>
 </TouchableOpacity>
@@ -594,7 +594,7 @@ reader.readAsDataURL(blob);
 {swi=== 4 ? (
       <View style={styles.containerE}>
       <View style={styles.separacion}>
-  <Text style={styles.subtitulo}>Contactame</Text>
+  <Text style={styles.subtitulo2}>Contactame</Text>
   <TouchableOpacity style={styles.botonE} onPress={() => setSwi("")}>
 <Text style={styles.textE}>Listo</Text>
 </TouchableOpacity>
@@ -613,7 +613,7 @@ reader.readAsDataURL(blob);
     {swi=== 5 ? (
       <View style={styles.containerE}>
       <View style={styles.separacion}>
-  <Text style={styles.subtitulo}>Experiencias Relacionadas</Text>
+  <Text style={styles.subtitulo2}>Experiencias Relacionadas</Text>
   <TouchableOpacity style={styles.botonE} onPress={() => setSwi("")}>
 <Text style={styles.textE}>Listo</Text>
 </TouchableOpacity>
@@ -627,7 +627,7 @@ reader.readAsDataURL(blob);
 {swi=== 6 ? (
       <View style={styles.containerE}>
       <View style={styles.separacion}>
-  <Text style={styles.subtitulo}>Experiencias Generales</Text>
+  <Text style={styles.subtitulo2}>Experiencias Generales</Text>
   <TouchableOpacity style={styles.botonE} onPress={() => setSwi("")}>
 <Text style={styles.textE}>Listo</Text>
 </TouchableOpacity>
@@ -641,7 +641,7 @@ reader.readAsDataURL(blob);
 {swi=== 7 ? (
       <View style={styles.containerE}>
       <View style={styles.separacion}>
-  <Text style={styles.subtitulo}>Educación</Text>
+  <Text style={styles.subtitulo2}>Educación</Text>
   <TouchableOpacity style={styles.botonE} onPress={() => setSwi("")}>
 <Text style={styles.textE}>Listo</Text>
 </TouchableOpacity>
@@ -655,7 +655,7 @@ reader.readAsDataURL(blob);
 {swi=== 8 ? (
       <View style={styles.containerE}>
       <View style={styles.separacion}>
-  <Text style={styles.subtitulo}>Cursos Realizados</Text>
+  <Text style={styles.subtitulo2}>Cursos Realizados</Text>
   <TouchableOpacity style={styles.botonE} onPress={() => setSwi("")}>
 <Text style={styles.textE}>Listo</Text>
 </TouchableOpacity>
@@ -670,7 +670,7 @@ reader.readAsDataURL(blob);
 {swi=== 9 ? (
       <View style={styles.containerE}>
       <View style={styles.separacion}>
-  <Text style={styles.subtitulo}>Idiomas</Text>
+  <Text style={styles.subtitulo2}>Idiomas</Text>
   <TouchableOpacity style={styles.botonE} onPress={() => setSwi("")}>
 <Text style={styles.textE}>Listo</Text>
 </TouchableOpacity>
@@ -684,7 +684,7 @@ reader.readAsDataURL(blob);
 {swi=== 10 ? (
       <View style={styles.containerE}>
       <View style={styles.separacion}>
-  <Text style={styles.subtitulo}>Habilidades y Herrramientas</Text>
+  <Text style={styles.subtitulo2}>Habilidades y Herrramientas</Text>
   <TouchableOpacity style={styles.botonE} onPress={() => setSwi("")}>
 <Text style={styles.textE}>Listo</Text>
 </TouchableOpacity>
@@ -698,7 +698,7 @@ reader.readAsDataURL(blob);
 {swi=== 11 ? (
       <View style={styles.containerE}>
       <View style={styles.separacion}>
-  <Text style={styles.subtitulo}>Referencias</Text>
+  <Text style={styles.subtitulo2}>Referencias</Text>
   <TouchableOpacity style={styles.botonE} onPress={() => setSwi("")}>
 <Text style={styles.textE}>Listo</Text>
 </TouchableOpacity>
@@ -713,13 +713,12 @@ reader.readAsDataURL(blob);
 {swi=== 12 ? (
       <View style={styles.containerE}>
       <View style={styles.separacion}>
-  <Text style={styles.subtitulo}>Elige un Diseño</Text>
+  <Text style={styles.subtitulo2}>Elige un Diseño</Text>
   <TouchableOpacity style={styles.botonE} onPress={() => setSwi("")}>
 <Text style={styles.textE}>Listo</Text>
 </TouchableOpacity>
   </View>
   <ScreenDesign
-  des={des}
   setDes={setDes}
   setSwi={setSwi}
   />
@@ -1053,6 +1052,14 @@ container: {
         fontSize: 22,
         alignContent:"flex-start",
         marginStart:1,
+        marginTop:13,
+        marginBottom:18
+        //fontWeight: 'bold',
+      },
+      subtitulo2: {
+        fontSize: 22,
+        alignContent:"flex-start",
+        marginStart:15,
         marginTop:13,
         marginBottom:18
         //fontWeight: 'bold',

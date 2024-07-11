@@ -4,7 +4,7 @@ import { Ionicons } from '@expo/vector-icons';
 
 
 
-// Diseños
+// Paleta Boton
 
 
 

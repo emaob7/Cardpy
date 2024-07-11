@@ -9,9 +9,6 @@ import { useNavigation } from '@react-navigation/native';
 export default function Perfil () {
 
   const navigation = useNavigation();
-
-  const [showLoginForm, setShowLoginForm] = useState(false);
-  const [checked, setChecked] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
   const [modalVisible2, setModalVisible2] = useState(false);
  // const auth = getAuth();
