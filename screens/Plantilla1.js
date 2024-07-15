@@ -515,213 +515,210 @@ ${generalSection}
     case 3:
       html= `
 
-<!DOCTYPE html>
-<html lang="es">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Mi Currículum</title>
-<style>
-@page {
-size: A4;
-margin: 1cm;
-}
-
-body {
-font-family: Arial, sans-serif;
-margin: 0;
-padding: 0;
-}
-
-#curriculum-container {
-max-width: 900px;
-margin: 20px auto;
-display: flex;
-}
-#tittle-container {
-max-width: 900px;
-margin: 0;
-display: flex;
-margin-bottom: -32px;
-}
-#left-column1 {
-width: 41%;
-box-sizing: border-box;
-padding: 20px 20px;
-color: #333000;
-padding-bottom: 15px;
-background-color: #F4F4F9;
-}
-
-
-#right-column1 {
-width: 100%;
-color: #333000;
-padding-left: 15px;
-background-color: #F4F4F9;
-}
-#datos {
-background-color: #50514F;
-margin-top: -30px;
-margin-bottom: -5px;
-color: #ffffff;
-padding: 0 17px;
-display: flex;
-justify-content: space-between;
-}
-h4{
-font-size: 14px;
-text-align: center; /* Alinea el texto al centro */
-
-}
-
-#left-column {
-width: 30%;
-box-sizing: border-box;
-padding: 0 20px;
-color: #333000;
-padding-right: 15px;
-}
-
-
-#right-column {
-width: 69%;
-color: #333000;
-border-left: 0.1px solid #2c3e50;
-padding-left: 15px;
-min-height: 100%;
-}
-
-h2 {
-color: #2c3e50;
-text-transform: uppercase;
-font-size: 16px;
-margin-bottom: 8px;
-margin-left: 8px;
-letter-spacing: 2px;
-
-}
-
-section {
-margin-bottom: 8px;
-}
-
-h3{
-margin: 0;
-font-size: 15px;
-font-weight: bold; /* Pone el texto en negrita */
-}
-
-p {
-font-size: 14px;
-margin: 0; /* Quita los márgenes arriba y abajo */
-}
-h1{
-margin-top: 10px;
-margin-bottom: -2px;
-
-}
-div{
-margin-bottom: 30px
-}
-#main-title {
-text-align: center; /* Alinea el texto al centro */
-color: #2c3e50; /* Color del texto */
-
-}
-#perfil {
-margin-top: 18px;
-
-}
-#profesion {
-margin-top: 4px;
-text-transform: uppercase;
-letter-spacing: 1px;
-
-}
-
-* { print-color-adjust:exact !important; }
-</style>
-
-</head>
-<body>
-<div id="tittle-container">
-
-${cimg}
-
-<div id="right-column1">
-<h1>${nombre} ${apellido}</h1>
-<p id="profesion">${profesion}</p>
-
-<div id="perfil">
-<h3>Perfil Profesional</h3>
-<p>${descripcion}</p>
-</div>
-
-
-</div>
-</div>
-
-
-<div id="curriculum-container">
-
-
-<div id="left-column">
-<div>
-  <h2>Datos Personales</h2>
-  ${dcorreo}
-  ${dtelefono}
-  ${ddireccion}
-  ${dcin}
-  ${dregistro}
-  ${dfnacimiento}
-  ${dnacionalidad}
-
-  
-</div>
-<div>
-${tHerramienta}
-${herramientaSection}
-</div>
-<div>
-  ${tIdiomas}
- ${idiomaSection}
-</div>
-
-<div>
-${tReferencia}
-${referenciaSection}
-</div>
-</div>
-
-<div id="right-column">
-
-<div>
-${tEspecifica}
-${especificaSection}
-${generalSection}
-</div>
-
-<div>
-${tEducacion}
-  ${educacionSection}
-</div>
-
-
-
-<div>
-${tCursos}
-${cursosSection}
-</div>
-</div>
-</div>
-
-</body>
-</html>
-
-
-
-`;
+      <!DOCTYPE html>
+      <html lang="es">
+      <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Mi Currículum</title>
+      <style>
+      @page {
+        size: A4;
+        margin: 1cm;
+      }
+      
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+      }
+      
+      #curriculum-container {
+        max-width: 900px;
+        margin: 20px auto;
+        display: flex;
+      }
+      #tittle-container {
+        max-width: 900px;
+        margin: 0;
+        display: flex;
+        
+      }
+      #left-column1 {
+        width: 41%;
+        box-sizing: border-box;
+        padding: 20px 20px;
+        color: #333000;
+        padding-bottom: 15px;
+        background-color: #eceff1;
+      }
+      
+      
+      #right-column1 {
+        width: 100%;
+        color: #333000;
+        padding-left: 15px;
+        background-color: #eceff1;
+        
+      }
+      #datos {
+        background-color: #eceff1;
+        margin-top: -30px;
+        margin-bottom: -5px;
+        color: #000000;
+        padding: 0 17px;
+        display: flex;
+        justify-content: space-between;
+      }
+      h4{
+        font-size: 14px;
+        text-align: center; /* Alinea el texto al centro */
+        
+      }
+      
+      #left-column {
+        width: 30%;
+        box-sizing: border-box;
+        padding: 0 20px;
+        color: #333000;
+        padding-right: 15px;
+      }
+      
+      
+      #right-column {
+        width: 69%;
+        color: #333000;
+        border-left: 0.1px solid #2c3e50;
+        padding-left: 15px;
+        min-height: 100%;
+      }
+      
+      h2 {
+        color: #263238;
+        text-transform: uppercase;
+        font-size: 16px;
+        margin-bottom: 8px;
+        margin-left: 8px;
+        letter-spacing: 2px;
+      
+      }
+      
+      section {
+        margin-bottom: 8px;
+      }
+      
+      h3{
+        margin: 0;
+        font-size: 15px;
+        font-weight: bold; /* Pone el texto en negrita */
+      }
+      
+      p {
+        font-size: 14px;
+        margin: 0; /* Quita los márgenes arriba y abajo */
+      }
+      h1{
+        margin-top: 10px;
+        margin-bottom: -2px;
+      
+      }
+      div{
+        margin-bottom: 30px
+      }
+      #main-title {
+        text-align: center; /* Alinea el texto al centro */
+        color: #2c3e50; /* Color del texto */
+        
+      }
+      #perfil {
+        margin-top: 18px;
+        
+      }
+      #profesion {
+        margin-top: 4px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        
+      }
+      
+      * { print-color-adjust:exact !important; }
+      </style>
+      
+      </head>
+      <body>
+      <div id="tittle-container">
+      
+      ${cimg}
+      
+      <div id="right-column1">
+        <h1>${nombre} ${apellido}</h1>
+        <p id="profesion">${profesion}</p>
+        
+        <div id="perfil">
+        <h3>Perfil Profesional</h3>
+        <p>${descripcion}</p>
+        </div>
+       
+      
+        </div>
+        </div>
+      
+      <div id="datos"><h4>Email: ${correo}</h4><h4>Teléfono: ${telef}</h4><h4>Dirección: ${direcc}</h4></div>
+      <div id="curriculum-container">
+      
+      
+      <div id="left-column">
+        <div>
+          <h2>Datos Personales</h2>
+          ${dcin}
+          ${dregistro}
+          ${dfnacimiento}
+          ${dnacionalidad}
+          
+        </div>
+        <div>
+        ${tHerramienta}
+       ${herramientaSection}
+      </div>
+        <div>
+          ${tIdiomas}
+         ${idiomaSection}
+        </div>
+        
+      <div>
+      ${tReferencia}
+      ${referenciaSection}
+      </div>
+      </div>
+      
+      <div id="right-column">
+      
+      <div>
+      ${tEspecifica}
+      ${especificaSection}
+      ${generalSection}
+      </div>
+      
+        <div>
+        ${tEducacion}
+          ${educacionSection}
+        </div>
+      
+      
+      
+        <div>
+        ${tCursos}
+        ${cursosSection}
+        </div>
+      </div>
+      </div>
+      
+      </body>
+      </html>
+      
+      
+      
+      `;
       break;
     case 4:
       html = `
@@ -744,7 +741,7 @@ ${cursosSection}
         #header h1 {
           margin: 0;
           font-size: 24px;
-          margin-bottom: -12px;
+          margin-bottom: 5px;
           text-transform: uppercase; /* Convertimos el texto en mayúsculas */
         }
         #header p {
@@ -758,7 +755,7 @@ ${cursosSection}
       margin-top: -10px;
     }
         h2 {
-          font-size: 18px;
+          font-size: 14px;
           margin-bottom:-5px;
           margin-top: 20px;
           text-align: center; /* Centramos los h2 */
@@ -769,7 +766,7 @@ ${cursosSection}
         }
         .section h3 {
           margin: 0;
-          font-size: 16px;
+          font-size: 14px;
           text-transform: uppercase; /* Convertimos el texto en mayúsculas */
         }
         .section p {
@@ -839,117 +836,117 @@ ${cursosSection}
       break;
     default:
       html = `
-      <!DOCTYPE html>
-      <html lang="es">
-      <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Currículum Vitae - Harvard</title>
-        <style>
-          body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 20px;
-            line-height: 1.6;
-          }
-          #header {
-            text-align: center;
-          }
-          #header h1 {
-            margin: 0;
-            font-size: 24px;
-            margin-bottom: -12px;
-            text-transform: uppercase; /* Convertimos el texto en mayúsculas */
-          }
-          #header p {
-            margin: 5px 0;
-          }
-          #contact-info {
-        border-top: 1px solid #000;
-        padding-top: 5px;
-      }
-          #profesion {
-        margin-top: -10px;
-      }
-          h2 {
-            font-size: 18px;
-            margin-bottom:-5px;
-            margin-top: 20px;
-            text-align: center; /* Centramos los h2 */
-            text-transform: uppercase; /* Convertimos el texto en mayúsculas */
-          }
-          .section {
-            margin-bottom: 0px;
-          }
-          .section h3 {
-            margin: 0;
-            font-size: 16px;
-            text-transform: uppercase; /* Convertimos el texto en mayúsculas */
-          }
-          .section p {
-            margin: 0;
-            text-indent: 20px; /* Agregamos sangría a los párrafos */
-          }
-          ul {
-            list-style-type: disc;
-            margin-left: 20px;
-          }
-        </style>
-      </head>
-      <body>
-        <div id="header">
-          <h1>${nombre} ${apellido}</h1>
-          <p id="profesion">${profesion}</p>
-          <p id="contact-info">${correo} | ${telef} | ${direcc} </p>
-        </div>
-      
-        <div class="section">
-          <h2>Perfil</h2>
-          <p>${descripcion}</p>
-        </div>
-      
-        <div class="section">
-          ${tEspecifica}
-          <ul>${especificaSection}</ul>
-          <ul>${generalSection}</ul>
-        </div>
-      
-        <div class="section">
-            ${tEducacion}
-          <ul>${educacionSection}</ul>
-        </div>
-      
-        <div class="section">
-        ${tCursos}
-          <ul>${cursosSection}</ul>
-        </div>
-      
-        <div class="section">
-        ${tHerramienta}
-          <ul>${herramientaSection}</ul>
-        </div>
-      
-        <div class="section">
-        ${tIdiomas}
-          <ul>${idiomaSection}</ul>
-        </div>
-      
-        <div class="section">
-        ${tReferencia}
-          <ul>${referenciaSection}</ul>
-        </div>
-  
-              <div class="section">
-          <h2>Datos Personales</h2>
-          <p>${dcin}</p>
-          <p>${dregistro}</p>
-          <p>${dfnacimiento}</p>
-          <p>${dnacionalidad}</p>
-        </div>
-      
-      </body>
-      </html>
-      `;
+    <!DOCTYPE html>
+    <html lang="es">
+    <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Currículum Vitae - Harvard</title>
+      <style>
+        body {
+          font-family: Arial, sans-serif;
+          margin: 0;
+          padding: 20px;
+          line-height: 1.6;
+        }
+        #header {
+          text-align: center;
+        }
+        #header h1 {
+          margin: 0;
+          font-size: 24px;
+          margin-bottom: 5px;
+          text-transform: uppercase; /* Convertimos el texto en mayúsculas */
+        }
+        #header p {
+          margin: 5px 0;
+        }
+        #contact-info {
+      border-top: 1px solid #000;
+      padding-top: 5px;
+    }
+        #profesion {
+      margin-top: -10px;
+    }
+        h2 {
+          font-size: 12px;
+          margin-bottom:-5px;
+          margin-top: 20px;
+          text-align: center; /* Centramos los h2 */
+          text-transform: uppercase; /* Convertimos el texto en mayúsculas */
+        }
+        .section {
+          margin-bottom: 0px;
+        }
+        .section h3 {
+          margin: 0;
+          font-size: 12px;
+          text-transform: uppercase; /* Convertimos el texto en mayúsculas */
+        }
+        .section p {
+          margin: 0;
+          text-indent: 20px; /* Agregamos sangría a los párrafos */
+        }
+        ul {
+          list-style-type: disc;
+          margin-left: 20px;
+        }
+      </style>
+    </head>
+    <body>
+      <div id="header">
+        <h1>${nombre} ${apellido}</h1>
+        <p id="profesion">${profesion}</p>
+        <p id="contact-info">${correo} | ${telef} | ${direcc} </p>
+      </div>
+    
+      <div class="section">
+        <h2>Perfil</h2>
+        <p>${descripcion}</p>
+      </div>
+    
+      <div class="section">
+        ${tEspecifica}
+        <ul>${especificaSection}</ul>
+        <ul>${generalSection}</ul>
+      </div>
+    
+      <div class="section">
+          ${tEducacion}
+        <ul>${educacionSection}</ul>
+      </div>
+    
+      <div class="section">
+      ${tCursos}
+        <ul>${cursosSection}</ul>
+      </div>
+    
+      <div class="section">
+      ${tHerramienta}
+        <ul>${herramientaSection}</ul>
+      </div>
+    
+      <div class="section">
+      ${tIdiomas}
+        <ul>${idiomaSection}</ul>
+      </div>
+    
+      <div class="section">
+      ${tReferencia}
+        <ul>${referenciaSection}</ul>
+      </div>
+
+            <div class="section">
+        <h2>Datos Personales</h2>
+        <p>${dcin}</p>
+        <p>${dregistro}</p>
+        <p>${dfnacimiento}</p>
+        <p>${dnacionalidad}</p>
+      </div>
+    
+    </body>
+    </html>
+    `;
       break;
   }
 
