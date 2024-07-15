@@ -38,7 +38,7 @@ const CurriculumScreen = (props) => {
     const [apellido, setApellido] = useState('');
     const [profesion, setProfesion] = useState('');
     const [cin, setCin] = useState('');
-    const [registro, setRegistro] = useState('');
+    const [registro, setRegistro] = useState(''); 
     const [fnac, setFnac] = useState('');
     const [nacio, setNacio] = useState('');
     const [telef, setTelef] = useState('');

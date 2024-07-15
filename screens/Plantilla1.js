@@ -17,16 +17,24 @@ const Plantilla1 = ({setProgress, curso, educacion, especifica, general, idioma,
    
 
   
+  
+  const herraV = herra.filter(her => her.herrami);
+  const idiomaV = idioma.filter(idio => idio.idi);
+  const especificaV = especifica.filter(esp => esp.empre);
+  const generalV = general.filter(gen => gen.empre);
+  const cursoV = curso.filter(cur => cur.titulo);
+  const referenciaV = referencia.filter(ref => ref.refe);
+  const educacionV = educacion.filter(edu => edu.titulo);
 
       //  const [loaded, setLoaded] = useState(false);
         //titulos
 
-        const tHerramienta = herra.length > 0 ? `<h2>Habilidades y Herramientas</h2>` : '';
-        const tIdiomas = idioma.length > 0 ? `<h2>Idiomas</h2>` : '';
-        const tEspecifica = especifica.length > 0 ? `<h2>Experiencia Laboral</h2>` : '';
-        const tCursos = curso.length > 0 ? `<h2>Cursos Realizados</h2>` : '';
-        const tReferencia = referencia.length > 0 ? `<h2>Referencias</h2>` : '';
-        const tEducacion= educacion.length > 0 ? `<h2>Educación</h2>` : '';
+        const tHerramienta = herraV.length > 0 ? `<h2>Habilidades y Herramientas</h2>` : '';
+        const tIdiomas = idiomaV.length > 0 ? `<h2>Idiomas</h2>` : '';
+        const tEspecifica = especificaV.length > 0 ? `<h2>Experiencia Laboral</h2>` : '';
+        const tCursos = cursoV.length > 0 ? `<h2>Cursos Realizados</h2>` : '';
+        const tReferencia = referenciaV.length > "" ? `<h2>Referencias</h2>` : '';
+        const tEducacion= educacionV.length > 0 ? `<h2>Educación</h2>` : '';
         const imgphoto= photo ? `<section><img src="${photo}" alt="Foto de perfil" style="max-width: 80%; height: auto; border-radius: 10px;"></section>` : '';
 //datos
         const dregistro= registro.length > 0 ? `<p>Registro Profesional: ${registro}</p>` : '';
@@ -77,34 +85,12 @@ const Plantilla1 = ({setProgress, curso, educacion, especifica, general, idioma,
 
 
 
-   /*     useEffect(() => {
-          let interstitial = InterstitialAd.createForAdRequest(TestIds.INTERSTITIAL, {
-      
-              requestNonPersonalizedAdsOnly: true,
-              keywords: ['fashion', 'clothing'],
-          });
-          interstitial.addAdEventListener(AdEventType.LOADED, () => {
-              interstitial.show();
-          }); 
-          interstitial.load();
-          return () => {
-              interstitialListener = null;
-          };
-      }, []);
-      
-*/
 
-         // No advert ready to show yet
- /* if (!loaded) {
-    return null;
-  }
-
-*/
 
         //algunos casos
 const cimg= photo ? `<div id="left-column1"><img src="${photo}" alt="Foto de perfil" style="max-width: 80%; height: auto; border-radius: 10px;"></div>` : '';
   // Secciones con viñetas
-  const especificaSection = especifica.map((especificaItem, index) => `
+  const especificaSection = especificaV.map((especificaItem, index) => `
     <li key="especifica-${index}">
       <h3>${especificaItem.empre}</h3>
        <span style=" display: flex; justify-content: space-between; margin-right: 15px;"><p>${especificaItem.puesto}</p><p> (${especificaItem.desde} - ${especificaItem.hasta})</p></span>
@@ -112,7 +98,7 @@ const cimg= photo ? `<div id="left-column1"><img src="${photo}" alt="Foto de per
     </li>
   `).join('');
 
-  const generalSection = general.map((generalItem, index) => `
+  const generalSection = generalV.map((generalItem, index) => `
     <li key="general-${index}">
       <h3>${generalItem.empre} </h3>
       <span style=" display: flex; justify-content: space-between; margin-right: 15px;"><p>${generalItem.puesto}</p><p> (${generalItem.desde} - ${generalItem.hasta})</p></span>
@@ -120,25 +106,25 @@ const cimg= photo ? `<div id="left-column1"><img src="${photo}" alt="Foto de per
     </li>
   `).join('');
 
-  const idiomaSection = idioma.map((idiomaItem, index) => `
+  const idiomaSection = idiomaV.map((idiomaItem, index) => `
     <li key="idioma-${index}">
       <p>${idiomaItem.idi}: ${idiomaItem.nivel}</p>
     </li>
   `).join('');
 
-  const referenciaSection = referencia.map((referenciaItem, index) => `
+  const referenciaSection = referenciaV.map((referenciaItem, index) => `
     <li key="referencia-${index}">
       <p>${referenciaItem.refe}: ${referenciaItem.telef}</p>
     </li>
   `).join('');
 
-  const herramientaSection = herra.map((herraItem, index) => `
+  const herramientaSection = herraV.map((herraItem, index) => `
     <li key="herra-${index}">
       <p>${herraItem.herrami}: ${herraItem.nivel}</p>
     </li>
   `).join('');
 
-  const cursosSection = curso.map((cursoItem, index) => `
+  const cursosSection = cursoV.map((cursoItem, index) => `
     <li key="curso-${index}">
       <h3>${cursoItem.titulo}</h3>
       <p>${cursoItem.institucion}, Duración: ${cursoItem.duracion}</p>
@@ -146,7 +132,7 @@ const cimg= photo ? `<div id="left-column1"><img src="${photo}" alt="Foto de per
     </li>
   `).join('');
 
-  const educacionSection = educacion.map((educacionItem, index) => `
+  const educacionSection = educacionV.map((educacionItem, index) => `
     <li key="educacion-${index}">
       <h3>${educacionItem.titulo}</h3>
        <span style=" display: flex; justify-content: space-between; margin-right: 15px;"><p>${educacionItem.institucion}, Duración: ${educacionItem.duracion}</p><p>Culminación: ${educacionItem.culminacion}</p></span>
@@ -356,7 +342,7 @@ body {
   padding: 20px 20px;
   color: #333000;
   padding-bottom: 15px;
-  background-color: #CBD4C2;
+  background-color: #e0e0e0;
 }
 
 
@@ -364,11 +350,11 @@ body {
   width: 100%;
   color: #333000;
   padding-left: 15px;
-  background-color: #CBD4C2;
+  background-color: #e0e0e0;
   
 }
 #datos {
-  background-color: #50514F;
+  background-color: #757575;
   margin-top: -30px;
   margin-bottom: -5px;
   color: #ffffff;
@@ -400,7 +386,7 @@ h4{
 }
 
 h2 {
-  color: #2c3e50;
+  color: #212121;
   text-transform: uppercase;
   font-size: 16px;
   margin-bottom: 8px;
