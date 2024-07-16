@@ -129,16 +129,14 @@ color: "#000000"
         
         input:{
           
-              borderWidth: 1,
-              borderColor: '#FAFAFA',
+          backgroundColor: '#ECEFF1',
               padding: 10,
               margin: 5,
               width: "60%",
               borderRadius:10
         }, 
         inputN:{
-          borderWidth: 1,
-          borderColor: '#FAFAFA',
+          backgroundColor: '#ECEFF1',
           padding: 10,
           margin: 5,
           width: "30%",

@@ -57,7 +57,7 @@ const FormReferencias = ({ referencias, setReferencias, swi }) => {
           />
           <TextInput
           style={styles.inputN}
-            placeholder="Nivel"
+            placeholder="Telefono"
             value={referencia.telef}
             onChangeText={(text) => handleInputChange(text, index, 'telef')}
           />
@@ -128,16 +128,14 @@ color: "#000000"
         
         input:{
           
-              borderWidth: 1,
-              borderColor: '#FAFAFA',
+          backgroundColor: '#ECEFF1',
               padding: 10,
               margin: 5,
               width: "60%",
               borderRadius:10
         }, 
         inputN:{
-          borderWidth: 1,
-          borderColor: '#FAFAFA',
+          backgroundColor: '#ECEFF1',
           padding: 10,
           margin: 5,
           width: "30%",

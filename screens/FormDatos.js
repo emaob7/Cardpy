@@ -170,7 +170,7 @@ color: "#000000"
 
       },
       chipsTG:{
-        color: "#000000",
+        color: "#607D8B",
               },
       chipsCont:{
 
@@ -187,7 +187,7 @@ color: "#000000"
         
               },
               chipsG:{
-                backgroundColor:"#F0F4EF",
+                backgroundColor: '#ECEFF1',
                 padding:8,
                 marginRight:3,
                 marginBottom:3,
@@ -198,8 +198,8 @@ color: "#000000"
         
         input:{
           
-              borderWidth: 1,
-              borderColor: '#CCCCCC',
+              
+              backgroundColor: '#ECEFF1',
               padding: 10,
               margin: 5,
               width: "95%",

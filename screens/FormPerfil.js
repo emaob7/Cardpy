@@ -22,8 +22,7 @@ const FormPerfil = ({ descripcion, setDescripcion,  swi }) => {
         onChangeText={setDescripcion}
         placeholder="Escribe aquí..."
         style={{
-          borderWidth: 1,
-          borderColor: '#FAFAFA',
+          backgroundColor:'#ECEFF1',
           borderRadius: 10,
           padding: 10,
           height: 130, // Ajusta la altura según tus necesidades
@@ -101,23 +100,7 @@ color: "#000000"
                       },
       
         
-        input:{
-          
-              borderWidth: 1,
-              borderColor: '#FAFAFA',
-              padding: 10,
-              margin: 5,
-              width: "95%",
-              borderRadius:10
-        }, 
-        inputN:{
-          borderWidth: 1,
-          borderColor: '#FAFAFA',
-          padding: 10,
-          margin: 5,
-          width: "30%",
-          borderRadius:10
-    }, 
+
 
   })
 export default FormPerfil;
