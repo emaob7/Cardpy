@@ -1,0 +1,9 @@
+** BUILD FAILED **
+
+
+The following build commands failed:
+	ScanDependencies /Users/emmanuelortigozabordon/Library/Developer/Xcode/DerivedData/cardpy-gqcnucvxwcllxxcwlsebprpgmbzp/Build/Intermediates.noindex/Pods.build/Debug-iphoneos/BoringSSL-GRPC.build/Objects-normal/arm64/x_x509a.o /Users/emmanuelortigozabordon/Desktop/Proyectos/Cardpy/ios/Pods/BoringSSL-GRPC/src/crypto/x509/x_x509a.c normal arm64 c com.apple.compilers.llvm.clang.1_0.compiler (in target 'BoringSSL-GRPC' from project 'Pods')
+	ScanDependencies /Users/emmanuelortigozabordon/Library/Developer/Xcode/DerivedData/cardpy-gqcnucvxwcllxxcwlsebprpgmbzp/Build/Intermediates.noindex/Pods.build/Debug-iphoneos/BoringSSL-GRPC.build/Objects-normal/arm64/x_x509.o /Users/emmanuelortigozabordon/Desktop/Proyectos/Cardpy/ios/Pods/BoringSSL-GRPC/src/crypto/x509/x_x509.c normal arm64 c com.apple.compilers.llvm.clang.1_0.compiler (in target 'BoringSSL-GRPC' from project 'Pods')
+	CompileC /Users/emmanuelortigozabordon/Library/Developer/Xcode/DerivedData/cardpy-gqcnucvxwcllxxcwlsebprpgmbzp/Build/Intermediates.noindex/Pods.build/Debug-iphoneos/BoringSSL-GRPC.build/Objects-normal/arm64/tls_record.o /Users/emmanuelortigozabordon/Desktop/Proyectos/Cardpy/ios/Pods/BoringSSL-GRPC/src/ssl/tls_record.cc normal arm64 c++ com.apple.compilers.llvm.clang.1_0.compiler (in target 'BoringSSL-GRPC' from project 'Pods')
+	Building workspace cardpy with scheme cardpy and configuration Debug
+(4 failures)

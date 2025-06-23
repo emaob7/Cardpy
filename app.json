@@ -3,7 +3,10 @@
     "name": "cardpy",
     "slug": "cardpy",
     "version": "1.0.0",
-    "platforms": ["ios", "android"],
+    "platforms": [
+      "ios",
+      "android"
+    ],
     "orientation": "portrait",
     "icon": "./assets/icon1.png",
     "userInterfaceStyle": "light",
@@ -28,10 +31,11 @@
               "targetSdkVersion": 34,
               "buildToolsVersion": "34.0.0",
               "packagingOptions": {
-                "pickFirst": ["org/bouncycastle/x509/CertPathReviewerMessages*"]
+                "pickFirst": [
+                  "org/bouncycastle/x509/CertPathReviewerMessages*"
+                ]
+              }
             }
-          }
-
           },
           "expo-media-library",
           {
@@ -51,7 +55,8 @@
       "supportsTablet": true,
       "infoPlist": {
         "NSCameraUsageDescription": "This app uses the camera to scan barcodes on event tickets."
-      }
+      },
+      "appleTeamId": "T36FC9H864"
     },
     "android": {
       "googleServicesFile": "./google-services.json",
@@ -59,7 +64,11 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon1.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "permissions": [
+        "android.permission.CAMERA",
+        "android.permission.RECORD_AUDIO"
+      ]
     },
     "plugins": [
       [
@@ -67,15 +76,12 @@
         {
           "cameraPermission": "Allow $(PRODUCT_NAME) to access your camera."
         }
-       
       ],
       [
-
         "expo-dev-launcher",
         {
           "launchMode": "most-recent"
         }
-
       ],
       "@react-native-google-signin/google-signin",
       "expo-build-properties"
@@ -94,5 +100,4 @@
     "android_app_id": "ca-app-pub-4622872693950947~9382285867",
     "ios_app_id": "ca-app-pub-4622872693950947~1714714682"
   }
-  
 }
